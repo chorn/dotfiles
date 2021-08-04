@@ -42,56 +42,58 @@ endif
 
 call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
 
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'airblade/vim-gitgutter'
+" Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'airblade/vim-gitgutter'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --no-update-rc --key-bindings --completion' }
 Plug 'junegunn/fzf.vim'
-Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
-Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree'
-Plug 'simeji/winresizer'
+" Plug 'ryanoasis/vim-devicons'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'simeji/winresizer'
 Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'wellle/context.vim'
+" Plug 'wellle/context.vim'
+
+" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+
 
 " Filetypes
-Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
-Plug 'ambv/black',                             { 'for': 'python' }
-Plug 'chrisbra/csv.vim',                       { 'for': 'csv' }
-Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
-Plug 'fatih/vim-go',                           { 'for': 'go' }
-Plug 'isRuslan/vim-es6',                       { 'for': 'javascript' }
-Plug 'kchmck/vim-coffee-script',               { 'for': 'coffee' }
-Plug 'leafgarland/typescript-vim',             { 'for': 'typescript' }
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'moll/vim-node',                          { 'for': 'javascript' }
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'neoclide/jsonc.vim',                     { 'for': ['json', 'jsonc'] }
-Plug 'othree/es.next.syntax.vim',              { 'for': 'javascript' }
-Plug 'othree/html5.vim',                       { 'for': 'html' }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-Plug 'othree/yajs.vim',                        { 'for': 'javascript' }
-Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
-Plug 'racer-rust/vim-racer',                   { 'for': 'rust' }
-Plug 'rhysd/vim-crystal',                      { 'for': 'crystal' }
-Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
-Plug 'spiegela/vimix',                         { 'for': 'elixir' }
-Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
-Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
-Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
-Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
-Plug 'tpope/vim-haml',                         { 'for': 'haml' }
-Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
-Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
-Plug 'vito-c/jq.vim',                          { 'for': 'jq' }
+" Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
+" Plug 'ambv/black',                             { 'for': 'python' }
+" Plug 'chrisbra/csv.vim',                       { 'for': 'csv' }
+" Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
+" Plug 'fatih/vim-go',                           { 'for': 'go' }
+" Plug 'isRuslan/vim-es6',                       { 'for': 'javascript' }
+" Plug 'kchmck/vim-coffee-script',               { 'for': 'coffee' }
+" Plug 'leafgarland/typescript-vim',             { 'for': 'typescript' }
+Plug 'martinda/Jenkinsfile-vim-syntax'
+" Plug 'moll/vim-node',                          { 'for': 'javascript' }
+" Plug 'othree/es.next.syntax.vim',              { 'for': 'javascript' }
+" Plug 'othree/html5.vim',                       { 'for': 'html' }
+" Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
+" Plug 'othree/yajs.vim',                        { 'for': 'javascript' }
+" Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
+" Plug 'racer-rust/vim-racer',                   { 'for': 'rust' }
+" Plug 'rhysd/vim-crystal',                      { 'for': 'crystal' }
+" Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
+" Plug 'spiegela/vimix',                         { 'for': 'elixir' }
+" Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
+" Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
+" Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
+" Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
+" Plug 'tpope/vim-haml',                         { 'for': 'haml' }
+" Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
+" Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
+" Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
+" Plug 'vito-c/jq.vim',                          { 'for': 'jq' }
 
 call plug#end()
 runtime! macros/matchit.vim
@@ -122,15 +124,16 @@ set incsearch
 set laststatus=2
 set nolazyredraw
 set list
-" set listchars=tab:→·,trail:·,nbsp:■,extends:>,precedes:<
- set listchars=tab:··,trail:·,nbsp:■,extends:>,precedes:<
+set listchars=tab:··,trail:·,nbsp:■,extends:>,precedes:<
 set matchtime=5
+set maxmempattern=8192
 set modeline
 set modelines=8
 set mouse+=a
 set number
 set numberwidth=6
 set preserveindent
+set redrawtime=1000
 set report=0
 set ruler
 set scrolljump=5
@@ -146,12 +149,7 @@ set shortmess+=c " Hide completion messages
 set noshowcmd
 set showmatch
 set sidescrolloff=5
-if has('nvim-0.5.0') || has('patch-8.1.1564')
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 set noshowmode
 set showtabline=1
 set smartcase
@@ -192,79 +190,95 @@ let g:mapleader = ','
 let g:is_bash = 1
 
 " airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.crypt                        = '🔒'
-let g:airline_symbols.maxlinenr                    = '☰'
-let g:airline_symbols.spell                        = 'Ꞩ'
-let g:airline_symbols.notexists                    = '∄'
-let g:airline_symbols.whitespace                   = 'Ξ'
-let g:airline#extensions#ale#enabled               = 1
-let g:airline#extensions#branch#enabled            = 1
-let g:airline#extensions#bufferline#enabled        = 1
-let g:airline#extensions#csv#enabled               = 1
-let g:airline#extensions#hunks#enabled             = 1
-let g:airline#extensions#tabline#enabled           = 0
-let g:airline#extensions#tagbar#enabled            = 1
-let g:airline#extensions#vimagit#enabled           = 1
-let g:airline#extensions#nrrwrgn#enabled           = 1
-let g:airline#extensions#yc#enabled                = 1
-let g:airline_detect_crypt                         = 1
-let g:airline_detect_iminsert                      = 1
-let g:airline_detect_modified                      = 1
-let g:airline_detect_paste                         = 1
-let g:airline_inactive_collapse                    = 1
-let g:airline_powerline_fonts                      = 1
-let g:airline_theme                                = 'tomorrow'
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_buffers      = 1
-let g:airline#extensions#tabline#show_splits       = 0
-let g:airline#extensions#tabline#show_tabs         = 0
-let g:airline#extensions#tabline#show_tab_nr       = 0
-let g:airline#extensions#tabline#show_tab_type     = 0
-let g:airline#extensions#tabline#tab_nr_type       = 1
-let g:airline#extensions#tabline#formatter         = 'unique_tail_improved'
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
+"if exists('g:airline_theme')
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.crypt                        = '🔒'
+  let g:airline_symbols.maxlinenr                    = '☰'
+  let g:airline_symbols.spell                        = 'Ꞩ'
+  let g:airline_symbols.notexists                    = '∄'
+  let g:airline_symbols.whitespace                   = 'Ξ'
+  let g:airline#extensions#ale#enabled               = 1
+  let g:airline#extensions#branch#enabled            = 1
+  let g:airline#extensions#bufferline#enabled        = 1
+  let g:airline#extensions#csv#enabled               = 1
+  let g:airline#extensions#hunks#enabled             = 1
+  let g:airline#extensions#tabline#enabled           = 0
+  let g:airline#extensions#tagbar#enabled            = 1
+  let g:airline#extensions#vimagit#enabled           = 1
+  let g:airline#extensions#nrrwrgn#enabled           = 1
+  let g:airline#extensions#yc#enabled                = 1
+  let g:airline_detect_crypt                         = 1
+  let g:airline_detect_iminsert                      = 1
+  let g:airline_detect_modified                      = 1
+  let g:airline_detect_paste                         = 1
+  let g:airline_inactive_collapse                    = 1
+  let g:airline_powerline_fonts                      = 1
+  let g:airline_theme                                = 'tomorrow'
+  let g:airline#extensions#tabline#show_close_button = 0
+  let g:airline#extensions#tabline#show_buffers      = 1
+  let g:airline#extensions#tabline#show_splits       = 0
+  let g:airline#extensions#tabline#show_tabs         = 0
+  let g:airline#extensions#tabline#show_tab_nr       = 0
+  let g:airline#extensions#tabline#show_tab_type     = 0
+  let g:airline#extensions#tabline#tab_nr_type       = 1
+  let g:airline#extensions#tabline#formatter         = 'unique_tail_improved'
+  nmap <leader>1 <Plug>AirlineSelectTab1
+  nmap <leader>2 <Plug>AirlineSelectTab2
+  nmap <leader>3 <Plug>AirlineSelectTab3
+  nmap <leader>4 <Plug>AirlineSelectTab4
+  nmap <leader>5 <Plug>AirlineSelectTab5
+  nmap <leader>6 <Plug>AirlineSelectTab6
+  nmap <leader>7 <Plug>AirlineSelectTab7
+  nmap <leader>8 <Plug>AirlineSelectTab8
+  nmap <leader>9 <Plug>AirlineSelectTab9
+  nmap <leader>- <Plug>AirlineSelectPrevTab
+  nmap <leader>+ <Plug>AirlineSelectNextTab
+"endif
 
-
-" ale
-let g:ale_change_sign_column_color = 0
-let g:ale_lint_delay = 50
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'W'
-let g:ale_emit_conflict_warnings = 1
-let g:ale_javascript_eslint_use_global = 0
-let g:ale_javascript_flow_use_global = 0
-let g:ale_javascript_standard_use_global = 0
-let g:ale_javascript_xo_use_global = 0
-let g:ale_ruby_rubocop_options = '-EDS'
-let g:ale_sh_shellcheck_dialect = 'bash'
-
-let g:ale_fixers = {
-  \ 'javascript': ['eslint'],
-  \ 'typescript': ['eslint'],
-\ }
-let g:ale_pattern_options = {
-  \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-  \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-\}
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+"if exists('g:ale_linters')
+  let g:ale_set_balloons = 1
+  let g:ale_change_sign_column_color = 1
+  " let g:ale_completion_enabled = 0
+  let g:ale_completion_enabled = 1
+  " let g:ale_disable_lsp = 1
+  let g:ale_disable_lsp = 0
+  let g:ale_emit_conflict_warnings = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_floating_preview = 1
+  let g:ale_javascript_eslint_use_global = 0
+  let g:ale_javascript_flow_use_global = 0
+  let g:ale_javascript_standard_use_global = 0
+  let g:ale_javascript_xo_use_global = 0
+  let g:ale_linters_explicit = 0
+  let g:ale_lint_delay = 50
+  let g:ale_lint_on_enter = 1
+  let g:ale_lint_on_insert_leave = 1
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_ruby_rubocop_options = '-EDS'
+  let g:ale_sh_shellcheck_dialect = 'bash'
+  let g:ale_sh_shfmt_options = '-i 2 -bn -ci -sr'
+  let g:ale_sign_column_always = 1
+  let g:ale_sign_error = 'E'
+  let g:ale_sign_warning = 'W'
+  let g:ale_use_global_executables = 1
+  let g:ale_linters = {
+    \ 'sh': ['language_server', 'shellcheck', 'shfmt'],
+  \ }
+  let g:ale_fixers = {
+    \ 'sh': ['shfmt'],
+    \ 'javascript': ['eslint'],
+    \ 'ruby': ['rubocop'],
+    \ 'typescript': ['eslint'],
+  \ }
+  let g:ale_pattern_options = {
+    \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+    \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+  \}
+  nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-j> <Plug>(ale_next_wrap)
+"endif
 
 
 " bufferline
@@ -278,71 +292,7 @@ let g:bufferline_solo_highlight      = 1
 
 
 " coc
-if executable('node')
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
-
-  " Use `[c` and `]c` to navigate diagnostics
-  nmap <silent> [c <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-  " Remap keys for gotos
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Use K to show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  " Remap for rename current word
-  nmap <leader>rn <Plug>(coc-rename)
-
-  " Remap for format selected region
-  xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
-
-  augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup end
-
-  " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-  " Remap for do codeAction of current line
-  nmap <leader>ac  <Plug>(coc-codeaction)
-  " Fix autofix problem of current line
-  nmap <leader>qf  <Plug>(coc-fix-current)
-
-  " Use `:Format` to format current buffer
-  command! -nargs=0 Format :call CocAction('format')
-
-  " Use `:Fold` to fold current buffer
-  command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-
-  " Add diagnostic info for https://github.com/itchyny/lightline.vim
+" if exists('g:coc_workspace_initialized')
   let g:lightline = {
         \ 'colorscheme': 'wombat',
         \ 'active': {
@@ -354,32 +304,37 @@ if executable('node')
         \ },
         \ }
 
-  " Using CocList
-  " Show all diagnostics
-  nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-  " Manage extensions
-  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-  " Show commands
-  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-  " Find symbol of current document
-  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-  " Search workspace symbols
-  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-  " Do default action for next item.
-  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-  " Do default action for previous item.
-  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-  " Resume latest coc list
-  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-endif
+  " Use `:Format` to format current buffer
+  command! -nargs=0 Format :call CocAction('format')
 
-" context
-nnoremap <silent> <expr> <C-y> context#util#map('<C-Y>')
-nnoremap <silent> <expr> <C-h> context#util#map('<C-E>')
-nnoremap <silent> <expr> zz    context#util#map('zz')
-nnoremap <silent> <expr> zb    context#util#map('zb')
-nnoremap <silent> <expr> zt    context#util#map_zt()
-nnoremap <silent> <expr> H     context#util#map_H()
+  inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+  inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" use <tab> to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+
+" inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+
+" endif
+
+" " context
+" nnoremap <silent> <expr> <C-y> context#util#map('<C-Y>')
+" nnoremap <silent> <expr> <C-h> context#util#map('<C-E>')
+" nnoremap <silent> <expr> zz    context#util#map('zz')
+" nnoremap <silent> <expr> zb    context#util#map('zb')
+" nnoremap <silent> <expr> zt    context#util#map_zt()
+" nnoremap <silent> <expr> H     context#util#map_H()
 
 
 " fzf
@@ -402,26 +357,26 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 let g:fzf_tags_command = 'ctags -R'
 let g:fzf_layout = { 'down': '~75%' }
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
-" command! -bang -nargs=? -complete=dir Files
-"     \ call fzf#vim#files(<q-args>, {'options': ['--info=inline']}, <bang>0)
+"
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'options': ['--info=inline']}, <bang>0)
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit' }
 
-" " Mapping selecting mappings
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" xmap <leader><tab> <plug>(fzf-maps-x)
-" omap <leader><tab> <plug>(fzf-maps-o)
-" nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
-" nnoremap <silent> <Leader>C        :Colors<CR>
-" nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-" nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
-" nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
-" xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
-" nnoremap <silent> <Leader>`        :Marks<CR>
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>`        :Marks<CR>
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " " Insert mode completion
@@ -432,12 +387,12 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 noremap <C-p> :Files<cr>
 
 
-" gitgutter
-highlight clear SignColumn
-let g:gitgutter_eager     = 0
-let g:gitgutter_enabled   = 1
-let g:gitgutter_max_signs = 10000
-let g:gitgutter_realtime  = -1
+" " gitgutter
+" highlight clear SignColumn
+" let g:gitgutter_eager     = 0
+" let g:gitgutter_enabled   = 1
+" let g:gitgutter_max_signs = 10000
+" let g:gitgutter_realtime  = -1
 
 
 " nerdtree
@@ -455,35 +410,31 @@ let g:rubycomplete_rails = 1
 let g:rubycomplete_load_gemfile = 1
 
 
-" splitjoin.vim
-nmap <leader>sj :SplitjoinJoin<cr>
-nmap <leader>ss :SplitjoinSplit<cr>
+" " splitjoin.vim
+" nmap <leader>sj :SplitjoinJoin<cr>
+" nmap <leader>ss :SplitjoinSplit<cr>
 
 
-" tabular
-nmap <leader>a= :Tabularize /=<CR>
-vmap <leader>a= :Tabularize /=<CR>
-nmap <leader>a: :Tabularize /:\zs<CR>
-vmap <leader>a: :Tabularize /:\zs<CR>
+" " tabular
+" nmap <leader>a= :Tabularize /=<CR>
+" vmap <leader>a= :Tabularize /=<CR>
+" nmap <leader>a: :Tabularize /:\zs<CR>
+" vmap <leader>a: :Tabularize /:\zs<CR>
 
 " tcomment_vim
-map \\ gcc
-vmap \\ gc
-if !exists('g:tcomment_types')
-  let g:tcomment_types = {}
-endif
-let g:tcomment_types = { 'java' : '// %s' }
-let g:tcomment_types = { 'tmux' : '# %s' }
+"if exists('tcomment#options')
+  map \\ gcc
+  vmap \\ gc
+  if !exists('g:tcomment_types')
+    let g:tcomment_types = {}
+  endif
+  let g:tcomment_types = { 'java' : '// %s' }
+  let g:tcomment_types = { 'tmux' : '# %s' }
+" endif
 
-
-" undotree
-nmap <leader>u :UndotreeToggle<CR>
-vmap <leader>u :UndotreeToggle<CR>
-
-
-" winresizer
-let g:winresizer_start_key = '<C-e>'
-nmap <C-e> :WinResizerStartResize\n
+" " winresizer
+" let g:winresizer_start_key = '<C-e>'
+" nmap <C-e> :WinResizerStartResize\n
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup RememberLastPosition
@@ -495,10 +446,10 @@ augroup GitCommits
   autocmd FileType gitcommit nested setlocal spell
 augroup END
 
-augroup Python
-  autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent
-  autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
-augroup END
+" augroup Python
+"   autocmd FileType python setlocal tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent
+"   autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
+" augroup END
 
 augroup JSON
   autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -512,15 +463,15 @@ autocmd VimResized * :wincmd =
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Just for TMUX
-if v:version > 704
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
+" if v:version > 704
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('nvim')
-  tnoremap <C-w> <C-\><C-N><C-w>
-endif
+" if has('nvim')
+"   tnoremap <C-w> <C-\><C-N><C-w>
+" endif
 
 imap jk <Esc>
 nmap jk <Esc>
@@ -555,23 +506,19 @@ cmap %% <C-R>=expand('%:h').'/'<cr>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-function ShutUp()
-  :ALEToggle
-  set nonumber
-  sign unplace *
-endfunction
-
-nmap <silent> <leader>z :call ShutUp()<CR>
+" function ShutUp()
+"   :ALEToggle
+"   set nonumber
+"   sign unplace *
+" endfunction
+" nmap <silent> <leader>z :call ShutUp()<CR>
 
 syntax on
 filetype plugin indent on
 
-let g:base16colorspace = 256
-let g:base16_shell_path =  SafeDirectory('~/.config/base16-shell/scripts')
+" let g:base16colorspace = 256
+" let g:base16_shell_path =  SafeDirectory('~/.config/base16-shell/scripts')
+let base16colorspace=256 " Access colors present in 256 colorspace
 
 if isdirectory(expand(g:vimhome . '/plugged/base16-vim'))
   if filereadable(expand('~/.vimrc_background'))
@@ -581,20 +528,20 @@ if isdirectory(expand(g:vimhome . '/plugged/base16-vim'))
   hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
 endif
 
-if has('termguicolors') && !&termguicolors
-  set termguicolors
-endif
+" if has('termguicolors') && !&termguicolors
+"   set termguicolors
+" endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('gui_running')
-  set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h15
-  set guioptions+=a
-  set guioptions-=m  "remove menu bar
-  set guioptions-=T  "remove toolbar
-  set guioptions-=L  "remove toolbar
-  set guioptions-=r  "remove toolbar
-  set antialias
-  set cursorline
-  set mousehide
-endif
-
+" if has('gui_running')
+"   set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h15
+"   set guioptions+=a
+"   set guioptions-=m  "remove menu bar
+"   set guioptions-=T  "remove toolbar
+"   set guioptions-=L  "remove toolbar
+"   set guioptions-=r  "remove toolbar
+"   set antialias
+"   set cursorline
+"   set mousehide
+" endif
+"
