@@ -516,8 +516,6 @@ vnoremap K :m '<-2<CR>gv=gv
 syntax on
 filetype plugin indent on
 
-" let g:base16colorspace = 256
-" let g:base16_shell_path =  SafeDirectory('~/.config/base16-shell/scripts')
 let base16colorspace=256 " Access colors present in 256 colorspace
 
 if isdirectory(expand(g:vimhome . '/plugged/base16-vim'))
@@ -532,16 +530,15 @@ endif
 "   set termguicolors
 " endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" if has('gui_running')
-"   set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h15
-"   set guioptions+=a
-"   set guioptions-=m  "remove menu bar
-"   set guioptions-=T  "remove toolbar
-"   set guioptions-=L  "remove toolbar
-"   set guioptions-=r  "remove toolbar
-"   set antialias
-"   set cursorline
-"   set mousehide
-" endif
-"
+if has('gui_running')
+  set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h15
+  set guioptions+=a
+  set guioptions-=m  "remove menu bar
+  set guioptions-=T  "remove toolbar
+  set guioptions-=L  "remove toolbar
+  set guioptions-=r  "remove toolbar
+  set antialias
+  set cursorline
+  set mousehide
+endif
+
