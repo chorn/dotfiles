@@ -516,20 +516,14 @@ vnoremap K :m '<-2<CR>gv=gv
 syntax on
 filetype plugin indent on
 
-let base16colorspace=256 " Access colors present in 256 colorspace
-
-if isdirectory(expand(g:vimhome . '/plugged/base16-vim'))
-  if filereadable(expand('~/.vimrc_background'))
-    execute 'source ' . expand('~/.vimrc_background')
-  endif
+if exists('$BASE16_THEME') && isdirectory(expand(g:vimhome . '/plugged/base16-vim'))
+  let base16colorspace=256
+  colorscheme base16-$BASE16_THEME
   hi LineNr ctermfg=236 ctermbg=234
   hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
 endif
 
-" if has('termguicolors') && !&termguicolors
-"   set termguicolors
-" endif
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('gui_running')
   set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h15
   set guioptions+=a
