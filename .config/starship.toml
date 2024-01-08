@@ -1,0 +1,61 @@
+# Which is equivalent to
+format = """
+$cmd_duration\
+$container\
+$crystal\
+$directory\
+$direnv\
+$docker_context\
+$dotnet\
+$elixir\
+$env_var\
+$git_branch\
+$git_commit\
+$git_metrics\
+$git_state\
+$git_status\
+$golang\
+$helm\
+$jobs\
+$kubernetes\
+$localip\
+$nodejs\
+$os\
+$package\
+$perl\
+$pulumi\
+$python\
+$ruby\
+$rust\
+$shell\
+$shlvl\
+$status\
+$sudo\
+$typst\
+$line_break\
+$time\
+$username\
+$hostname\
+$character"""
+
+[time]
+format = '[$time](bold black)'
+time_format = '%T'
+disabled = false
+
+[username]
+format = ' [$user]($style)'
+style_user = 'bold red'
+style_root = 'bold white'
+show_always = true
+disabled = false
+
+
+[hostname]
+format = '@(bold white)[$hostname](bold cyan) '
+trim_at = '.'
+ssh_only = false
+detect_env_vars = ['SSH_TTY']
+disabled = false
+
+
