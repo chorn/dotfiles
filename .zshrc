@@ -1,23 +1,132 @@
+# --------------------------------------------------------------------------
+# shellcheck shell=bash
+# vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
-# This has to be here.
+zmodload zsh/compctl \
+  zsh/complete \
+  zsh/complist \
+  zsh/datetime \
+  zsh/main \
+  zsh/parameter \
+  zsh/terminfo \
+  zsh/zle \
+  zsh/zleparameter \
+  zsh/zutil
+#-----------------------------------------------------------------------------
+setopt \
+  always_to_end \
+  auto_cd \
+  auto_list \
+  auto_menu \
+  auto_param_slash \
+  brace_ccl \
+  case_glob \
+  cdable_vars \
+  check_jobs \
+  clobber \
+  combining_chars \
+  complete_in_word \
+  emacs \
+  extended_glob \
+  hash_list_all \
+  interactive_comments \
+  list_ambiguous \
+  list_packed \
+  list_types \
+  long_list_jobs \
+  multios \
+  path_dirs \
+  posix_builtins \
+  prompt_subst
 
+unsetopt \
+  auto_resume \
+  beep \
+  bg_nice \
+  complete_aliases \
+  correct \
+  correct_all \
+  flow_control \
+  hup \
+  list_beep \
+  mail_warning \
+  menu_complete \
+  notify
+
+# History
+unsetopt \
+  hist_find_no_dups \
+  hist_verify \
+  hist_ignore_space \
+  share_history
+
+setopt \
+  append_history \
+  bang_hist \
+  extended_history \
+  hist_allow_clobber \
+  hist_fcntl_lock \
+  hist_no_store \
+  hist_reduce_blanks \
+  inc_append_history
+
+unsetopt \
+  hist_ignore_all_dups \
+  inc_append_history_time
+#-----------------------------------------------------------------------------
+typeset -gx PS1='%f%b%k%u%s%n@%m %~ %(!.#.$)%f%b%k%u%s '
+typeset -gx RPS1=''
+typeset -gx BROWSER=open
+typeset -gx PAGER=less
+typeset -gx EDITOR=vim
+typeset -gx VISUAL=vim
+typeset -gx LESS="iRQXF"
+typeset -gx MAILCHECK=0
+typeset -gx SHELLCHECK_OPTS="--shell=bash --exclude=SC2001,SC1090,SC2164,SC2068,SC2155"
+typeset -gx RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+typeset -gx FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
+typeset -gx DOCKER_SCAN_SUGGEST=false
+typeset -gx BASE16_THEME="base16-twilight"
 typeset -gx SAVEHIST=99999999
 typeset -gx HISTSIZE=99999999
 typeset -gx HISTFILESIZE=99999999
+typeset -gx WORDCHARS='*?_.~&;!#$%'
+typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC=1
+#-----------------------------------------------------------------------------
+typeset -U zpath=(
+  "$HOME"/{tbin,bin}
+  /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+  /Applications/Docker.app/Contents/Resources/bin
+  /Applications/Postgres.app/Contents/Versions/latest/bin
+  /usr/local/MacGPG2/bin
+  /{usr,opt}/{local,homebrew}/{bin,sbin}
+  /home/linuxbrew/.linuxbrew/bin
+  /usr/local/opt/openssl/bin
+  /{opt,usr,snap}/{bin,sbin,libexec}
+  /{bin,sbin}
+  $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
+)
+typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
+#-----------------------------------------------------------------------------
+for s in "$HOME/.shell-common" "$HOME/.shell-prv"; do
+  [[ -s "$s" ]] && source "$s"
+done
 #-----------------------------------------------------------------------------
 ## ZI
+typeset -Agx ZI
+ZI[BIN_DIR]="${HOME}/.zi/bin"
+#-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
    echo git clone https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}"
    exit 0
 fi
-
+#-----------------------------------------------------------------------------
 source "${ZI[BIN_DIR]}/zi.zsh"
-(( ${+_comps} )) && _comps[zi]=_zi
-autoload -Uz _zi
 
-zi add-fpath "${ZI[SF]}"
-zi add-fpath /opt/homebrew/share/zsh/site-functions
-zi add-fpath /opt/homebrew/share/zsh/functions
+## Packs
+
+zi wait pack for fzf
+zi wait pack for ls_colors
 
 ## Deps
 
@@ -27,7 +136,7 @@ zi light z-shell/z-a-bin-gem-node
 zi ice lucid
 zi light z-shell/z-a-rust
 
-zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone"\"$HOME/.zi/polaris/bin/mise\" activate zsh > zhook.zsh; \"$HOME/.zi/polaris/bin/mise\" completion zsh > \"${ZI[SF]}/_mise\"" atpull'%atclone' src'zhook.zsh'
+zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone"\"./mise\" activate zsh > zhook.zsh" atpull'%atclone' src'zhook.zsh'
 zi load jdx/mise
 
 zi ice lucid
@@ -35,11 +144,10 @@ zi light mafredri/zsh-async
 
 ## Programs
 
-zi ice lucid wait'1' from'gh-r' as'program'
-zi light junegunn/fzf
-
 zi ice lucid wait'1' from'gh-r' as'program' mv'ripgrep*/rg -> rg' sbin'rg* -> rg'
 zi light BurntSushi/ripgrep
+zi ice lucid wait'1' as'completion' blockf has'rg' mv'rg.zsh -> _rg'
+zi snippet https://github.com/BurntSushi/ripgrep/blob/master/crates/core/flags/complete/rg.zsh
 
 zi ice lucid wait'1' from'gh-r' as'program' sbin'**/delta -> delta'
 zi light dandavison/delta
@@ -82,36 +190,46 @@ zi as'null' lucid wait'1' for \
 #-----------------------------------------------------------------------------
 ## Completions
 
-autoload -Uz bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+zi wait pack for system-completions
+zi wait pack for brew-completions
 
-zi ice lucid wait as'completion' blockf mv'git-completion.zsh -> _git'
-zi snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+zi wait lucid for \
+  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" z-shell/F-Sy-H \
+  blockf zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
 
-zi ice lucid wait'1' as'completion'
-zi light zsh-users/zsh-completions
+# zi ice lucid blockf as'completion'
+# zi light zsh-users/zsh-completions
 
 if (( $+commands[op] )); then
-  __op="${ZI[SF]}/_op"
-  [[ -s "${__op}" ]] || op completion zsh > "$__op"
-  zi ice as'completion'
-  zi snippet "${__op}"
+  [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
+  __comp="$HOME/.cache/_op"
+  [[ -s "${__comp}" ]] || op completion zsh > "$__comp"
+  zi ice lucid wait'1' blockf as'completion'
+  zi snippet "${__comp}"
 fi
 
 if (( $+commands[mise] )); then
-  __mise_comp="${ZI[SF]}/_mise"
+  [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
+  __comp="$HOME/.cache/_mise"
+  [[ -s "${__comp}" ]] || mise completion zsh > "$__comp"
+  zi ice lucid wait'1' blockf as'completion'
+  zi snippet "${__comp}"
+fi
+
+if (( $+commands[direnv] )) && (( $+commands[mise] )); then
   __direnv_lib="${HOME}/.config/direnv/lib"
   __mise_direnv="${__direnv_lib}/mise.sh"
+  [[ -d "$__direnv_lib" ]] || mkdir -p "$__direnv_lib"
+  [[ -s "$__mise_direnv" ]] || mise direnv activate > "$__mise_direnv"
+fi
 
-  if [[ -s "${__mise_comp}" ]]; then
-    zi ice as'completion'
-    zi snippet "$__mise_comp"
-  fi
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
 
-  if (( $+commands[direnv] )); then
-    [[ -d "$__direnv_lib" ]] || mkdir -p "$__direnv_lib"
-    [[ -s "$__mise_direnv" ]] || mise direnv activate > "$__mise_direnv"
-  fi
+if ! (( ${+_comps} )); then
+  zi ice lucid wait'0' blockf as'completion'
+  zi snippet "${ZI[BIN_DIR]}/lib/_zi"
 fi
 
 ## Interactive
@@ -119,25 +237,20 @@ fi
 zi ice lucid wait'1'
 zi light chriskempson/base16-shell
 
-zi ice lucid wait'1'
-zi light z-shell/zui
-
-zi ice lucid wait'1'
-zi light z-shell/zbrowse
-
-zi ice lucid wait'1'
-zi light z-shell/zsh-lint
-
-zi wait pack for ls_colors
-
 zi ice lucid wait'1' atload'!_zsh_autosuggest_start'
 zi load zsh-users/zsh-autosuggestions
 
 ## Prompt
 
-typeset -agx _preferred_languages=(node go ruby elixir python)
+typeset -gx DEBUG_CHORN_PROMPT=
+typeset -agx _preferred_languages=(ruby node elixir python3)
 zi ice lucid wait'!0'
 zi light @chorn/chorn-zsh-prompt
+
+# zi ice as"command" from"gh-r" \
+#   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+#   atpull"%atclone" src"init.zsh"
+# zi light starship/starship
 
 #-----------------------------------------------------------------------------
 autoload -Uz zcalc
@@ -152,9 +265,12 @@ alias -g B='| bat'
 bindkey -e
 bindkey -m 2>/dev/null
 
+# Fuzzy match completions https://wiki.zshell.dev/docs/guides/customization#pretty-completions
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3))numeric)'
+
+
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -170,7 +286,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:
 zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select
 
 typeset -g PERIOD=60
 autoload -Uz add-zsh-hook
