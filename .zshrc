@@ -136,7 +136,7 @@ zi light z-shell/z-a-bin-gem-node
 zi ice lucid
 zi light z-shell/z-a-rust
 
-zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone"\"./mise\" activate zsh > zhook.zsh" atpull'%atclone' src'zhook.zsh'
+zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi load jdx/mise
 
 zi ice lucid
