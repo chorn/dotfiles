@@ -20,7 +20,7 @@ fi
 if [[ -z "$SSH_AUTH_SOCK" ]] && command -v ssh-agent >&/dev/null; then
   declare _sshagent="$HOME/.ssh/ssh-agent.env"
 
-  pgrep -u "$USER" ssh-agent >& /dev/null || ssh-agent > "$_sshagent"
+  pgrep -u "$USER" ssh-agent >&/dev/null || ssh-agent > "$_sshagent"
 
   [[ -s "$_sshagent" ]] && source "$_sshagent"
 fi
@@ -177,10 +177,10 @@ preserve_my_history() {
   local -i _lsize=$(wc -l "$_last" | awk '{print $1}')
   local -i _diff=$((_hsize - _lsize))
 
-  if ((_diff < -1000)) ; then
+  if ((_diff < -1000)); then
     echo >&2 "[HISTFILE ${_hist}] History has been truncated by something, time to freak out. ($_lsize to $_hsize)"
     return 1
-  elif ((_diff < 0)) ; then
+  elif ((_diff < 0)); then
     echo >&2 "[HISTFILE ${_hist}] History has shrunk ($_lsize to $_hsize)"
   fi
 
@@ -197,6 +197,52 @@ alias gco='git checkout'
 alias gps='git push'
 alias gpl='git pull'
 alias r='cd "$(git root)"'
+
+__git() {
+  git ${__git_C_args:+"${__git_C_args[@]}"} ${__git_dir:+--git-dir="$__git_dir"} "$@" 2> /dev/null
+}
+
+__git_aliased_command() {
+  local cur=$1 last list='' word cmdline
+
+  while [[ -n "$cur" ]]; do
+    if [[ "$list" == *" $cur "* ]]; then
+      # loop detected
+      return
+    fi
+
+    cmdline=$(__git config --get "alias.$cur")
+    list=" $cur $list"
+    last=$cur
+    cur=
+
+    for word in $cmdline; do
+      case "$word" in
+        \!gitk | gitk)
+          cur="gitk"
+          break
+          ;;
+        \!*) : shell command alias ;;
+        -*) : option ;;
+        *=*) : setting env ;;
+        git) : git itself ;;
+        \(\)) : skip parens of shell function definition ;;
+        \{) : skip start of shell helper function ;;
+        :) : skip null command ;;
+        \'*) : skip opening quote after sh -c ;;
+        *)
+          cur="${word%;}"
+          break
+          ;;
+      esac
+    done
+  done
+
+  cur=$last
+  if [[ "$cur" != "$1" ]]; then
+    echo "$cur"
+  fi
+}
 # fzf ------------------------------------------------------------------------
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
@@ -252,4 +298,3 @@ _gr() {
       --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' \
     | cut -d$'\t' -f1
 }
-

@@ -115,6 +115,7 @@ done
 ## ZI
 typeset -Agx ZI
 ZI[BIN_DIR]="${HOME}/.zi/bin"
+autoload -Uz _zi
 #-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
    echo git clone https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}"
@@ -193,13 +194,8 @@ zi as'null' lucid wait'1' for \
 zi wait pack for system-completions
 zi wait pack for brew-completions
 
-zi wait lucid for \
-  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" z-shell/F-Sy-H \
-  blockf zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
-
-# zi ice lucid blockf as'completion'
-# zi light zsh-users/zsh-completions
+zi ice lucid blockf as'completion'
+zi light zsh-users/zsh-completions
 
 if (( $+commands[op] )); then
   [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
@@ -224,11 +220,10 @@ if (( $+commands[direnv] )) && (( $+commands[mise] )); then
   [[ -s "$__mise_direnv" ]] || mise direnv activate > "$__mise_direnv"
 fi
 
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
-
-if ! (( ${+_comps} )); then
-  zi ice lucid wait'0' blockf as'completion'
+if (( ${+_comps} )); then
+  _comps[zi]=_zi
+else
+  zi ice lucid wait'1' blockf as'completion'
   zi snippet "${ZI[BIN_DIR]}/lib/_zi"
 fi
 
@@ -237,8 +232,10 @@ fi
 zi ice lucid wait'1'
 zi light chriskempson/base16-shell
 
-zi ice lucid wait'1' atload'!_zsh_autosuggest_start'
-zi load zsh-users/zsh-autosuggestions
+zi wait'0' lucid for \
+  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit_fast; zicdreplay" z-shell/F-Sy-H \
+  blockf zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
 
 ## Prompt
 
@@ -269,8 +266,6 @@ bindkey -m 2>/dev/null
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3>7?7:($#PREFIX+$#SUFFIX)/3))numeric)'
-
-
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
