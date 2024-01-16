@@ -22,7 +22,7 @@ if [[ -z "$SSH_AUTH_SOCK" ]] && command -v ssh-agent >&/dev/null; then
 
   pgrep -u "$USER" ssh-agent >&/dev/null || ssh-agent > "$_sshagent" 2>/dev/null
 
-  [[ -s "$_sshagent" ]] && source "$_sshagent"
+  [[ -s "$_sshagent" ]] && source "$_sshagent" >&/dev/null
 fi
 
 # OS X ---------------------------------------------------------------------
