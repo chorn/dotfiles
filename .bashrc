@@ -7,15 +7,15 @@ shopt -qs checkwinsize cmdhist expand_aliases histappend hostcomplete histverify
 shopt -qu mailwarn
 [[ "${BASH_VERSINFO[0]}" -gt "3" ]] && shopt -qs autocd checkjobs
 # --------------------------------------------------------------------------
-export HISTFILE="$HOME/.bash_history"
+export HISTFILE=$HOME/.bash_history
 export HISTCONTROL=ignorespace
 export HISTFILESIZE=999999999
-export INPUTRC="$HOME/.bash_inputrc"
+export INPUTRC=$HOME/.bash_inputrc
 export BROWSER=open
 export PAGER=less
 export EDITOR=vim
 export VISUAL=vim
-export LESS="iRQXF"
+export LESS=iRQXF
 export HISTSIZE=999999999
 export HISTFILESIZE=999999999
 export MAILCHECK=0
@@ -23,9 +23,9 @@ export SHELLCHECK_OPTS="--shell=bash --exclude=SC2001,SC1090,SC2164,SC2068,SC215
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
 export DOCKER_SCAN_SUGGEST=false
-export BASE16_THEME="base16-twilight"
 export PS1='\t \u@\h \w \$ '
-export BASE16_DEFAULT_THEME="base16-twilight"
+export BASE16_THEME=twilight
+export BASE16_DEFAULT_THEME=base16-${BASE16_THEME}
 # --------------------------------------------------------------------------
 for s in "$HOME/.shell-path" "$HOME/.shell-common"; do
   [[ -s "$s" ]] && source "$s"
@@ -38,9 +38,11 @@ command -v mise >&/dev/null && eval "$(mise activate bash)"
 command -v op >&/dev/null && source <(op completion bash)
 command -v direnv >&/dev/null && eval "$(direnv hook bash)"
 # --------------------------------------------------------------------------
-for s in "$HOME/.fzf.bash" "$HOME/bin/git-prompt.sh" "$HOME/.config/base16-shell/profile_helper.sh"; do
+for s in "$HOME/.fzf.bash" "$HOME/bin/git-prompt.sh"; do
   [[ -s "$s" ]] && source "$s"
 done
+
+alias base16_twilight="source \"\$HOME/.config/base16-shell/scripts/base16-twilight.sh\""
 # --------------------------------------------------------------------------
 _completion_loader() {
   local _command="$1"
@@ -129,4 +131,3 @@ if command -v tput >&/dev/null && [[ -n "$TERM" && "$TERM" != "dumb" && "$TERM" 
 
   export -a PROMPT_COMMAND=("_ps1_git_prep" "_ps1_update")
 fi
-
