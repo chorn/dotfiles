@@ -18,6 +18,8 @@ fi
 [[ -z "$GPG_TTY" ]] && command -v tty >&/dev/null && export GPG_TTY=$(tty)
 
 if [[ -z "$SSH_AUTH_SOCK" ]] && command -v ssh-agent >&/dev/null; then
+  [[ -d "$HOME/.ssh" ]] || mkdir -p "$HOME/.ssh"
+
   declare _sshagent="$HOME/.ssh/ssh-agent.env"
 
   pgrep -u "$USER" ssh-agent >&/dev/null || ssh-agent > "$_sshagent" 2>/dev/null
