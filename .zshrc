@@ -86,7 +86,8 @@ typeset -gx SHELLCHECK_OPTS="--shell=bash --exclude=SC2001,SC1090,SC2164,SC2068,
 typeset -gx RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 typeset -gx FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
 typeset -gx DOCKER_SCAN_SUGGEST=false
-typeset -gx BASE16_THEME="base16-twilight"
+typeset -gx BASE16_THEME=twilight
+typeset -gx BASE16_DEFAULT_THEME=base16-${BASE16_THEME}
 typeset -gx SAVEHIST=99999999
 typeset -gx HISTSIZE=99999999
 typeset -gx HISTFILESIZE=99999999
