@@ -191,10 +191,6 @@ zi as'null' lucid wait'1' for \
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
-typeset -g PERIOD=60
-autoload -Uz add-zsh-hook
-whence -w preserve_my_history >&/dev/null && add-zsh-hook periodic preserve_my_history
-#-----------------------------------------------------------------------------
 ## Completions
 
 zi wait pack for system-completions
@@ -289,6 +285,18 @@ zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 #-----------------------------------------------------------------------------
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh)"
+  return 0
+fi
+
+if whence -w preserve_my_history >&/dev/null; then
+  typeset -g PERIOD=60
+  autoload -Uz add-zsh-hook
+  add-zsh-hook periodic preserve_my_history
+fi
+
+#
 chorn-history-widget() {
   (( $+commands[fc] )) || return 0
   (( $+commands[fzf] )) || return 0
@@ -310,11 +318,7 @@ chorn-history-widget() {
   zle reset-prompt
   return $ret
 }
+
 zle -N chorn-history-widget
-#-----------------------------------------------------------------------------
-if (( $+commands[atuin] )); then
-  eval "$(atuin init zsh)"
-else
-  bindkey '^R' chorn-history-widget
-fi
+bindkey '^R' chorn-history-widget
 #-----------------------------------------------------------------------------
