@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# shellcheck shell=bash
+# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091
 # vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
 zmodload zsh/compctl \
@@ -54,12 +54,6 @@ unsetopt \
   notify
 
 # History
-unsetopt \
-  hist_find_no_dups \
-  hist_verify \
-  hist_ignore_space \
-  share_history
-
 setopt \
   append_history \
   bang_hist \
@@ -71,6 +65,11 @@ setopt \
   inc_append_history
 
 unsetopt \
+  hist_find_no_dups \
+  hist_expire_dups_first \
+  hist_verify \
+  hist_ignore_space \
+  share_history \
   hist_ignore_all_dups \
   inc_append_history_time
 #-----------------------------------------------------------------------------
@@ -93,6 +92,8 @@ typeset -gx HISTSIZE=99999999
 typeset -gx HISTFILESIZE=99999999
 typeset -gx WORDCHARS='*?_.~&;!#$%'
 typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC=1
+typeset -gx ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=128
+unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -U zpath=(
   "$HOME"/{tbin,bin}
@@ -116,14 +117,14 @@ done
 ## ZI
 typeset -Agx ZI
 ZI[BIN_DIR]="${HOME}/.zi/bin"
-autoload -Uz _zi
 #-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
    echo git clone https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}"
-   exit 0
+   return 0
 fi
 #-----------------------------------------------------------------------------
 source "${ZI[BIN_DIR]}/zi.zsh"
+autoload -Uz _zi
 
 ## Packs
 
@@ -189,6 +190,10 @@ zi as'null' lucid wait'1' for \
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
+#-----------------------------------------------------------------------------
+typeset -g PERIOD=60
+autoload -Uz add-zsh-hook
+whence -w preserve_my_history >&/dev/null && add-zsh-hook periodic preserve_my_history
 #-----------------------------------------------------------------------------
 ## Completions
 
@@ -283,13 +288,11 @@ zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
-
-typeset -g PERIOD=60
-autoload -Uz add-zsh-hook
-whence -w preserve_my_history >&/dev/null && add-zsh-hook periodic preserve_my_history
 #-----------------------------------------------------------------------------
-# CTRL-R - Paste the selected command from history into the command line
 chorn-history-widget() {
+  (( $+commands[fc] )) || return 0
+  (( $+commands[fzf] )) || return 0
+
   local selected num
 
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
@@ -300,21 +303,18 @@ chorn-history-widget() {
   local ret=$?
 
   if [[ -n "$selected" ]]; then
-    num=$selected[1]
-
+    num=${selected[1]}
     [[ -n "$num" ]] && zle vi-fetch-history -n $num
-
   fi
+
   zle reset-prompt
   return $ret
 }
-
-if (( $+commands[fzf] )); then
-  zle     -N   chorn-history-widget
+zle -N chorn-history-widget
+#-----------------------------------------------------------------------------
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh)"
+else
   bindkey '^R' chorn-history-widget
 fi
-#-----------------------------------------------------------------------------
-unset MANPATH
-#-----------------------------------------------------------------------------
-# vim: set syntax=zsh ft=zsh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
