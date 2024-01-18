@@ -17,14 +17,15 @@ fi
 #-----------------------------------------------------------------------------
 [[ -z "$GPG_TTY" ]] && command -v tty >&/dev/null && export GPG_TTY=$(tty)
 
-if [[ -z "$SSH_AUTH_SOCK" ]] && command -v ssh-agent >&/dev/null; then
+if command -v ssh-agent >&/dev/null && [[ ! -S "$SSH_AUTH_SOCK" ]]; then
   [[ -d "$HOME/.ssh" ]] || mkdir -p "$HOME/.ssh"
-
   declare _sshagent="$HOME/.ssh/ssh-agent.env"
 
-  pgrep -u "$USER" ssh-agent >&/dev/null || ssh-agent > "$_sshagent" 2>/dev/null
+  [[ -s "$_sshagent" ]] && source "$_sshagent"
 
-  [[ -s "$_sshagent" ]] && source "$_sshagent" >&/dev/null
+  [[ -S "$SSH_AUTH_SOCK" ]] || ssh-agent 2>/dev/null | grep export > "$_sshagent"
+
+  [[ -s "$_sshagent" ]] && source "$_sshagent"
 fi
 
 # OS X ---------------------------------------------------------------------
