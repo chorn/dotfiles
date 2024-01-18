@@ -258,6 +258,7 @@ let g:is_bash = 1
   let g:ale_lint_on_text_changed = 'never'
   let g:ale_ruby_rubocop_options = '-EDS'
   let g:ale_sh_shellcheck_dialect = 'bash'
+  let g:ale_sh_shellcheck_options = '-x'
   let g:ale_sh_shfmt_options = '-i 2 -bn -ci -sr'
   let g:ale_sign_column_always = 1
   let g:ale_sign_error = 'E'
