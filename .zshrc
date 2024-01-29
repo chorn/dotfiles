@@ -141,6 +141,8 @@ zi light z-shell/z-a-rust
 
 zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi load jdx/mise
+zi ice lucid wait'1' as'completion' blockf has'mise'
+zi snippet https://github.com/jdx/mise/blob/main/completions/_mise
 
 zi ice lucid
 zi light mafredri/zsh-async
@@ -203,14 +205,6 @@ if (( $+commands[op] )); then
   [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
   __comp="$HOME/.cache/_op"
   [[ -s "${__comp}" ]] || op completion zsh > "$__comp"
-  zi ice lucid wait'1' blockf as'completion'
-  zi snippet "${__comp}"
-fi
-
-if (( $+commands[mise] )); then
-  [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
-  __comp="$HOME/.cache/_mise"
-  [[ -s "${__comp}" ]] || mise completion zsh > "$__comp"
   zi ice lucid wait'1' blockf as'completion'
   zi snippet "${__comp}"
 fi
@@ -285,40 +279,5 @@ zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 #-----------------------------------------------------------------------------
-if (( $+commands[atuin] )); then
-  eval "$(atuin init zsh --disable-up-arrow)"
-  return 0
-fi
-
-if whence -w preserve_my_history >&/dev/null; then
-  typeset -g PERIOD=60
-  autoload -Uz add-zsh-hook
-  add-zsh-hook periodic preserve_my_history
-fi
-
-#
-chorn-history-widget() {
-  (( $+commands[fc] )) || return 0
-  (( $+commands[fzf] )) || return 0
-
-  local selected num
-
-  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-
-  selected=( $(fc -rl 1 \
-    | fzf --height 80% --info=inline --ansi --tabstop=2 --no-multi -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore --query="${LBUFFER}") )
-
-  local ret=$?
-
-  if [[ -n "$selected" ]]; then
-    num=${selected[1]}
-    [[ -n "$num" ]] && zle vi-fetch-history -n $num
-  fi
-
-  zle reset-prompt
-  return $ret
-}
-
-zle -N chorn-history-widget
-bindkey '^R' chorn-history-widget
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 #-----------------------------------------------------------------------------
