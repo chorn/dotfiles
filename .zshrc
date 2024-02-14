@@ -86,7 +86,6 @@ typeset -gx RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 typeset -gx FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
 typeset -gx DOCKER_SCAN_SUGGEST=false
 typeset -gx BASE16_THEME=twilight
-typeset -gx BASE16_DEFAULT_THEME=base16-${BASE16_THEME}
 typeset -gx SAVEHIST=99999999
 typeset -gx HISTSIZE=99999999
 typeset -gx HISTFILESIZE=99999999
@@ -196,7 +195,7 @@ zi as'null' lucid wait'1' for \
 ## Completions
 
 zi wait pack for system-completions
-zi wait pack for brew-completions
+(( $+commands[brew] )) && zi wait pack for brew-completions
 
 zi ice lucid blockf as'completion'
 zi light zsh-users/zsh-completions
@@ -225,13 +224,15 @@ fi
 
 ## Interactive
 
-zi ice lucid wait'1'
+zi ice wait'1' lucid blockf
 zi light chriskempson/base16-shell
 
-zi wait'0' lucid for \
-  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit_fast; zicdreplay" z-shell/F-Sy-H \
-  blockf zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
+typeset _base16_script="$HOME/.zi/plugins/chriskempson---base16-shell/scripts/base16-${BASE16_THEME}.sh"
+typeset _base16_func="base16_${theme}"
+alias "$_base16_func"="source \"${_base16_script}\""
+
+zi ice wait'1' lucid atload"!_zsh_autosuggest_start" 
+zi light zsh-users/zsh-autosuggestions
 
 ## Prompt
 
@@ -240,11 +241,8 @@ typeset -agx _preferred_languages=(ruby node elixir python3)
 zi ice lucid wait'!0'
 zi light @chorn/chorn-zsh-prompt
 
-# zi ice as"command" from"gh-r" \
-#   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-#   atpull"%atclone" src"init.zsh"
-# zi light starship/starship
-
+# zi ice as'command' from'gh-r' src'spaceship.zsh'
+# zi light spaceship-prompt/spaceship-prompt
 #-----------------------------------------------------------------------------
 autoload -Uz zcalc
 __calc() {
