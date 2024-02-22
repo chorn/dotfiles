@@ -12,14 +12,16 @@
   verify = false
 [core]
   editor = vim
-  hooksPath = /dev/null
-  # pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
 [delta]
   side-by-side = true
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 [diff]
   algorithm = patience
   mnemonicprefix = true
   renames = true
+  colorMoved = default
 [diff-so-fancy]
   first-run = false
   stripLeadingSymbols = false
@@ -31,6 +33,7 @@
 [merge]
   ff = only
   tool = vimdiff
+  conflictstyle = diff3
 [mergetool]
   keepBackup = true
   prompt = false
@@ -45,8 +48,11 @@
   rebase = true
 [push]
   default = tracking
+  autoSetupRemote = true
 [rebase]
   autoSquash = true
   autoStash = true
 [rerere]
   enabled = true
+[tag]
+  gpgsign = true
