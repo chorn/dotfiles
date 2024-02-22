@@ -125,26 +125,26 @@ fi
 source "${ZI[BIN_DIR]}/zi.zsh"
 autoload -Uz _zi
 
-## Packs
+zi lucid light-mode for \
+  z-shell/z-a-meta-plugins @annexes @zsh-users+fast @sharkdp @fuzzy @ext-git @console-tools
 
-zi wait pack for fzf
-zi wait pack for ls_colors
+zi lucid light-mode for \
+  z-shell/z-a-bin-gem-node \
+  z-shell/z-a-rust \
+  mafredri/zsh-async
 
-## Deps
+zi wait'0' pack for ls_colors
 
-zi ice lucid
-zi light z-shell/z-a-bin-gem-node
-
-zi ice lucid
-zi light z-shell/z-a-rust
+zi ice lucid atinit'Z_A_USECOMP=1'
+zi light z-shell/z-a-eval
 
 zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi load jdx/mise
 zi ice lucid wait'1' as'completion' blockf has'mise'
 zi snippet https://github.com/jdx/mise/blob/main/completions/_mise
 
-zi ice lucid
-zi light mafredri/zsh-async
+zi ice lucid wait'1' as'program' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
+zi light direnv/direnv
 
 ## Programs
 
@@ -156,38 +156,8 @@ zi snippet https://github.com/BurntSushi/ripgrep/blob/master/crates/core/flags/c
 zi ice lucid wait'1' from'gh-r' as'program' sbin'**/delta -> delta'
 zi light dandavison/delta
 
-zi ice lucid wait'1' from'gh-r' as'program' mv'fd* fd' sbin'**/fd(.exe|) -> fd'
-zi light @sharkdp/fd
-
-zi ice lucid wait'1' from'gh-r' as'program' mv'bat* bat' sbin'**/bat(.exe|) -> bat'
-zi light @sharkdp/bat
-
-zi ice lucid wait'1' from'gh-r' as'program' has'bat' pick'src/*'
-zi light eth-p/bat-extras
-
 zi ice if'[ -z "$SSH_CONNECTION" ]' lucid wait'1' as'program' has'perl' pick'inxi'
 zi light smxi/inxi
-
-zi ice lucid wait'1' from'gh-r' as'program' mv'hexyl* hexyl' sbin'**/hexyl(.exe|) -> hexyl'
-zi light @sharkdp/hexyl
-
-zi ice lucid wait'1' from'gh-r' as'program' mv'vivid* vivid' sbin'**/vivid(.exe|) -> vivid'
-zi light @sharkdp/vivid
-
-zi ice lucid wait'1' as'program' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
-zi light direnv/direnv
-
-zi ice lucid wait'1' as'null' sbin'bin/*'
-zi light z-shell/zsh-diff-so-fancy
-
-zi as'null' lucid wait'1' for \
-  sbin Fakerr/git-recall \
-  sbin cloneopts paulirish/git-open \
-  sbin paulirish/git-recent \
-  sbin davidosomething/git-my \
-  sbin iwata/git-now \
-  sbin atload'export _MENU_THEME=legacy' arzzen/git-quick-stats \
-  make'PREFIX=$ZPFX install' tj/git-extras
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
@@ -196,9 +166,6 @@ zi as'null' lucid wait'1' for \
 
 zi wait pack for system-completions
 (( $+commands[brew] )) && zi wait pack for brew-completions
-
-zi ice lucid blockf as'completion'
-zi light zsh-users/zsh-completions
 
 if (( $+commands[op] )); then
   [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
@@ -223,6 +190,11 @@ else
 fi
 
 ## Interactive
+
+zi ice as'program' from'gh-r' pick'zoxide' \
+  atclone'ln -s completions/_zoxide -> _zoxide; cp man/man1/*.1 $ZI[MAN_DIR]/man1; ./zoxide init zsh --cmd cd > init.zsh' \
+  atpull'%atclone' src'init.zsh' nocompile'!'
+zi light ajeetdsouza/zoxide
 
 zi ice wait'1' lucid blockf
 zi light chriskempson/base16-shell
