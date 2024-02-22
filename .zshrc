@@ -126,13 +126,13 @@ source "${ZI[BIN_DIR]}/zi.zsh"
 autoload -Uz _zi
 
 zi lucid light-mode for \
-  z-shell/z-a-meta-plugins @annexes @zsh-users+fast @sharkdp @fuzzy @ext-git @console-tools
-
-zi lucid light-mode for \
+  z-shell/z-a-meta-plugins \
   z-shell/z-a-bin-gem-node \
   z-shell/z-a-rust \
-  mafredri/zsh-async
+  mafredri/zsh-async \
+  @annexes @zsh-users+fast @sharkdp @ext-git @console-tools
 
+zi wait'0' pack'binary' for fzf
 zi wait'0' pack for ls_colors
 
 zi ice lucid atinit'Z_A_USECOMP=1'
@@ -203,14 +203,14 @@ typeset _base16_script="$HOME/.zi/plugins/chriskempson---base16-shell/scripts/ba
 typeset _base16_func="base16_${theme}"
 alias "$_base16_func"="source \"${_base16_script}\""
 
-zi ice wait'1' lucid atload"!_zsh_autosuggest_start" 
-zi light zsh-users/zsh-autosuggestions
+# zi ice wait'1' lucid atload"!_zsh_autosuggest_start" 
+# zi light zsh-users/zsh-autosuggestions
 
 ## Prompt
 
 typeset -gx DEBUG_CHORN_PROMPT=
 typeset -agx _preferred_languages=(ruby node elixir python3)
-zi ice lucid wait'!0'
+zi ice wait'!0' lucid
 zi light @chorn/chorn-zsh-prompt
 
 # zi ice as'command' from'gh-r' src'spaceship.zsh'
