@@ -175,12 +175,12 @@ if (( $+commands[op] )); then
   zi snippet "${__comp}"
 fi
 
-if (( $+commands[direnv] )) && (( $+commands[mise] )); then
-  __direnv_lib="${HOME}/.config/direnv/lib"
-  __mise_direnv="${__direnv_lib}/mise.sh"
-  [[ -d "$__direnv_lib" ]] || mkdir -p "$__direnv_lib"
-  [[ -s "$__mise_direnv" ]] || mise direnv activate > "$__mise_direnv"
-fi
+# if (( $+commands[direnv] )) && (( $+commands[mise] )); then
+#   __direnv_lib="${HOME}/.config/direnv/lib"
+#   __mise_direnv="${__direnv_lib}/mise.sh"
+#   [[ -d "$__direnv_lib" ]] || mkdir -p "$__direnv_lib"
+#   [[ -s "$__mise_direnv" ]] || mise direnv activate > "$__mise_direnv"
+# fi
 
 if (( ${+_comps} )); then
   _comps[zi]=_zi
@@ -209,8 +209,8 @@ alias "$_base16_func"="source \"${_base16_script}\""
 ## Prompt
 
 typeset -gx DEBUG_CHORN_PROMPT=
-typeset -agx _preferred_languages=(ruby node elixir python3)
-zi ice wait'!0' lucid
+typeset -agx _preferred_languages=(ruby node elixir python3 go)
+zi ice lucid
 zi light @chorn/chorn-zsh-prompt
 
 # zi ice as'command' from'gh-r' src'spaceship.zsh'
