@@ -31,7 +31,10 @@ for s in "$HOME/.shell-path" "$HOME/.shell-common"; do
   [[ -s "$s" ]] && source "$s"
 done
 # --------------------------------------------------------------------------
-command -v mise >&/dev/null && eval "$(mise activate bash)"
+if command -v mise >&/dev/null; then
+  eval "$(mise activate bash)"
+  eval "$(mise activate --shims)"
+fi
 # --------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 # --------------------------------------------------------------------------
