@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091
+# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091,SC2139
 # vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
 zmodload zsh/compctl \
@@ -221,6 +221,15 @@ __calc() {
   zcalc -e "$*"
 }
 aliases[=]='noglob __calc'
+#-----------------------------------------------------------------------------
+yup() {
+  (( $+commands[brew] )) && brew update && brew upgrade
+  (( $+commands[zi] )) && zi update --all --parallel --quiet
+  (( $+commands[mise] )) && mise self-update && mise install && mise upgrade
+  (( $+commands[vim] )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall
+  (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall
+}
+
 #-----------------------------------------------------------------------------
 alias -g M='| $PAGER'
 alias -g J='| jq -rC \. | $PAGER -R'
