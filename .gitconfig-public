@@ -1,5 +1,7 @@
 ; vim: ft=gitconfig sw=2 ts=2 et
 
+[user]
+  name = chorn
 [advice]
   statusHints = false
 [branch]
@@ -26,6 +28,8 @@
   first-run = false
   stripLeadingSymbols = false
   markEmptyLines = false
+[gpg]
+  format = ssh
 [init]
   defaultBranch = main
 [interactive]

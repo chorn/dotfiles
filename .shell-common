@@ -170,33 +170,33 @@ prvgit() {
   __homegit "$HOME/.git-prv-dotfiles" "$@"
 }
 
-hstgit() {
-  __homegit "$HOME/.git-history" "$@"
-}
+# hstgit() {
+#   __homegit "$HOME/.git-history" "$@"
+# }
 
-preserve_my_history() {
-  [[ -z "$ZSH_VERSION" ]] && [[ "${BASH_VERSINFO[0]}" -lt "4" || -z "$HISTFILE" ]] && return
-  local _hist="$HISTFILE"
-  [[ -n "$ZSH_VERSION" ]] && _hist="$HOME/.zsh_history"
-  local _last=${_hist}_last
-  [[ -s "$_hist" ]] || touch "$_hist"
-  [[ -s "$_last" ]] || touch "$_last"
-  local -i _hsize=$(wc -l "$_hist" | awk '{print $1}')
-  local -i _lsize=$(wc -l "$_last" | awk '{print $1}')
-  local -i _diff=$((_hsize - _lsize))
-
-  if ((_diff < -1000)); then
-    echo >&2 "[HISTFILE ${_hist}] History has been truncated by something, time to freak out. ($_lsize to $_hsize)"
-    return 1
-  elif ((_diff < 0)); then
-    echo >&2 "[HISTFILE ${_hist}] History has shrunk ($_lsize to $_hsize)"
-  fi
-
-  hstgit add -f "$_hist"
-  (hstgit commit --no-gpg-sign -m "$(date) ${_hsize}" >&/dev/null &)
-
-  cp "$_hist" "$_last"
-}
+# preserve_my_history() {
+#   [[ -z "$ZSH_VERSION" ]] && [[ "${BASH_VERSINFO[0]}" -lt "4" || -z "$HISTFILE" ]] && return
+#   local _hist="$HISTFILE"
+#   [[ -n "$ZSH_VERSION" ]] && _hist="$HOME/.zsh_history"
+#   local _last=${_hist}_last
+#   [[ -s "$_hist" ]] || touch "$_hist"
+#   [[ -s "$_last" ]] || touch "$_last"
+#   local -i _hsize=$(wc -l "$_hist" | awk '{print $1}')
+#   local -i _lsize=$(wc -l "$_last" | awk '{print $1}')
+#   local -i _diff=$((_hsize - _lsize))
+#
+#   if ((_diff < -1000)); then
+#     echo >&2 "[HISTFILE ${_hist}] History has been truncated by something, time to freak out. ($_lsize to $_hsize)"
+#     return 1
+#   elif ((_diff < 0)); then
+#     echo >&2 "[HISTFILE ${_hist}] History has shrunk ($_lsize to $_hsize)"
+#   fi
+#
+#   hstgit add -f "$_hist"
+#   (hstgit commit --no-gpg-sign -m "$(date) ${_hsize}" >&/dev/null &)
+#
+#   cp "$_hist" "$_last"
+# }
 # Git ---------------------------------------------------------------------
 
 alias g=git

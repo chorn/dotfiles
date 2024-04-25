@@ -1,4 +1,0 @@
-[core]
-  excludesFile = ~/.gitignore-dotfiles
-
-; vim: ft=gitconfig sw=3 ts=2 et
