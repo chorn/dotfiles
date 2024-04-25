@@ -47,53 +47,40 @@ call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/fzf', { 'dir': '~/.config/fzf', 'do': './install --no-update-rc --key-bindings --completion' }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 " Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'simeji/winresizer'
 Plug 'tomtom/tcomment_vim'
-" Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
 " Plug 'wellle/context.vim'
-
-" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
-
 
 " Filetypes
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'neoclide/jsonc.vim',                     { 'for': ['json', 'jsonc'] }
-" Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
-" Plug 'ambv/black',                             { 'for': 'python' }
+Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
+Plug 'ambv/black',                             { 'for': 'python' }
 " Plug 'chrisbra/csv.vim',                       { 'for': 'csv' }
-" Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
+Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
 " Plug 'fatih/vim-go',                           { 'for': 'go' }
-" Plug 'isRuslan/vim-es6',                       { 'for': 'javascript' }
-" Plug 'kchmck/vim-coffee-script',               { 'for': 'coffee' }
-" Plug 'leafgarland/typescript-vim',             { 'for': 'typescript' }
 Plug 'martinda/Jenkinsfile-vim-syntax'
-" Plug 'moll/vim-node',                          { 'for': 'javascript' }
-" Plug 'othree/es.next.syntax.vim',              { 'for': 'javascript' }
-" Plug 'othree/html5.vim',                       { 'for': 'html' }
-" Plug 'othree/javascript-libraries-syntax.vim', { 'for': 'javascript' }
-" Plug 'othree/yajs.vim',                        { 'for': 'javascript' }
-" Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
-" Plug 'racer-rust/vim-racer',                   { 'for': 'rust' }
+Plug 'othree/html5.vim',                       { 'for': 'html' }
+Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
 " Plug 'rhysd/vim-crystal',                      { 'for': 'crystal' }
-" Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
+Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
 " Plug 'spiegela/vimix',                         { 'for': 'elixir' }
-" Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
-" Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
-" Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
-" Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
-" Plug 'tpope/vim-haml',                         { 'for': 'haml' }
-" Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
-" Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
-" Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
-" Plug 'vito-c/jq.vim',                          { 'for': 'jq' }
+Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
+Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
+Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
+Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
+Plug 'tpope/vim-haml',                         { 'for': 'haml' }
+Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
+Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
 
 call plug#end()
 runtime! macros/matchit.vim
