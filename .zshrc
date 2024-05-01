@@ -222,14 +222,19 @@ __calc() {
 }
 aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
-yup() {
-  (( $+commands[brew] )) && brew update && brew upgrade
-  (( $+commands[zi] )) && zi update --all --parallel --quiet
-  (( $+commands[mise] )) && mise self-update && mise install && mise upgrade
-  (( $+commands[vim] )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall
-  (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall
+_yup() {
+  case "$1" in
+    brew) (( $+commands[brew] )) && brew update && brew upgrade ;;
+    zi)   (( $+commands[zi]   )) && zi update --all --parallel --quiet ;;
+    mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
+    vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
+    nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall ;;
+  esac
 }
 
+yup() {
+  for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
+}
 #-----------------------------------------------------------------------------
 alias -g M='| $PAGER'
 alias -g J='| jq -rC \. | $PAGER -R'
