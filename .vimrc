@@ -12,10 +12,8 @@ endfunction
 if has('nvim')
   let g:vimhome = SafeDirectory('~/.config/nvim')
   set shada='100,<1000,s1000,:1000
-  set clipboard+=unnamedplus
 else
   let g:vimhome = SafeDirectory('~/.vim')
-  set clipboard+=unnamedplus
   set clipboard+=autoselect
 endif
 
@@ -42,6 +40,8 @@ endif
 
 call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
 
+Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf.vim'
@@ -51,38 +51,32 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'wellle/context.vim'
+Plug 'simeji/winresizer'
 
-" Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'airblade/vim-gitgutter'
-" Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
-" Plug 'wellle/context.vim'
-" Plug 'simeji/winresizer'
-
-Plug 'dense-analysis/ale'
-Plug 'prabirshrestha/asyncomplete.vim'
-
-" " Filetypes
-" Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-" Plug 'neoclide/jsonc.vim',                     { 'for': ['json', 'jsonc'] }
-" Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
-" Plug 'ambv/black',                             { 'for': 'python' }
-" " Plug 'chrisbra/csv.vim',                       { 'for': 'csv' }
-" Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
-" " Plug 'fatih/vim-go',                           { 'for': 'go' }
-" Plug 'martinda/Jenkinsfile-vim-syntax'
-" Plug 'othree/html5.vim',                       { 'for': 'html' }
-" Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
-" " Plug 'rhysd/vim-crystal',                      { 'for': 'crystal' }
-" Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
-" " Plug 'spiegela/vimix',                         { 'for': 'elixir' }
-" Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
-" Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
-" Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
-" Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
-" Plug 'tpope/vim-haml',                         { 'for': 'haml' }
-" Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
-" Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
-" Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+Plug 'neoclide/jsonc.vim',                     { 'for': ['json', 'jsonc'] }
+Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
+Plug 'ambv/black',                             { 'for': 'python' }
+Plug 'chrisbra/csv.vim',                       { 'for': 'csv' }
+Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
+Plug 'fatih/vim-go',                           { 'for': 'go' }
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'othree/html5.vim',                       { 'for': 'html' }
+Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
+Plug 'rhysd/vim-crystal',                      { 'for': 'crystal' }
+Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
+Plug 'spiegela/vimix',                         { 'for': 'elixir' }
+Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
+Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
+Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
+Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
+Plug 'tpope/vim-haml',                         { 'for': 'haml' }
+Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
+Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
 
 call plug#end()
 runtime! macros/matchit.vim
@@ -92,6 +86,7 @@ set background=dark
 set backspace=indent,eol,start
 set backup
 set binary
+set clipboard+=unnamedplus
 set cmdheight=3
 set completeopt=menu,menuone,preview,noinsert
 set cursorline
@@ -176,7 +171,7 @@ else
 endif
 
 let g:mapleader = ','
-let g:is_bash = 1
+" let g:is_bash = 1
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -262,9 +257,8 @@ inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 " Use ALE's function for asyncomplete defaults
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options())
 
-
 " fzf
-if has('nvim')
+" if has('nvim')
   function! s:fzf_statusline()
     highlight fzf1 ctermfg=161 ctermbg=251
     highlight fzf2 ctermfg=23 ctermbg=251
@@ -275,7 +269,7 @@ if has('nvim')
   augroup FZF
     autocmd! User FzfStatusLine call <SID>fzf_statusline()
   augroup END
-endif
+" endif
 
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_buffers_jump = 1
@@ -313,18 +307,16 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 noremap <C-p> :Files<cr>
 
 
-" " gitgutter
-" highlight clear SignColumn
-" let g:gitgutter_eager     = 0
-" let g:gitgutter_enabled   = 1
-" let g:gitgutter_max_signs = 10000
-" let g:gitgutter_realtime  = -1
-
+" gitgutter
+highlight clear SignColumn
+let g:gitgutter_eager     = 0
+let g:gitgutter_enabled   = 1
+let g:gitgutter_max_signs = 10000
+let g:gitgutter_realtime  = -1
 
 " nerdtree
 nmap <leader>n :NERDTreeToggle<CR>
 vmap <leader>n :NERDTreeToggle<CR>
-
 
 " ruby
 let g:ruby_fold = 1
@@ -335,25 +327,22 @@ let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_rails = 1
 let g:rubycomplete_load_gemfile = 1
 
-
 " " splitjoin.vim
-" nmap <leader>sj :SplitjoinJoin<cr>
-" nmap <leader>ss :SplitjoinSplit<cr>
+nmap <leader>sj :SplitjoinJoin<cr>
+nmap <leader>ss :SplitjoinSplit<cr>
 
 " tcomment_vim
-"if exists('tcomment#options')
-  map \\ gcc
-  vmap \\ gc
-  if !exists('g:tcomment_types')
-    let g:tcomment_types = {}
-  endif
-  let g:tcomment_types = { 'java' : '// %s' }
-  let g:tcomment_types = { 'tmux' : '# %s' }
-" endif
+map \\ gcc
+vmap \\ gc
+if !exists('g:tcomment_types')
+  let g:tcomment_types = {}
+endif
+let g:tcomment_types = { 'java' : '// %s' }
+let g:tcomment_types = { 'tmux' : '# %s' }
 
-" " winresizer
-" let g:winresizer_start_key = '<C-e>'
-" nmap <C-e> :WinResizerStartResize\n
+" winresizer
+let g:winresizer_start_key = '<C-e>'
+nmap <C-e> :WinResizerStartResize\n
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup RememberLastPosition
@@ -370,18 +359,6 @@ augroup JSON
 augroup END
 
 autocmd VimResized * :wincmd =
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Just for TMUX
-" if v:version > 704
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" if has('nvim')
-"   tnoremap <C-w> <C-\><C-N><C-w>
-" endif
 
 imap jk <Esc>
 nmap jk <Esc>
@@ -416,12 +393,12 @@ cmap %% <C-R>=expand('%:h').'/'<cr>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-" function ShutUp()
-"   :ALEToggle
-"   set nonumber
-"   sign unplace *
-" endfunction
-" nmap <silent> <leader>z :call ShutUp()<CR>
+function ShutUp()
+  :ALEToggle
+  set nonumber
+  sign unplace *
+endfunction
+nmap <silent> <leader>z :call ShutUp()<CR>
 
 syntax on
 filetype plugin indent on
