@@ -75,23 +75,24 @@ unsetopt \
 #-----------------------------------------------------------------------------
 typeset -gx PS1='%f%b%k%u%s%n@%m %~ %(!.#.$)%f%b%k%u%s '
 typeset -gx RPS1=''
+typeset -gx BASE16_THEME=twilight
 typeset -gx BROWSER=open
-typeset -gx PAGER=less
+typeset -gx DOCKER_SCAN_SUGGEST=false
 typeset -gx EDITOR=vim
-typeset -gx VISUAL=vim
+typeset -gx FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
+typeset -gx HISTFILESIZE=99999999
+typeset -gx HISTSIZE=99999999
+typeset -gz HOMEBREW_NO_ENV_HINTS=1
 typeset -gx LESS="iRQXF"
 typeset -gx MAILCHECK=0
-typeset -gx SHELLCHECK_OPTS="--shell=bash --exclude=SC2001,SC1090,SC2164,SC2068,SC2155"
+typeset -gx PAGER=less
 typeset -gx RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-typeset -gx FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
-typeset -gx DOCKER_SCAN_SUGGEST=false
-typeset -gx BASE16_THEME=twilight
 typeset -gx SAVEHIST=99999999
-typeset -gx HISTSIZE=99999999
-typeset -gx HISTFILESIZE=99999999
+typeset -gx SHELLCHECK_OPTS="--shell=bash --exclude=SC2001,SC1090,SC2164,SC2068,SC2155"
+typeset -gx VISUAL=vim
 typeset -gx WORDCHARS='*?_.~&;!#$%'
-typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC=1
 typeset -gx ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=128
+typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC=1
 unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -U zpath=(
