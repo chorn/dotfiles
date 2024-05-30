@@ -226,7 +226,7 @@ aliases[=]='noglob __calc'
 _yup() {
   case "$1" in
     brew) (( $+commands[brew] )) && brew update && brew upgrade ;;
-    zi)   (( $+commands[zi]   )) && zi update --all --parallel --quiet ;;
+    zi)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
     mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
     vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
     nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall ;;
