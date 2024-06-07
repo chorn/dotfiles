@@ -197,12 +197,8 @@ zi ice as'program' from'gh-r' pick'zoxide' \
   atpull'%atclone' src'init.zsh' nocompile'!'
 zi light ajeetdsouza/zoxide
 
-zi ice wait'1' lucid blockf
+zi ice wait'1' silent
 zi light chriskempson/base16-shell
-
-typeset _base16_script="$HOME/.zi/plugins/chriskempson---base16-shell/scripts/base16-${BASE16_THEME}.sh"
-typeset _base16_func="base16_${theme}"
-alias "$_base16_func"="source \"${_base16_script}\""
 
 # zi ice wait'1' lucid atload"!_zsh_autosuggest_start" 
 # zi light zsh-users/zsh-autosuggestions
@@ -225,7 +221,7 @@ aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
   case "$1" in
-    brew) (( $+commands[brew] )) && brew update && brew upgrade ;;
+    brew) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy ;;
     zi)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
     mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
     vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
