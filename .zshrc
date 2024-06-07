@@ -119,8 +119,8 @@ typeset -Agx ZI
 ZI[BIN_DIR]="${HOME}/.zi/bin"
 #-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
-   echo git clone https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}"
-   return 0
+  echo git clone https://github.com/z-shell/zi.git "${ZI[BIN_DIR]}"
+  return 0
 fi
 #-----------------------------------------------------------------------------
 source "${ZI[BIN_DIR]}/zi.zsh"
@@ -131,9 +131,11 @@ zi lucid light-mode for \
   z-shell/z-a-bin-gem-node \
   z-shell/z-a-rust \
   mafredri/zsh-async \
-  @annexes @zsh-users+fast @sharkdp @ext-git @console-tools
+  @annexes @zsh-users+fast @sharkdp @ext-git @console-tools @fuzzy
 
-zi wait'0' pack'binary' for fzf
+zi ice as'null' sbin'bin/*'
+zi light z-shell/zsh-diff-so-fancy
+
 zi wait'0' pack for ls_colors
 
 zi ice lucid atinit'Z_A_USECOMP=1'
@@ -149,10 +151,10 @@ zi light direnv/direnv
 
 ## Programs
 
-zi ice lucid wait'1' from'gh-r' as'program' mv'ripgrep*/rg -> rg' sbin'rg* -> rg'
-zi light BurntSushi/ripgrep
-zi ice lucid wait'1' as'completion' blockf has'rg' mv'rg.zsh -> _rg'
-zi snippet https://github.com/BurntSushi/ripgrep/blob/master/crates/core/flags/complete/rg.zsh
+# zi ice lucid wait'1' from'gh-r' as'program' mv'ripgrep*/rg -> rg' sbin'rg* -> rg'
+# zi light BurntSushi/ripgrep
+# zi ice lucid wait'1' as'completion' blockf has'rg' mv'rg.zsh -> _rg'
+# zi snippet https://github.com/BurntSushi/ripgrep/blob/master/crates/core/flags/complete/rg.zsh
 
 zi ice lucid wait'1' from'gh-r' as'program' sbin'**/delta -> delta'
 zi light dandavison/delta
@@ -200,7 +202,7 @@ zi light ajeetdsouza/zoxide
 zi ice wait'1' silent
 zi light chriskempson/base16-shell
 
-# zi ice wait'1' lucid atload"!_zsh_autosuggest_start" 
+# zi ice wait'1' lucid atload"!_zsh_autosuggest_start"
 # zi light zsh-users/zsh-autosuggestions
 
 ## Prompt
@@ -260,5 +262,5 @@ zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 #-----------------------------------------------------------------------------
-(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)" || true
 #-----------------------------------------------------------------------------
