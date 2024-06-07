@@ -7,45 +7,32 @@
   borph = !git branch --format '%(refname:short) %(upstream:track)' | grep '\\[gone\\]' | cut -f 1 -d ' '
   borphd = !git borph | xargs git branch -d
   borphdd = !git borph | xargs git branch -D
-  # br = branch
-  # brage = for-each-ref --sort=authordate --format '%(authordate:iso) %(align:left,25)%(refname:short)%(end) %(subject)' refs/heads
-  bs = "!. ~/.githelpers && pretty_git_branch_sorted"
   c = commit
   ca = commit --all
-  ci = commit
   clr = rm -r --cached
+  cm = "!f() { git commit -m \"$*\"; }; f"
   co = checkout
   d = diff -w
   dc = diff --find-copies-harder --cached
   dh1 = diff HEAD~1
   di = diff --find-copies-harder
-  # div = divergence
+  div = divergence
   ds = diff --stat=160,120
   f = fetch
   fa = fetch --all --tags --prune
   ff = merge --ff-only
-  # gn = goodness
-  # gnc = goodness --cached
-  h = !git head
-  # head = !git r -1
-  # hp = "!. ~/.githelpers && show_git_head"
+  h = "!. ~/.githelpers && show_git_head"
   l = "!. ~/.githelpers && pretty_git_log"
   la = !git l --all
-  lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset' -20
+  # lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset' -20
   ls = ls-files
   merged = branch --merged
-  # mff = merge --ff-only
-  # nb = checkout -b
-  # noff = merge --no-ff
-  # oups = commit --amend --no-edit
   pf = push --force-with-lease
   pom = push origin master
   pu = push -u
-  # pushfl = push --force-with-lease
   r = !GIT_NO_PAGER=1 git l -30
   ra = !git r --all
   resign = "!git commit --amend --no-edit -S${USER}"
-  # rh = reset --hard
   # root = rev-parse --show-toplevel
   s = show --show-signature
   st = status -sb
@@ -56,11 +43,10 @@
   unadd = reset HEAD
   uncommit = reset --soft HEAD^
   unstage = reset HEAD
-  # watb = worktree add --track -b
   wip = "!f() { git add --all && git commit -nm \"$*\"; }; f"
   wipp = "!f() { git commit -nm \"$*\"; }; f"
 
-  # Fancy logging.
+  # Fancy logging
   #   h = head
   #   hp = head with patch
   #   r = recent commits, only current branch
