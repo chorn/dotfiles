@@ -165,6 +165,7 @@ __homegit() {
 pubgit() {
   __homegit "$HOME/.git-pub-dotfiles" "$@"
 }
+alias ug=pubgit
 
 prvgit() {
   __homegit "$HOME/.git-prv-dotfiles" "$@"
