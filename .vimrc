@@ -38,49 +38,6 @@ if !filereadable(g:vimplug_exists)
   augroup END
 endif
 
-call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
-
-Plug 'dense-analysis/ale'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'wellle/context.vim'
-Plug 'simeji/winresizer'
-
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
-Plug 'neoclide/jsonc.vim',                     { 'for': ['json', 'jsonc'] }
-Plug 'JulesWang/css.vim',                      { 'for': [ 'css', 'sass', 'scss' ] }
-Plug 'ambv/black',                             { 'for': 'python' }
-Plug 'chrisbra/csv.vim',                       { 'for': 'csv' }
-Plug 'elixir-lang/vim-elixir',                 { 'for': 'elixir' }
-Plug 'fatih/vim-go',                           { 'for': 'go' }
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'othree/html5.vim',                       { 'for': 'html' }
-Plug 'plasticboy/vim-markdown',                { 'for': 'markdown' }
-Plug 'rhysd/vim-crystal',                      { 'for': 'crystal' }
-Plug 'rust-lang/rust.vim',                     { 'for': 'rust' }
-Plug 'spiegela/vimix',                         { 'for': 'elixir' }
-Plug 'thoughtbot/vim-rspec',                   { 'for': 'ruby' }
-Plug 'tmux-plugins/vim-tmux',                  { 'for': 'tmux' }
-Plug 'tpope/vim-bundler',                      { 'for': 'ruby' }
-Plug 'tpope/vim-endwise',                      { 'for': 'ruby' }
-Plug 'tpope/vim-haml',                         { 'for': 'haml' }
-Plug 'tpope/vim-rails',                        { 'for': 'ruby' }
-Plug 'tpope/vim-rake',                         { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby',                      { 'for': 'ruby' }
-
-call plug#end()
-runtime! macros/matchit.vim
-
 set autoindent
 set background=dark
 set backspace=indent,eol,start
@@ -88,6 +45,7 @@ set backup
 set binary
 set clipboard+=unnamedplus
 set cmdheight=3
+set nocompatible
 set completeopt=menu,menuone,preview,noinsert
 set cursorline
 set display+=lastline
@@ -161,6 +119,34 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.dll
 set wildmenu
 set wildmode=list:longest:full
 set writebackup
+
+call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
+
+Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/nerdtree'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'wellle/context.vim'
+Plug 'simeji/winresizer'
+
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
+
+call plug#end()
+runtime! macros/matchit.vim
+
 
 if exists($TMUX)
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
