@@ -6,6 +6,8 @@ umask 022
 command -v less >&/dev/null || export PAGER=more
 command -v vim >&/dev/null || export EDITOR=vi
 command -v rg >&/dev/null && export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow"
+command -v brew >&/dev/null && export HOMEBREW_NO_ENV_HINTS=1
+
 [[ -z "$USER" ]] && export USER=$(id -nu)
 #-----------------------------------------------------------------------------
 if [[ -d "/usr/syno" ]]; then
