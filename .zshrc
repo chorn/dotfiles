@@ -126,17 +126,17 @@ fi
 source "${ZI[BIN_DIR]}/zi.zsh"
 autoload -Uz _zi
 
-zi lucid light-mode for \
+zi lucid light-mode 'for' \
   z-shell/z-a-meta-plugins \
   z-shell/z-a-bin-gem-node \
   z-shell/z-a-rust \
-  mafredri/zsh-async \
   @annexes @zsh-users+fast @sharkdp @ext-git @console-tools @fuzzy
+
+zi wait'0' pack 'for' \
+  ls_colors \
 
 zi ice as'null' sbin'bin/*'
 zi light z-shell/zsh-diff-so-fancy
-
-zi wait'0' pack for ls_colors
 
 zi ice lucid atinit'Z_A_USECOMP=1'
 zi light z-shell/z-a-eval
@@ -149,26 +149,21 @@ zi snippet https://github.com/jdx/mise/blob/main/completions/_mise
 zi ice lucid wait'1' as'program' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light direnv/direnv
 
-## Programs
-
-# zi ice lucid wait'1' from'gh-r' as'program' mv'ripgrep*/rg -> rg' sbin'rg* -> rg'
-# zi light BurntSushi/ripgrep
-# zi ice lucid wait'1' as'completion' blockf has'rg' mv'rg.zsh -> _rg'
-# zi snippet https://github.com/BurntSushi/ripgrep/blob/master/crates/core/flags/complete/rg.zsh
-
 zi ice lucid wait'1' from'gh-r' as'program' sbin'**/delta -> delta'
 zi light dandavison/delta
 
 zi ice if'[ -z "$SSH_CONNECTION" ]' lucid wait'1' as'program' has'perl' pick'inxi'
 zi light smxi/inxi
 
+zi wait'1' lucid 'for' as'command' from'gh-r' bpick'kubectx;kubens' sbin'kubectx;kubens' \
+  ahmetb/kubectx
+
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
-## Completions
-
-zi wait pack for system-completions
-(( $+commands[brew] )) && zi wait pack for brew-completions
+zi wait'0' pack 'for' \
+  system-completions \
+  brew-completions
 
 if (( $+commands[op] )); then
   [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
@@ -178,13 +173,6 @@ if (( $+commands[op] )); then
   zi snippet "${__comp}"
 fi
 
-# if (( $+commands[direnv] )) && (( $+commands[mise] )); then
-#   __direnv_lib="${HOME}/.config/direnv/lib"
-#   __mise_direnv="${__direnv_lib}/mise.sh"
-#   [[ -d "$__direnv_lib" ]] || mkdir -p "$__direnv_lib"
-#   [[ -s "$__mise_direnv" ]] || mise direnv activate > "$__mise_direnv"
-# fi
-
 if (( ${+_comps} )); then
   _comps[zi]=_zi
 else
@@ -192,25 +180,18 @@ else
   zi snippet "${ZI[BIN_DIR]}/lib/_zi"
 fi
 
-## Interactive
+zi has'zoxide' light-mode 'for' \
+  z-shell/zsh-zoxide
 
-zi ice as'program' from'gh-r' pick'zoxide' \
-  atclone'ln -s completions/_zoxide -> _zoxide; cp man/man1/*.1 $ZI[MAN_DIR]/man1; ./zoxide init zsh --cmd cd > init.zsh' \
-  atpull'%atclone' src'init.zsh' nocompile'!'
-zi light ajeetdsouza/zoxide
-
-zi ice wait'1' silent
-zi light chriskempson/base16-shell
-
-# zi ice wait'1' lucid atload"!_zsh_autosuggest_start"
-# zi light zsh-users/zsh-autosuggestions
+zi lucid light-mode silent wait'1' 'for' \
+  chriskempson/base16-shell
 
 ## Prompt
-
 typeset -gx DEBUG_CHORN_PROMPT=
 typeset -agx _preferred_languages=(ruby node elixir python3 go)
-zi ice lucid
-zi light @chorn/chorn-zsh-prompt
+zi lucid light-mode 'for' \
+  mafredri/zsh-async \
+  @chorn/chorn-zsh-prompt
 
 # zi ice as'command' from'gh-r' src'spaceship.zsh'
 # zi light spaceship-prompt/spaceship-prompt
