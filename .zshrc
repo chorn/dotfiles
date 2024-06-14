@@ -161,7 +161,7 @@ zi wait'1' lucid 'for' as'command' from'gh-r' bpick'kubectx;kubens' sbin'kubectx
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
-zi wait'0' pack 'for' \
+zi wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' \
   system-completions \
   brew-completions
 
