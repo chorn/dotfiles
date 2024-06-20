@@ -208,7 +208,7 @@ _yup() {
     zi)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
     mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
     vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean +CocUpdate\! +qall ;;
+    nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ;;
   esac
 }
 
