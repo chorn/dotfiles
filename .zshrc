@@ -130,55 +130,51 @@ zi lucid light-mode 'for' \
   z-shell/z-a-meta-plugins \
   z-shell/z-a-bin-gem-node \
   z-shell/z-a-rust \
+  z-shell/z-a-eval \
   @annexes @zsh-users+fast @sharkdp @ext-git @console-tools @fuzzy
-
-zi wait'0' pack 'for' \
-  ls_colors \
 
 zi ice as'null' sbin'bin/*'
 zi light z-shell/zsh-diff-so-fancy
 
-zi ice lucid atinit'Z_A_USECOMP=1'
-zi light z-shell/z-a-eval
+zi ice lucid from'gh-r' as'command' mv'mise* -> mise'  sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
+zi light jdx/mise
 
-zi ice lucid from'gh-r' as'program' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
-zi load jdx/mise
-zi ice lucid wait'1' as'completion' blockf has'mise'
-zi snippet https://github.com/jdx/mise/blob/main/completions/_mise
-
-zi ice lucid wait'1' as'program' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
+zi ice lucid wait'0' as'command' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light direnv/direnv
 
-zi ice lucid wait'1' from'gh-r' as'program' sbin'**/delta -> delta'
+zi ice lucid wait'0' from'gh-r' as'command' sbin'**/delta -> delta'
 zi light dandavison/delta
 
-zi ice if'[ -z "$SSH_CONNECTION" ]' lucid wait'1' as'program' has'perl' pick'inxi'
+zi ice lucid wait'0' as'command' has'perl' pick'inxi'
 zi light smxi/inxi
 
-zi wait'1' lucid 'for' as'command' from'gh-r' bpick'kubectx;kubens' sbin'kubectx;kubens' \
+zi wait'0' lucid 'for' as'command' from'gh-r' bpick'kubectx;kubens' sbin'kubectx;kubens' \
   ahmetb/kubectx
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
-zi wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' \
+zi lucid light-mode wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' \
+  ls_colors \
   system-completions \
   brew-completions
 
+zi ice lucid wait'0' as'completion' has'mise'
+zi snippet https://raw.githubusercontent.com/jdx/mise/main/completions/_mise
+
+declare _op_comp="${ZI[CACHE_DIR]}/_op"
 if (( $+commands[op] )); then
-  [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
-  __comp="$HOME/.cache/_op"
-  [[ -s "${__comp}" ]] || op completion zsh > "$__comp"
-  zi ice lucid wait'1' blockf as'completion'
-  zi snippet "${__comp}"
+  [[ -s "${_op_comp}" ]] || op completion zsh > "$_op_comp"
+  zi ice lucid wait'0' as'completion'
+  zi snippet "${_op_comp}"
 fi
 
-if (( ${+_comps} )); then
-  _comps[zi]=_zi
-else
-  zi ice lucid wait'1' blockf as'completion'
-  zi snippet "${ZI[BIN_DIR]}/lib/_zi"
-fi
+# if (( ${+_comps} )); then
+#   _comps[zi]=_zi
+# else
+#   zi ice lucid wait'1' blockf as'completion'
+#   zi snippet "${ZI[BIN_DIR]}/lib/_zi"
+# fi
 
 zi has'zoxide' light-mode 'for' \
   z-shell/zsh-zoxide
@@ -195,33 +191,8 @@ zi lucid light-mode 'for' \
 
 # zi ice as'command' from'gh-r' src'spaceship.zsh'
 # zi light spaceship-prompt/spaceship-prompt
-#-----------------------------------------------------------------------------
-autoload -Uz zcalc
-__calc() {
-  zcalc -e "$*"
-}
-aliases[=]='noglob __calc'
-#-----------------------------------------------------------------------------
-_yup() {
-  case "$1" in
-    brew) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy ;;
-    zi)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
-    mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
-    vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ;;
-  esac
-}
 
-yup() {
-  for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
-}
 #-----------------------------------------------------------------------------
-alias -g M='| $PAGER'
-alias -g J='| jq -rC \. | $PAGER -R'
-alias -g B='| bat'
-bindkey -e
-bindkey -m 2>/dev/null
-
 # Fuzzy match completions https://wiki.zshell.dev/docs/guides/customization#pretty-completions
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
@@ -244,4 +215,30 @@ zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 #-----------------------------------------------------------------------------
 (( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)" || true
+#-----------------------------------------------------------------------------
+alias -g M='| $PAGER'
+alias -g J='| jq -rC \. | $PAGER -R'
+alias -g B='| bat'
+bindkey -e
+bindkey -m 2>/dev/null
+#-----------------------------------------------------------------------------
+autoload -Uz zcalc
+__calc() {
+  zcalc -e "$*"
+}
+aliases[=]='noglob __calc'
+#-----------------------------------------------------------------------------
+_yup() {
+  case "$1" in
+    brew) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy ;;
+    zi)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
+    mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
+    vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
+    nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ;;
+  esac
+}
+
+yup() {
+  for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
+}
 #-----------------------------------------------------------------------------
