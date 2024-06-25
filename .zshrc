@@ -184,7 +184,7 @@ zi lucid light-mode silent wait'1' 'for' \
 
 ## Prompt
 typeset -gx DEBUG_CHORN_PROMPT=
-typeset -agx _preferred_languages=(ruby node elixir python3 go)
+typeset -agx _preferred_languages=(ruby node go)
 zi lucid light-mode 'for' \
   mafredri/zsh-async \
   @chorn/chorn-zsh-prompt
