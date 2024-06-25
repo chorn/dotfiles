@@ -229,12 +229,13 @@ __calc() {
 aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
-  case "$1" in
-    brew) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy ;;
-    zi)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
-    mise) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
-    vim)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ;;
+  case "${1}-${OSTYPE/[^a-z]*/}" in
+    brew-linux) (( $+commands[brew] )) && brew update --quiet && brew upgrade ;;
+    brew-darwin) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy ;;
+    zi*)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
+    mise*) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
+    vim*)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
+    nvim*) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ;;
   esac
 }
 
