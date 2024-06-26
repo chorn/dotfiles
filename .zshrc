@@ -131,10 +131,14 @@ zi lucid light-mode 'for' \
   z-shell/z-a-bin-gem-node \
   z-shell/z-a-rust \
   z-shell/z-a-eval \
-  @annexes @zsh-users+fast @sharkdp @ext-git @console-tools @fuzzy
+  @annexes \
+  @zsh-users+fast \
+  @sharkdp \
+  @ext-git \
+  @console-tools \
+  @fuzzy
 
-zi ice as'null' sbin'bin/*'
-zi light z-shell/zsh-diff-so-fancy
+zi lucid light-mode wait'0' 'for' as'null' sbin'bin/*' z-shell/zsh-diff-so-fancy
 
 zi ice lucid from'gh-r' as'command' mv'mise* -> mise'  sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light jdx/mise
@@ -142,14 +146,23 @@ zi light jdx/mise
 zi ice lucid wait'0' as'command' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light direnv/direnv
 
+zi ice lucid wait'0' as'command' pick'inxi' has'perl'
+zi light smxi/inxi
+
 zi ice lucid wait'0' from'gh-r' as'command' sbin'**/delta -> delta'
 zi light dandavison/delta
 
-zi ice lucid wait'0' as'command' has'perl' pick'inxi'
-zi light smxi/inxi
+zi ice lucid wait'1' from'gh-r' as'command' bpick'kubectx;kubens' sbin'kubectx;kubens'
+zi light ahmetb/kubectx
 
-zi wait'0' lucid 'for' as'command' from'gh-r' bpick'kubectx;kubens' sbin'kubectx;kubens' \
-  ahmetb/kubectx
+zi ice lucid wait'1' from'gh-r' as'command' sbin'**/delta -> delta'
+zi light dandavison/delta
+
+zi ice lucid wait'1' from'gh-r' as'program' has'fzf'
+zi light denisidoro/navi
+
+zi ice lucid wait'0' from'gh-r' as'command' sbin'**/reflex-> reflex'
+zi light cespare/reflex
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
