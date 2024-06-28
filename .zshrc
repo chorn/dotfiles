@@ -243,12 +243,12 @@ aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
   case "${1}-${OSTYPE/[^a-z]*/}" in
-    brew-linux) (( $+commands[brew] )) && brew update --quiet && brew upgrade ;;
-    brew-darwin) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy ;;
+    brew-linux) (( $+commands[brew] )) && brew update --quiet && brew upgrade --quiet ;;
+    brew-darwin) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy --quiet ;;
     zi*)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
-    mise*) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
+    mise*) (( $+commands[mise] )) && mise self-update --yes --quiet && mise install --yes --quiet && mise upgrade --yes --quiet;;
     vim*)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim*) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echp;;
+    nvim*) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
   esac
 }
 
@@ -263,10 +263,10 @@ _yup_gem() {
 
 _yup_pip() {
   (( $+commands[pip] )) || return
-  if pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$1"; then
-    pip install "$1" --upgrade
-  else
-    pip install "$1"
+  if ! pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$1"; then
+    pip install --disable-pip-version-check --quiet "$1"
+  elif pip list --disable-pip-version-check --outdated --format columns | cut -f 1 -d ' ' | grep -q "$1"; then
+    pip install --disable-pip-version-check --quiet --upgrade "$1"
   fi
 }
 
