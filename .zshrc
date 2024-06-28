@@ -248,11 +248,31 @@ _yup() {
     zi*)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
     mise*) (( $+commands[mise] )) && mise self-update && mise install && mise upgrade ;;
     vim*)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim*) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ;;
+    nvim*) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echp;;
   esac
+}
+
+_yup_gem() {
+  (( $+commands[gem] )) || return
+  if gem list --silent --installed "$1"; then
+    gem update --silent "$1"
+  else
+    gem install --silent "$1"
+  fi
+}
+
+_yup_pip() {
+  (( $+commands[pip] )) || return
+  if pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$1"; then
+    pip install "$1" --upgrade
+  else
+    pip install "$1"
+  fi
 }
 
 yup() {
   for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
+  for _gem in rubocop rails sinatra bundler neovim; do _yup_gem "$_gem"; done
+  for _pip in doge proselint virtualenv visidata base16-shell-preview neovim; do _yup_pip "$_pip"; done
 }
 #-----------------------------------------------------------------------------
