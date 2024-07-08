@@ -96,6 +96,18 @@ alias la="ls -A"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 alias to_csv='soffice --convert-to csv --headless'
 # ---------------------------------------------------------------------------
+
+t() {
+  if [[ -n "${ZSH_VERSION}" ]]; then
+    strftime -n "%F %T"
+    printf "| %s\n" "$*"
+  elif [[ -n "${BASH_VERSINFO[0]}" ]]; then
+    printf "%(%F %T)T| %s\n" -1 "$*"
+  else
+    echo "$*"
+  fi
+}
+
 predate() {
   while read -r line; do
     printf '%(%F %T)T %s\n' -1 "$line"
