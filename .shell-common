@@ -36,7 +36,7 @@ if command -v ssh-agent >&/dev/null && [[ ! -S "$SSH_AUTH_SOCK" ]]; then
 fi
 
 # OS X ---------------------------------------------------------------------
-if [[ "${OSTYPE:0:6}" = "darwin" ]]; then
+if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias ls="/bin/ls -FG"
   alias l="ls -lO"
   alias p="ps -Af"
@@ -79,12 +79,11 @@ if [[ "${OSTYPE:0:6}" = "darwin" ]]; then
     myapps | while read -r _cask; do brew list --cask "$_cask" >&/dev/null || echo "$_cask is not casked"; done
   }
 
-# Linux ---------------------------------------------------------------------
-elif [[ "${OSTYPE:0:5}" = "linux" ]]; then
+# ---------------------------------------------------------------------------
+else
   alias ls="/bin/ls --color=auto -F"
   alias l="ls -l"
   alias p="ps auxOU"
-  alias ubuntu_add_key='sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80'
 fi
 # ---------------------------------------------------------------------------
 alias be="bundle exec"
