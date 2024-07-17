@@ -6,7 +6,6 @@ umask 022
 command -v less >&/dev/null || export PAGER=more
 command -v vim >&/dev/null || export EDITOR=vi
 command -v rg >&/dev/null && export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow"
-command -v brew >&/dev/null && export HOMEBREW_NO_ENV_HINTS=1
 
 [[ -z "$USER" ]] && export USER=$(id -nu)
 #-----------------------------------------------------------------------------
@@ -16,7 +15,10 @@ if [[ -d "/usr/syno" ]]; then
   [[ -d "$TMPDIR" ]] || mkdir "$TMPDIR"
 fi
 #-----------------------------------------------------------------------------
-command -v brew >&/dev/null && eval "$(brew shellenv)"
+if command -v brew >&/dev/null; then
+  export HOMEBREW_NO_ENV_HINTS=1
+  eval "$(brew shellenv)"
+fi
 #-----------------------------------------------------------------------------
 if [[ -z "$JAVA_HOME" && -d /Library/Java/JavaVirtualMachines ]]; then
   export JAVA_HOME="$(find /Library/Java/JavaVirtualMachines -type d -path '*corretto-11*/Contents/Home')"
@@ -155,33 +157,27 @@ am_i_someone_else() {
   fi
 }
 
-httpd() {
-  local _port="${1:-1234}"
-
-  command -v open >&/dev/null && (sleep 2 && open "http://127.0.0.1:${_port}" &)
-
-  python -m http.server "${_port}"
-}
-
 # node ---------------------------------------------------------------------
 if command -v npx >&/dev/null; then
   alias npx='npx --no-install'
 fi
 # Home Git------------------------------------------------------------------
-__homegit() {
-  local _dir=$1
+_weirdgit() {
+  local _gd=$1
+  local _wt=$2
+  [[ -d "$_gd" && -d "$_wt" ]] || return
   shift
-  [[ -d "$_dir" ]] || return
-  git --git-dir="$_dir" --work-tree="$HOME" "$@"
+  shift
+  git --git-dir="${_gd}" --work-tree="${_wt}" "$@"
 }
 
 pubgit() {
-  __homegit "$HOME/.git-pub-dotfiles" "$@"
+  _weirdgit "$HOME/.git-pub-dotfiles" "$HOME" "$@"
 }
 alias ug=pubgit
 
 prvgit() {
-  __homegit "$HOME/.git-prv-dotfiles" "$@"
+  _weirdgit "$HOME/.git-prv-dotfiles" "$HOME" "$@"
 }
 
 # Git ---------------------------------------------------------------------

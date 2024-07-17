@@ -140,7 +140,7 @@ zi lucid light-mode 'for' \
 
 zi lucid light-mode wait'0' 'for' as'null' sbin'bin/*' z-shell/zsh-diff-so-fancy
 
-zi ice lucid from'gh-r' as'command' mv'mise* -> mise'  sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
+zi ice lucid from'gh-r' as'command' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light jdx/mise
 
 zi ice lucid wait'0' as'command' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
@@ -148,6 +148,9 @@ zi light direnv/direnv
 
 zi ice lucid wait'0' as'command' pick'inxi' has'perl'
 zi light smxi/inxi
+
+zi ice lucid wait'1' as'command' pick'czhttpd' mv'czhttpd -> httpd'
+zi light chorn/czhttpd
 
 zi ice lucid wait'0' from'gh-r' as'command' sbin'**/delta -> delta'
 zi light dandavison/delta
@@ -161,7 +164,7 @@ zi light dandavison/delta
 zi ice lucid wait'1' from'gh-r' as'program' has'fzf'
 zi light denisidoro/navi
 
-zi ice lucid wait'0' from'gh-r' as'command' sbin'**/reflex-> reflex'
+zi ice lucid wait'1' from'gh-r' as'command' sbin'**/reflex-> reflex'
 zi light cespare/reflex
 
 #-----------------------------------------------------------------------------
@@ -175,11 +178,18 @@ zi lucid light-mode wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' \
 zi ice lucid wait'0' as'completion' has'mise'
 zi snippet https://raw.githubusercontent.com/jdx/mise/main/completions/_mise
 
-declare _op_comp="${ZI[CACHE_DIR]}/_op"
 if (( $+commands[op] )); then
+  declare _op_comp="${ZI[CACHE_DIR]}/_op"
   [[ -s "${_op_comp}" ]] || op completion zsh > "$_op_comp"
   zi ice lucid wait'0' as'completion'
   zi snippet "${_op_comp}"
+fi
+
+if (( $+commands[yar] )); then
+  declare _yar_comp="${ZI[CACHE_DIR]}/_yar"
+  [[ -s "${_yar_comp}" ]] || yar zsh > "$_yar_comp"
+  zi ice lucid wait'0' as'completion'
+  zi snippet "${_yar_comp}"
 fi
 
 # if (( ${+_comps} )); then
@@ -197,7 +207,8 @@ zi lucid light-mode silent wait'1' 'for' \
 
 ## Prompt
 typeset -gx DEBUG_CHORN_PROMPT=
-typeset -agx _preferred_languages=(ruby node go)
+typeset -gxa _prompt_languages=(ruby node go)
+typeset -gxA _prompt_extra_git=( [PUB]="$HOME/.git-pub-dotfiles" [PRV]="$HOME/.git-prv-dotfiles" )
 zi lucid light-mode 'for' \
   mafredri/zsh-async \
   @chorn/chorn-zsh-prompt
