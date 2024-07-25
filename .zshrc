@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091,SC2139
+# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091,SC2139,SC2004
 # vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
 zmodload zsh/compctl \
@@ -253,35 +253,43 @@ __calc() {
 aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
-  case "${1}-${OSTYPE/[^a-z]*/}" in
-    brew-linux) (( $+commands[brew] )) && brew update --quiet && brew upgrade --quiet ;;
-    brew-darwin) (( $+commands[brew] )) && brew update --quiet && brew upgrade --greedy --quiet ;;
-    zi*)   (( $+commands[zi]   )) && zi self-update && zi update --all --parallel --quiet ;;
-    mise*) (( $+commands[mise] )) && mise self-update --yes --quiet && mise install --yes --quiet && mise upgrade --yes --quiet;;
-    vim*)  (( $+commands[vim]  )) && vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim*) (( $+commands[nvim] )) && nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
+  local _what=$1
+  echo ">>> $_what"
+  (( $+functions[${_what}] || $+commands[${_what}] )) || return 0
+  case "${_cmd}-${OSTYPE/[^a-z]*/}" in
+    brew-linux)  brew update --quiet && brew upgrade --quiet ;;
+    brew-darwin) brew update --quiet && brew upgrade --greedy --quiet ;;
+    zi*)         zi self-update && zi update --all --parallel --quiet ;;
+    mise*)       mise self-update --yes --quiet && mise install --yes --quiet && mise upgrade --yes --quiet;;
+    vim*)        vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
+    nvim*)       nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
   esac
 }
 
 _yup_gem() {
   (( $+commands[gem] )) || return
-  if gem list --silent --installed "$1"; then
-    gem update --silent "$1"
+  local _what=$1
+  echo ">>> $_what"
+  if gem list --silent --installed "$what"; then
+    gem update --silent "$what"
   else
-    gem install --silent "$1"
+    gem install --silent "$what"
   fi
 }
 
 _yup_pip() {
   (( $+commands[pip] )) || return
-  if ! pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$1"; then
-    pip install --disable-pip-version-check --quiet "$1"
-  elif pip list --disable-pip-version-check --outdated --format columns | cut -f 1 -d ' ' | grep -q "$1"; then
-    pip install --disable-pip-version-check --quiet --upgrade "$1"
+  local _what=$1
+  echo ">>> $_what"
+  if ! pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
+    pip install --disable-pip-version-check --quiet "$_what"
+  elif pip list --disable-pip-version-check --outdated --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
+    pip install --disable-pip-version-check --quiet --upgrade "$_what"
   fi
 }
 
 yup() {
+  set +e
   for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
   for _gem in rubocop rails sinatra bundler neovim; do _yup_gem "$_gem"; done
   for _pip in doge proselint virtualenv visidata base16-shell-preview neovim; do _yup_pip "$_pip"; done
