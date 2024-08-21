@@ -259,8 +259,8 @@ _yup() {
   case "${_cmd}-${OSTYPE/[^a-z]*/}" in
     brew-linux)  brew update --quiet && brew upgrade --quiet ;;
     brew-darwin) brew update --quiet && brew upgrade --greedy --quiet ;;
-    zi*)         zi self-update && zi update --all --parallel --quiet ;;
-    mise*)       mise self-update --yes --quiet && mise install --yes --quiet && mise upgrade --yes --quiet;;
+    zi*)         zi self-update && zi update --all --quiet ;;
+    mise*)       mise self-update --yes --quiet; mise install --yes; mise upgrade --yes ;;
     vim*)        vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
     nvim*)       nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
   esac
