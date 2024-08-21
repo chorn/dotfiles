@@ -1,6 +1,5 @@
 [tools]
 bazel = 'latest'
-bun = 'latest'
 crystal = 'latest'
 ctop = 'latest'
 docker-slim = 'latest'
