@@ -2,6 +2,7 @@
 
 [user]
   name = chorn
+  signingkey = ~/.ssh/id_ed25519.pub
 [advice]
   statusHints = false
 [branch]
@@ -30,6 +31,8 @@
   markEmptyLines = false
 [gpg]
   format = ssh
+[gpg "ssh"]
+  allowedSignersFile = ~/.ssh/allowed_signers
 [init]
   defaultBranch = main
 [interactive]
@@ -60,3 +63,8 @@
   enabled = true
 [tag]
   gpgsign = true
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
