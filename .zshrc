@@ -256,7 +256,7 @@ _yup() {
   local _what=$1
   echo ">>> $_what"
   (( $+functions[${_what}] || $+commands[${_what}] )) || return 0
-  case "${_cmd}-${OSTYPE/[^a-z]*/}" in
+  case "${_what}-${OSTYPE/[^a-z]*/}" in
     brew-linux)  brew update --quiet && brew upgrade --quiet ;;
     brew-darwin) brew update --quiet && brew upgrade --greedy --quiet ;;
     zi*)         zi self-update && zi update --all --quiet ;;
