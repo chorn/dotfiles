@@ -257,13 +257,13 @@ _yup() {
   echo ">>> $_what"
   (( $+functions[${_what}] || $+commands[${_what}] )) || return 0
   case "${_what}-${OSTYPE/[^a-z]*/}" in
-    brew-linux)  brew update --quiet && brew upgrade --quiet ;;
+    brew-linux) brew update --quiet && brew upgrade --quiet ;;
     brew-darwin) brew update --quiet && brew upgrade --greedy --quiet ;;
-    zi-linux)         zi self-update -q && zi update --all --quiet ;;
-    zi-darwin)         zi self-update -q && zi update --all --parallel --quiet ;;
-    mise*)       mise self-update --yes --quiet; mise install --yes; mise upgrade --yes ;;
-    vim*)        vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim*)       nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
+    zi-linux) zi self-update -q && zi update --all --quiet ;;
+    zi-darwin) zi self-update -q && zi update --all --parallel --quiet ;;
+    mise*) mise self-update --yes --quiet; mise install --yes; mise upgrade --yes ;;
+    vim*) vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
+    nvim*) nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
   esac
 }
 
