@@ -97,6 +97,13 @@ alias la="ls -A"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 alias to_csv='soffice --convert-to csv --headless'
 # ---------------------------------------------------------------------------
+ta() {
+  if tmux has >&/dev/null; then
+    tmux -2 attach
+  else
+    tmux -2 new-session
+  fi
+}
 
 t() {
   if [[ -n "${ZSH_VERSION}" ]]; then
