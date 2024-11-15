@@ -96,6 +96,7 @@ alias ll="l -A"
 alias la="ls -A"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 alias to_csv='soffice --convert-to csv --headless'
+alias y='yt-dlp --quiet --progress'
 # ---------------------------------------------------------------------------
 ta() {
   if tmux has >&/dev/null; then
