@@ -167,11 +167,11 @@ zi light denisidoro/navi
 zi ice lucid wait'1' from'gh-r' as'command' sbin'**/reflex-> reflex'
 zi light cespare/reflex
 
-zi ice lucid wait'1' for has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
-
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
+zi ice lucid wait'1' 'for' has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
+
 zi lucid light-mode wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' \
   ls_colors \
   system-completions \
