@@ -41,3 +41,4 @@ trusted_config_paths = [
   '~/code',
   '~/src',
 ]
+disable_hints = ["python_multi"]
