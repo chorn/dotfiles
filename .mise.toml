@@ -22,9 +22,10 @@ usage = 'latest'
 activate_aggressive = true
 always_keep_download = false        # deleted after install by default
 always_keep_install = false         # deleted on failure by default
-asdf_compat = true
+asdf_compat = false
 env_file = '.env' # load env vars from a dotenv file, see `MISE_ENV_FILE`
 experimental = true # enable experimental features
+go_default_packages_file = "~/.default-go-packages"
 go_set_gopath = false
 go_set_goroot = false
 go_skip_checksum = true
@@ -42,3 +43,7 @@ trusted_config_paths = [
   '~/src',
 ]
 disable_hints = ["python_multi"]
+
+[settings.ruby]
+default_packages_file = "~/.default-gems"
+# ruby_install = true
