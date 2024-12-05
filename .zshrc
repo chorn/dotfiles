@@ -265,7 +265,7 @@ _yup() {
     zi-darwin) zi self-update -q && zi update --all --parallel --quiet ;;
     mise*) mise self-update --yes --quiet; mise install --yes; mise upgrade --yes ;;
     vim*) vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    nvim*) nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
+    # nvim*) nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
   esac
 }
 
