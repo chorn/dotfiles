@@ -132,11 +132,18 @@ zi lucid light-mode 'for' \
   z-shell/z-a-rust \
   z-shell/z-a-eval \
   @annexes \
-  @zsh-users+fast \
   @sharkdp \
   @ext-git \
   @console-tools \
   @fuzzy
+
+# zi light-mode 'for' \
+#     skip'zsh-users/zsh-completions' @zsh-users+fast
+
+zi light z-shell/F-Sy-H
+zi light zsh-users/zsh-autosuggestions
+zi light zsh-users/zsh-completions
+# zi light z-shell/zsh-fancy-completions
 
 zi lucid light-mode wait'0' 'for' as'null' sbin'bin/*' z-shell/zsh-diff-so-fancy
 
