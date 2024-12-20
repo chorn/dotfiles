@@ -134,8 +134,9 @@ zi lucid light-mode 'for' \
   @annexes \
   @sharkdp \
   @ext-git \
-  @console-tools \
-  @fuzzy
+  @console-tools
+
+zi pack'bgn-binary' 'for' fzf
 
 # zi light-mode 'for' \
 #     skip'zsh-users/zsh-completions' @zsh-users+fast
