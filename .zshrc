@@ -102,7 +102,7 @@ typeset -U zpath=(
   /Applications/Postgres.app/Contents/Versions/latest/bin
   /usr/local/MacGPG2/bin
   /{usr,opt}/{local,homebrew}/{bin,sbin}
-  /home/linuxbrew/.linuxbrew/bin
+  /{home,volume1/homes}/linuxbrew/.linuxbrew/bin
   /usr/local/opt/openssl/bin
   /{opt,usr,snap}/{bin,sbin,libexec}
   /{bin,sbin}
