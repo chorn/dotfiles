@@ -225,6 +225,9 @@ zi lucid light-mode 'for' \
 # zi ice as'command' from'gh-r' src'spaceship.zsh'
 # zi light spaceship-prompt/spaceship-prompt
 
+zicompinit_fast
+zicdreplay
+
 #-----------------------------------------------------------------------------
 # Fuzzy match completions https://wiki.zshell.dev/docs/guides/customization#pretty-completions
 zstyle ':completion:*' completer _complete _match _approximate
