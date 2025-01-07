@@ -180,10 +180,9 @@ zi light cespare/reflex
 #-----------------------------------------------------------------------------
 zi ice lucid wait'1' 'for' has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
 
-zi lucid light-mode wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' \
-  ls_colors \
-  system-completions \
-  brew-completions
+zi ice lucid wait'0' pack 'for' ls_colors
+
+# zi lucid light-mode wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' brew-completions system-completions
 
 zi ice lucid wait'0' as'completion' has'mise'
 zi snippet https://raw.githubusercontent.com/jdx/mise/main/completions/_mise
@@ -269,40 +268,40 @@ _yup() {
   case "${_what}-${OSTYPE/[^a-z]*/}" in
     brew-linux) brew update --quiet && brew upgrade --quiet ;;
     brew-darwin) brew update --quiet && brew upgrade --greedy --quiet ;;
-    zi-linux) zi self-update -q && zi update --all --quiet ;;
-    zi-darwin) zi self-update -q && zi update --all --parallel --quiet ;;
-    mise*) mise self-update --yes --quiet; mise install --yes; mise upgrade --yes ;;
-    vim*) vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
+    zi-*) zi self-update -q && zi update --all --quiet ;;
+    mise-*) mise self-update --yes --quiet; mise install --yes --quiet; mise upgrade --yes --bump --quiet ;;
+    vim-*) vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
     # nvim*) nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
   esac
 }
 
-_yup_gem() {
-  (( $+commands[gem] )) || return
-  local _what=$1
-  echo ">>> $_what"
-  if gem list --silent --installed "$what"; then
-    gem update --silent "$what"
-  else
-    gem install --silent "$what"
-  fi
-}
-
-_yup_pip() {
-  (( $+commands[pip] )) || return
-  local _what=$1
-  echo ">>> $_what"
-  if ! pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
-    pip install --disable-pip-version-check --quiet "$_what"
-  elif pip list --disable-pip-version-check --outdated --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
-    pip install --disable-pip-version-check --quiet --upgrade "$_what"
-  fi
-}
+# _yup_gem() {
+#   (( $+commands[gem] )) || return
+#   local _what=$1
+#   echo ">>> $_what"
+#   if gem list --silent --installed "$what"; then
+#     gem update --silent "$what"
+#   else
+#     gem install --silent "$what"
+#   fi
+# }
+#
+# _yup_pip() {
+#   (( $+commands[pip] )) || return
+#   local _what=$1
+#   echo ">>> $_what"
+#   if ! pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
+#     pip install --disable-pip-version-check --quiet "$_what"
+#   elif pip list --disable-pip-version-check --outdated --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
+#     pip install --disable-pip-version-check --quiet --upgrade "$_what"
+#   fi
+# }
 
 yup() {
   set +e
-  for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
-  for _gem in rubocop rails sinatra bundler neovim; do _yup_gem "$_gem"; done
-  for _pip in doge proselint virtualenv visidata base16-shell-preview neovim; do _yup_pip "$_pip"; done
+  for _cmd in brew zi mise vim; do _yup "$_cmd"; done
+  # for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
+  # for _gem in rubocop rails sinatra bundler neovim; do _yup_gem "$_gem"; done
+  # for _pip in doge proselint virtualenv visidata base16-shell-preview neovim; do _yup_pip "$_pip"; done
 }
 #-----------------------------------------------------------------------------
