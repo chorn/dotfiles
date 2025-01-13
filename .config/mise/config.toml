@@ -32,7 +32,7 @@ verbose = false
 yes = false
 
 [settings.python]
-default_packages_file = "~/.default-pips"
+default_packages_file = "~/.default-python-packages"
 
 [settings.ruby]
-default_packages_file = "~/.default-gems"
+default_packages_file = "~/.default-ruby-packages"
