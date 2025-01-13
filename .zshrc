@@ -102,12 +102,13 @@ typeset -U zpath=(
   /Applications/Postgres.app/Contents/Versions/latest/bin
   /usr/local/MacGPG2/bin
   /{usr,opt}/{local,homebrew}/{bin,sbin}
-  /{home,volume1/homes}/linuxbrew/.linuxbrew/bin
+  /home/linuxbrew/.linuxbrew/bin
   /usr/local/opt/openssl/bin
   /{opt,usr,snap}/{bin,sbin,libexec}
   /{bin,sbin}
   $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
 )
+[[ -d '/usr/syno' ]] && zpath+=(/volume1/homes/linuxbrew/.linuxbrew/bin)
 typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
 #-----------------------------------------------------------------------------
 for s in "$HOME/.shell-common" "$HOME/.shell-prv"; do
