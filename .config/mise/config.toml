@@ -1,20 +1,13 @@
 [tools]
-crystal = 'latest'
-ctop = 'latest'
-docker-slim = 'latest'
 go = 'latest'
-kubectl = 'latest'
-minikube = 'latest'
 node = 'latest'
 pnpm = 'latest'
 python = 'latest'
 ruby = 'latest'
 shellcheck = 'latest'
 shfmt = 'latest'
-yarn = 'latest'
-yt-dlp = 'latest'
 usage = 'latest'
-btop = "latest"
+yt-dlp = 'latest'
 
 [settings]
 activate_aggressive = true
