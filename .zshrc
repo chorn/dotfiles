@@ -267,45 +267,52 @@ aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
   local _what=$1
-  echo ">>> $_what"
+  [[ -n "$_what" ]] || return 0
   (( $+functions[${_what}] || $+commands[${_what}] )) || return 0
-  case "${_what}-${OSTYPE/[^a-z]*/}" in
-    brew-linux) brew update --quiet && brew upgrade --quiet ;;
-    brew-darwin) brew update --quiet && brew upgrade --greedy --quiet ;;
-    zi-*) zi self-update -q && zi update --all --quiet ;;
-    mise-*) mise self-update --yes --quiet; mise install --yes --quiet; mise upgrade --yes --bump --quiet ;;
-    vim-*) vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall ;;
-    # nvim*) nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall ; echo;;
-  esac
+  local _ywhat=_yup_${_what}
+  (( $+functions[${_ywhat}] )) || return 1
+  echo ">>> $_what"
+  (
+    set -e
+    "${_ywhat}"
+  )
 }
 
-# _yup_gem() {
-#   (( $+commands[gem] )) || return
-#   local _what=$1
-#   echo ">>> $_what"
-#   if gem list --silent --installed "$what"; then
-#     gem update --silent "$what"
-#   else
-#     gem install --silent "$what"
-#   fi
-# }
-#
-# _yup_pip() {
-#   (( $+commands[pip] )) || return
-#   local _what=$1
-#   echo ">>> $_what"
-#   if ! pip list --disable-pip-version-check --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
-#     pip install --disable-pip-version-check --quiet "$_what"
-#   elif pip list --disable-pip-version-check --outdated --format columns | cut -f 1 -d ' ' | grep -q "$_what"; then
-#     pip install --disable-pip-version-check --quiet --upgrade "$_what"
-#   fi
-# }
+_yup_vim() {
+  vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall
+}
+
+_yup_nvim() {
+  nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall
+  echo
+}
+
+_yup_zi() {
+  zi self-update -q
+  zi update --all --parallel --quiet
+  zi compinit
+  zi zstatus
+}
+
+_yup_brew() {
+  local _greedy=
+  brew doctor --quiet
+  brew update --quiet
+  [[ "${OSTYPE/[^a-z]*/}" == 'darwin' ]] && _greedy=--greedy
+  brew upgrade --quiet "$_greedy"
+}
+
+_yup_mise() {
+  mise self-update --yes --quiet
+  mise doctor >&/dev/null
+  mise install --yes --quiet
+  mise upgrade --yes --bump --quiet
+}
 
 yup() {
   set +e
-  for _cmd in brew zi mise vim; do _yup "$_cmd"; done
-  # for _cmd in brew zi mise vim nvim; do _yup "$_cmd"; done
-  # for _gem in rubocop rails sinatra bundler neovim; do _yup_gem "$_gem"; done
-  # for _pip in doge proselint virtualenv visidata base16-shell-preview neovim; do _yup_pip "$_pip"; done
+  local -a _what=("${@[@]}")
+  [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim)
+  for _cmd in "${_what[@]}"; do _yup "$_cmd"; done
 }
 #-----------------------------------------------------------------------------
