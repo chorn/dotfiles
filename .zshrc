@@ -300,6 +300,7 @@ _yup_brew() {
   brew update --quiet
   [[ "${OSTYPE/[^a-z]*/}" == 'darwin' ]] && _greedy=--greedy
   brew upgrade --quiet "$_greedy"
+  brew cleanup --prune=all --scrub --quiet
 }
 
 _yup_mise() {
