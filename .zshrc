@@ -75,7 +75,8 @@ unsetopt \
 #-----------------------------------------------------------------------------
 typeset -gx PS1='%f%b%k%u%s%n@%m %~ %(!.#.$)%f%b%k%u%s '
 typeset -gx RPS1=''
-typeset -gx BASE16_THEME=twilight
+typeset -gx BASE16_THEME=vibrant-ink
+typeset -gx BASE24_THEME=$BASE16_THEME
 typeset -gx BROWSER=open
 typeset -gx DOCKER_SCAN_SUGGEST=false
 typeset -gx EDITOR=vim
@@ -89,6 +90,8 @@ typeset -gx PAGER=less
 typeset -gx RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 typeset -gx SAVEHIST=99999999
 typeset -gx SHELLCHECK_OPTS="--shell=bash --exclude=SC2001,SC1090,SC2164,SC2068,SC2155"
+typeset -gx TINTED_SHELL_ENABLE_BASE16_VARS=1
+typeset -gx TINTED_SHELL_ENABLE_BASE24_VARS=1
 typeset -gx VISUAL=vim
 typeset -gx WORDCHARS='*?_.~&;!#$%'
 typeset -gx ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=128
@@ -213,7 +216,7 @@ zi has'zoxide' light-mode 'for' \
   z-shell/zsh-zoxide
 
 zi lucid light-mode silent wait'1' 'for' \
-  chriskempson/base16-shell
+  tinted-theming/tinted-shell
 
 ## Prompt
 typeset -gx DEBUG_CHORN_PROMPT=
