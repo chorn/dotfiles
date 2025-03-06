@@ -126,7 +126,7 @@ call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-bufferline'
-Plug 'chriskempson/base16-vim'
+Plug 'tinted-theming/tinted-vim'
 Plug 'chrisbra/csv.vim'
 Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
@@ -354,11 +354,12 @@ nmap <silent> <leader>z :call ShutUp()<CR>
 syntax on
 filetype plugin indent on
 
-if exists('$BASE16_THEME') && isdirectory(expand(g:vimhome . '/plugged/base16-vim'))
-  let base16colorspace=256
+if exists('$BASE16_THEME')
+  set termguicolors  " Only needed for terminal vim
+  let tinted_colorspace=256
   colorscheme base16-$BASE16_THEME
-  hi LineNr ctermfg=236 ctermbg=234
-  hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
+"   hi LineNr ctermfg=236 ctermbg=234
+"   hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
 endif
 
 " if has('gui_running')
