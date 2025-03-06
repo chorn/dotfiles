@@ -62,7 +62,8 @@
 [rerere]
   enabled = true
 [tag]
-  gpgsign = true
+  # gpgsign breaks go builds I guess?
+  # gpgsign = true
 [filter "lfs"]
   process = git-lfs filter-process
   required = true
