@@ -72,7 +72,6 @@ set matchtime=5
 set maxmempattern=8192
 set modeline
 set modelines=8
-set mouse+=a
 set number
 set numberwidth=6
 set preserveindent
@@ -153,10 +152,12 @@ Plug 'wellle/context.vim'
 call plug#end()
 runtime! macros/matchit.vim
 
-if exists($TMUX)
+if exists('$TMUX')
+  set mouse=
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
+  set mouse=nvh
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
