@@ -154,12 +154,12 @@ runtime! macros/matchit.vim
 
 if exists('$TMUX')
   set mouse=
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  " let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
   set mouse=nvh
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  " let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  " let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 let g:mapleader = ','
@@ -354,12 +354,23 @@ nmap <silent> <leader>z :call ShutUp()<CR>
 syntax on
 filetype plugin indent on
 
-if exists('$BASE16_THEME')
-  set termguicolors  " Only needed for terminal vim
-  let tinted_colorspace=256
-  colorscheme base16-$BASE16_THEME
-"   hi LineNr ctermfg=236 ctermbg=234
-"   hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
+" if exists('$BASE16_THEME')
+"   set termguicolors
+" let tinted_background_transparent=0
+"   let tinted_colorspace=256
+"   colorscheme base16-$BASE16_THEME
+" hi LineNr ctermfg=236 ctermbg=234
+" hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
+" call vam#ActivateAddons([ 'vim-airline-themes' ])
+" call AirlineTheme('base16_tomorrow_night')
+" endif
+
+let g:theme= expand('~/.config/tinted-theming/set_theme.vim')
+if filereadable(g:theme)
+   set termguicolors
+ let tinted_background_transparent=0
+   let tinted_colorspace=256
+  exec 'source' g:theme
 endif
 
 " if has('gui_running')

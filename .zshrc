@@ -75,8 +75,6 @@ unsetopt \
 #-----------------------------------------------------------------------------
 typeset -gx PS1='%f%b%k%u%s%n@%m %~ %(!.#.$)%f%b%k%u%s '
 typeset -gx RPS1=''
-typeset -gx BASE16_THEME=vibrant-ink
-typeset -gx BASE24_THEME=$BASE16_THEME
 typeset -gx BROWSER=open
 typeset -gx DOCKER_SCAN_SUGGEST=false
 typeset -gx EDITOR=vim

@@ -24,8 +24,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview-window=right'
 export DOCKER_SCAN_SUGGEST=false
 export PS1='\t \u@\h \w \$ '
-export BASE16_THEME=twilight
-export BASE16_DEFAULT_THEME=base16-${BASE16_THEME}
 # --------------------------------------------------------------------------
 for s in "$HOME/.shell-path" "$HOME/.shell-common"; do
   [[ -s "$s" ]] && source "$s"
@@ -45,7 +43,11 @@ for s in "$HOME/.fzf.bash" "$HOME/bin/git-prompt.sh"; do
   [[ -s "$s" ]] && source "$s"
 done
 
-alias base16_twilight="source \"\$HOME/.config/base16-shell/scripts/base16-twilight.sh\""
+# --------------------------------------------------------------------------
+for s in "$HOME/.config/tinted-theming/base16_shell_theme"; do
+  [[ -s "$s" ]] && source "$s"
+done
+
 # --------------------------------------------------------------------------
 _completion_loader() {
   local _command="$1"

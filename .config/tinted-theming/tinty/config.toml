@@ -1,8 +1,6 @@
-# Global settings
 shell = "bash -c '{}'"
 default-scheme = "base16-tomorrow-night"
 
-# Item configurations
 [[items]]
 name = "tinted-shell"
 path = "https://github.com/tinted-theming/tinted-shell"
@@ -11,7 +9,20 @@ hook = "source %f"
 supported-systems = ["base16", "base24"]
 
 [[items]]
-name = "base16-vim"
+name = "tinted-vim"
 path = "https://github.com/tinted-theming/tinted-vim"
 themes-dir = "colors"
-supported-systems = ["base16"]
+supported-systems = ["base16", "base24"]
+
+[[items]]
+name = "tinted-fzf"
+path = "https://github.com/tinted-theming/tinted-fzf"
+themes-dir = "sh"
+
+[[items]]
+name = "tinted-iterm2"
+path = "https://github.com/tinted-theming/tinted-iterm2"
+hook = "sh %f"
+themes-dir = "scripts"
+supported-systems = ["base16", "base24"]
+
