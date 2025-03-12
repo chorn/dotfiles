@@ -1,18 +1,16 @@
-shell = "bash -c '{}'"
 default-scheme = "base16-tomorrow-night"
+shell = "bash -c '{}'"
 
 [[items]]
 name = "tinted-shell"
 path = "https://github.com/tinted-theming/tinted-shell"
 themes-dir = "scripts"
 hook = "source %f"
-supported-systems = ["base16", "base24"]
 
 [[items]]
 name = "tinted-vim"
 path = "https://github.com/tinted-theming/tinted-vim"
 themes-dir = "colors"
-supported-systems = ["base16", "base24"]
 
 [[items]]
 name = "tinted-fzf"
@@ -22,7 +20,5 @@ themes-dir = "sh"
 [[items]]
 name = "tinted-iterm2"
 path = "https://github.com/tinted-theming/tinted-iterm2"
-hook = "sh %f"
 themes-dir = "scripts"
-supported-systems = ["base16", "base24"]
-
+hook = "command -v osascript >&/dev/null && bash %f"

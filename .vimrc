@@ -354,22 +354,11 @@ nmap <silent> <leader>z :call ShutUp()<CR>
 syntax on
 filetype plugin indent on
 
-" if exists('$BASE16_THEME')
-"   set termguicolors
-" let tinted_background_transparent=0
-"   let tinted_colorspace=256
-"   colorscheme base16-$BASE16_THEME
-" hi LineNr ctermfg=236 ctermbg=234
-" hi Error ctermfg=11 ctermbg=none guifg='#ffff00' guibg='#000000'
-" call vam#ActivateAddons([ 'vim-airline-themes' ])
-" call AirlineTheme('base16_tomorrow_night')
-" endif
-
-let g:theme= expand('~/.config/tinted-theming/set_theme.vim')
+let g:theme= expand('~/.local/share/tinted-theming/tinty/tinted-vim-colors-file.vim')
 if filereadable(g:theme)
-   set termguicolors
- let tinted_background_transparent=0
-   let tinted_colorspace=256
+  set termguicolors
+  let tinted_background_transparent=0
+  let tinted_colorspace=256
   exec 'source' g:theme
 endif
 

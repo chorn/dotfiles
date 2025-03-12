@@ -180,6 +180,14 @@ zi light cespare/reflex
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
+declare _tinty=$HOME/.local/share/tinted-theming/tinty
+declare -a _tint_scripts=(tinted-shell-scripts-file.sh tinted-fzf-sh-file.sh)
+[[ "${OSTYPE/[^a-z]*/}" == 'darwin' ]] && _tint_scripts+=(tinted-iterm2-scripts-file.sh)
+
+for f in "${_tint_scripts[@]}"; do
+  [[ -s "${_tinty}/${f}" ]] && source "${_tinty}/${f}"
+done
+#-----------------------------------------------------------------------------
 zi ice lucid wait'1' 'for' has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
 
 zi ice lucid wait'0' pack 'for' ls_colors
