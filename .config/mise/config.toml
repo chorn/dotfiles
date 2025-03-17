@@ -1,8 +1,13 @@
 [tools]
+bun = 'latest'
+elixir = 'latest'
+erlang = 'latest'
 go = 'latest'
 node = 'latest'
 pnpm = 'latest'
 python = 'latest'
+ruby = 'latest'
+rust = 'latest'
 shellcheck = 'latest'
 shfmt = 'latest'
 usage = 'latest'
