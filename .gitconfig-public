@@ -64,8 +64,5 @@
 [tag]
   # gpgsign breaks go builds I guess?
   # gpgsign = true
-[filter "lfs"]
-  process = git-lfs filter-process
-  required = true
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
+[include]
+  path = ~/.local/share/tinted-theming/tinty/tinted-delta-configs-file.gitconfig
