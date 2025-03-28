@@ -2,23 +2,40 @@ default-scheme = "base16-tomorrow-night"
 shell = "bash -c '{}'"
 
 [[items]]
-name = "tinted-shell"
 path = "https://github.com/tinted-theming/tinted-shell"
+name = "tinted-shell"
 themes-dir = "scripts"
 hook = "source %f"
+supported-systems = ["base16", "base24"]
 
 [[items]]
-name = "tinted-vim"
 path = "https://github.com/tinted-theming/tinted-vim"
+name = "tinted-vim"
 themes-dir = "colors"
+supported-systems = ["base16", "base24"]
 
 [[items]]
-name = "tinted-fzf"
 path = "https://github.com/tinted-theming/tinted-fzf"
+name = "tinted-fzf"
 themes-dir = "sh"
+supported-systems = ["base16", "base24"]
 
 [[items]]
-name = "tinted-iterm2"
 path = "https://github.com/tinted-theming/tinted-iterm2"
+name = "tinted-iterm2"
 themes-dir = "scripts"
 hook = "command -v osascript >&/dev/null && bash %f"
+supported-systems = ["base16", "base24"]
+
+[[items]]
+path = "https://github.com/tinted-theming/tinted-jqp"
+name = "tinted-jqp"
+themes-dir = "themes"
+hook = "cp -f %f ~/.jqp.yaml"
+supported-systems = ["base16", "base24"]
+
+[[items]]
+path = "https://github.com/tinted-theming/tinted-delta"
+name = "tinted-delta"
+themes-dir = "configs"
+supported-systems = ["base16", "base24"]
