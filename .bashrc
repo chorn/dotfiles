@@ -136,3 +136,6 @@ if command -v tput >&/dev/null && [[ -n "$TERM" && "$TERM" != "dumb" && "$TERM" 
 
   export -a PROMPT_COMMAND=("_ps1_git_prep" "_ps1_update")
 fi
+
+# Created by `pipx` on 2025-03-26 19:42:12
+export PATH="$PATH:/Users/chorn/.local/bin"

@@ -98,6 +98,7 @@ unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -U zpath=(
   "$HOME"/{tbin,bin}
+  "$HOME"/.local/{bin,sbin}
   /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
   /Applications/Docker.app/Contents/Resources/bin
   /Applications/Postgres.app/Contents/Versions/latest/bin
@@ -323,7 +324,7 @@ _yup_mise() {
 }
 
 yup() {
-  set +e
+  # set +e
   local -a _what=("${@[@]}")
   [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim)
   for _cmd in "${_what[@]}"; do _yup "$_cmd"; done
