@@ -45,13 +45,13 @@ set backup
 set binary
 set clipboard+=unnamedplus
 set cmdheight=3
-set nocompatible
+" set nocompatible
 set completeopt=menu,menuone,preview,noinsert
 set cursorline
 set display+=lastline
 set noexrc
 set noerrorbells
-set encoding=utf-8
+" set encoding=utf-8
 set expandtab
 set exrc
 set nofoldenable
