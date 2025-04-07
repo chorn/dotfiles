@@ -309,22 +309,21 @@ _yup_zi() {
 
 _yup_brew() {
   local _greedy=
-  brew doctor --quiet
-  brew update --quiet
+  brew doctor --quiet || true
+  brew update --quiet || true
   [[ "${OSTYPE/[^a-z]*/}" == 'darwin' ]] && _greedy=--greedy
-  brew upgrade --quiet "$_greedy"
-  brew cleanup --prune=all --scrub --quiet
+  brew upgrade --quiet "$_greedy" || true
+  brew cleanup --prune=all --scrub --quiet || true
 }
 
 _yup_mise() {
-  mise self-update --yes --quiet
-  mise doctor >&/dev/null
-  mise install --yes --quiet
-  mise upgrade --yes --bump --quiet
+  mise self-update --yes --quiet || true
+  mise doctor >&/dev/null || true
+  mise install --yes --quiet || true
+  mise upgrade --yes --bump --quiet || true
 }
 
 yup() {
-  # set +e
   local -a _what=("${@[@]}")
   [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim)
   for _cmd in "${_what[@]}"; do _yup "$_cmd"; done
