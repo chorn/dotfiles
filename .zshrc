@@ -1,5 +1,5 @@
 # --------------------------------------------------------------------------
-# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091,SC2139,SC2004
+# shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091,SC2139,SC2004,SC2299,SC2296,SC2298
 # vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
 zmodload zsh/compctl \
@@ -308,19 +308,19 @@ _yup_zi() {
 }
 
 _yup_brew() {
-  local _greedy=
+  local _greedy=${${${(L)OSTYPE:0:1}/[^d]/}/d/--greedy}
   brew doctor --quiet || true
-  brew update --quiet || true
-  [[ "${OSTYPE/[^a-z]*/}" == 'darwin' ]] && _greedy=--greedy
-  brew upgrade --quiet "$_greedy" || true
-  brew cleanup --prune=all --scrub --quiet || true
+  brew update --quiet
+  brew outdated "$_greedy"
+  brew upgrade --quiet "$_greedy"
+  brew cleanup --prune=all --scrub --quiet
 }
 
 _yup_mise() {
-  mise self-update --yes --quiet || true
-  mise doctor >&/dev/null || true
-  mise install --yes --quiet || true
-  mise upgrade --yes --bump --quiet || true
+  mise self-update --yes --quiet
+  mise doctor >&/dev/null
+  mise install --yes --quiet
+  mise upgrade --yes --bump --quiet
 }
 
 yup() {
