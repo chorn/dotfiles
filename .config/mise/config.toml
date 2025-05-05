@@ -25,6 +25,7 @@ go_default_packages_file = "~/.default-go-packages"
 go_set_gopath = false
 go_set_goroot = false
 go_skip_checksum = true
+idiomatic_version_file_enable_tools = ["node", "ruby"]
 legacy_version_file = true
 not_found_auto_install = true
 paranoid = false
