@@ -311,8 +311,8 @@ _yup_brew() {
   local _greedy=${${${(L)OSTYPE:0:1}/[^d]/}/d/--greedy}
   brew doctor --quiet || true
   brew update --quiet
-  brew outdated "$_greedy"
-  brew upgrade --quiet "$_greedy"
+  brew outdated $_greedy
+  brew upgrade --quiet $_greedy
   brew cleanup --prune=all --scrub --quiet
 }
 
