@@ -39,7 +39,7 @@ _rsync() {
   fi
 
   set -x
-  rsync ${_args[@]} $@
+  rsync "${_args[@]}" "${@}"
 }
 
 _rsync "$@"
