@@ -89,13 +89,9 @@ else
   alias jk="journalctl -k"
 fi
 # ---------------------------------------------------------------------------
-alias _rsync="rsync --archive --delete --one-file-system --sparse --info=nonreg1,copy0,del0,flist0,misc2,name0,stats1,symsafe0,progress2 --max-alloc=32G --no-compress --human-readable"
-alias rs="_rsync --filter='- postgres/' --filter='- postgresql/' --filter='- logs/' --filter='- *.log' --filter='- *.log.*'"
-
 alias be="bundle exec"
 alias list_to_regex="sed -e 's/[^0-9]//g' | tr '\n' '|' | sed -e 's/^/(/' -e 's/\|$/)/'"
 alias m='$PAGER'
-alias l1="ls -1"
 alias ll="l -A"
 alias la="ls -A"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
