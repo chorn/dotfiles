@@ -264,7 +264,9 @@ zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 #-----------------------------------------------------------------------------
-(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)" || true
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh --disable-up-arrow)" || true
+fi
 #-----------------------------------------------------------------------------
 alias -g M='| $PAGER'
 alias -g J='| jq -rC \. | $PAGER -R'
