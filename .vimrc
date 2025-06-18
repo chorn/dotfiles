@@ -360,16 +360,6 @@ if filereadable(g:theme)
   let tinted_background_transparent=0
   let tinted_colorspace=256
   exec 'source' g:theme
+else
+  colorscheme wildcharm
 endif
-
-" if has('gui_running')
-"   set guifont=Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h15
-"   set guioptions+=a
-"   set guioptions-=m  "remove menu bar
-"   set guioptions-=T  "remove toolbar
-"   set guioptions-=L  "remove toolbar
-"   set guioptions-=r  "remove toolbar
-"   set antialias
-"   set cursorline
-"   set mousehide
-" endif
