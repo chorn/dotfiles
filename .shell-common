@@ -37,17 +37,31 @@ if command -v ssh-agent >&/dev/null && [[ ! -S "$SSH_AUTH_SOCK" ]]; then
   [[ -s "$_sshagent" ]] && source "$_sshagent"
 fi
 
-# OS X ---------------------------------------------------------------------
-if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
+# ---------------------------------------------------------------------------
+# ls
+if command -v eza >&/dev/null; then
+  alias ls="eza --classify=auto --color-scale-mode=fixed --color=auto --group-directories-first --mounts"
+  alias l="ls --long --octal-permissions --no-permissions --time-style=iso"
+  alias la="l --all"
+  alias lg="la --git"
+elif [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias ls="/bin/ls -FG"
   alias l="ls -lO"
+else
+  alias ls="/bin/ls --color=auto -F"
+  alias l="ls -l"
+fi
+# ---------------------------------------------------------------------------
+alias p="ps auxOU"
+# ---------------------------------------------------------------------------
+if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias p="ps -Af"
-  alias start="simple_launchctl load"
-  alias stop="simple_launchctl unload"
-
-  simple_launchctl() {
-    find ~/Library/LaunchAgents -name '*.plist' -name '*'"$2"'*' -ok launchctl "$1" -w {} \;
-  }
+  # alias start="simple_launchctl load"
+  # alias stop="simple_launchctl unload"
+  #
+  # simple_launchctl() {
+  #   find ~/Library/LaunchAgents -name '*.plist' -name '*'"$2"'*' -ok launchctl "$1" -w {} \;
+  # }
 
   flushdns() {
     dscacheutil -flushcache
@@ -80,13 +94,6 @@ if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   not_casked() {
     myapps | while read -r _cask; do brew list --cask "$_cask" >&/dev/null || echo "$_cask is not casked"; done
   }
-
-# ---------------------------------------------------------------------------
-else
-  alias ls="/bin/ls --color=auto -F"
-  alias l="ls -l"
-  alias p="ps auxOU"
-  alias jk="journalctl -k"
 fi
 # ---------------------------------------------------------------------------
 alias be="bundle exec"
