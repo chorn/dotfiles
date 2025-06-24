@@ -141,9 +141,6 @@ zi lucid light-mode 'for' \
 
 zi pack'bgn-binary' 'for' fzf
 
-# zi light-mode 'for' \
-#     skip'zsh-users/zsh-completions' @zsh-users+fast
-
 zi light z-shell/F-Sy-H
 zi light zsh-users/zsh-autosuggestions
 zi light zsh-users/zsh-completions
@@ -172,7 +169,7 @@ zi light ahmetb/kubectx
 zi ice lucid wait'1' from'gh-r' as'command' sbin'**/delta -> delta'
 zi light dandavison/delta
 
-zi ice lucid wait'1' from'gh-r' as'program' has'fzf'
+zi ice lucid wait'1' from'gh-r' as'program'
 zi light denisidoro/navi
 
 zi ice lucid wait'1' from'gh-r' as'command' sbin'**/reflex-> reflex'
@@ -180,6 +177,8 @@ zi light cespare/reflex
 
 zi ice lucid wait'1' from'gh-r' as'command'
 zi light houseabsolute/ubi
+
+zi ice lucid wait'1' 'for' has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
@@ -192,7 +191,6 @@ for f in "${_tint_scripts[@]}"; do
   [[ -s "${_tinty}/${f}" ]] && source "${_tinty}/${f}"
 done
 #-----------------------------------------------------------------------------
-zi ice lucid wait'1' 'for' has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
 
 zi ice lucid wait'0' pack 'for' ls_colors
 
