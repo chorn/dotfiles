@@ -138,6 +138,11 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'simeji/winresizer'
+if has('nvim')
+  Plug 'tinted-theming/tinted-nvim'
+else
+  Plug 'tinted-theming/tinted-vim'
+endif
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }

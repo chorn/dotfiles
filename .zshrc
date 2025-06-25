@@ -94,6 +94,7 @@ typeset -gx VISUAL=vim
 typeset -gx WORDCHARS='*?_.~&;!#$%'
 typeset -gx ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=128
 typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC=1
+typeset -gx EZA_CONFIG_DIR=$HOME/.config/eza
 unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -U zpath=(
