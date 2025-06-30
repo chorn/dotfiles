@@ -99,7 +99,7 @@ unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -U zpath=(
   "$HOME"/{tbin,bin}
-  "$HOME"/.local/{bin,sbin}
+  "$HOME"/{.cargo,.local}/{bin,sbin}
   /Applications/CMake.app/Contents/bin
   /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
   /Applications/Docker.app/Contents/Resources/bin
