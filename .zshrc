@@ -100,6 +100,7 @@ unset MANPATH
 typeset -U zpath=(
   "$HOME"/{tbin,bin}
   "$HOME"/.local/{bin,sbin}
+  /Applications/CMake.app/Contents/bin
   /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
   /Applications/Docker.app/Contents/Resources/bin
   /Applications/Postgres.app/Contents/Versions/latest/bin
@@ -267,9 +268,10 @@ if (( $+commands[atuin] )); then
   eval "$(atuin init zsh --disable-up-arrow)" || true
 fi
 #-----------------------------------------------------------------------------
-alias -g M='| $PAGER'
+alias -g M='| $PAGER -R'
 alias -g J='| jq -rC \. | $PAGER -R'
 alias -g B='| bat'
+alias -g C='| wc -l'
 bindkey -e
 bindkey -m 2>/dev/null
 #-----------------------------------------------------------------------------

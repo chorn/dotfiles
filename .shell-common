@@ -42,26 +42,28 @@ fi
 if command -v eza >&/dev/null; then
   alias ls="eza --classify=auto --color-scale-mode=fixed --color=auto --group-directories-first --mounts"
   alias l="ls --long --octal-permissions --no-permissions --time-style=iso"
-  alias la="l --all"
+  alias ll="l --all"
+  alias la="la --all"
   alias lg="la --git"
 elif [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias ls="/bin/ls -FG"
   alias l="ls -lO"
+  alias ll="ls -A"
+  alias la="ls -A"
 else
   alias ls="/bin/ls --color=auto -F"
   alias l="ls -l"
+  alias ll="ls -A"
+  alias la="ls -A"
 fi
+
+alias lm="l | less -R"
+alias lc="l | wc -l"
 # ---------------------------------------------------------------------------
 alias p="ps auxOU"
 # ---------------------------------------------------------------------------
 if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias p="ps -Af"
-  # alias start="simple_launchctl load"
-  # alias stop="simple_launchctl unload"
-  #
-  # simple_launchctl() {
-  #   find ~/Library/LaunchAgents -name '*.plist' -name '*'"$2"'*' -ok launchctl "$1" -w {} \;
-  # }
 
   flushdns() {
     dscacheutil -flushcache
@@ -99,8 +101,6 @@ fi
 alias be="bundle exec"
 alias list_to_regex="sed -e 's/[^0-9]//g' | tr '\n' '|' | sed -e 's/^/(/' -e 's/\|$/)/'"
 alias m='$PAGER'
-alias ll="l -A"
-alias la="ls -A"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 alias to_csv='soffice --convert-to csv --headless'
 alias y='yt-dlp --quiet --progress'
