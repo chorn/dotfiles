@@ -170,7 +170,7 @@ endif
 let g:mapleader = ','
 " let g:is_bash = 1
 
-let g:airline_extensions = ['ale', 'branch', 'bufferline', 'csv', 'fugitiveline', 'fzf', 'hunks', 'keymap', 'languageclient', 'lsp', 'netrw', 'quickfix', 'searchcount', 'tabline', 'term', 'virtualenv', 'whitespace', 'wordcount']
+let g:airline_extensions = ['ale', 'branch', 'bufferline', 'csv', 'fugitiveline', 'fzf', 'hunks', 'keymap', 'languageclient', 'lsp', 'quickfix', 'searchcount', 'tabline', 'term', 'virtualenv', 'whitespace', 'wordcount']
 let g:airline#extensions#tabline#formatter         = 'unique_tail_improved'
 let g:airline#extensions#tabline#show_buffers      = 1
 let g:airline#extensions#tabline#show_close_button = 0
