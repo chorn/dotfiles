@@ -306,7 +306,7 @@ _yup_nvim() {
 _yup_zi() {
   zi self-update -q
   zi update --all --parallel --quiet
-  zi compinit
+  zi compinit >/dev/null
   zi zstatus
 }
 
