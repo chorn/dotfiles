@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #-----------------------------------------------------------------------------
 # vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
+# shellcheck disable=SC2184
 #-----------------------------------------------------------------------------
 set -euo pipefail
 
@@ -17,6 +18,7 @@ _rsync() {
     --size-only
     --sparse
     --whole-file
+    --ignore-missing-args
     --filter='- .DS_Store'
     --filter='- @eaDir/'
     --filter='- @tmp/'
@@ -38,8 +40,32 @@ _rsync() {
     return 1
   fi
 
-  set -x
+  # set -x
   rsync "${_args[@]}" "${@}"
 }
 
-_rsync "$@"
+# declare -a _args=("$@")
+# for ((i = 0; i < $#; i++)); do
+#   if [[ "${_args[$i]}" == '--xargs' ]]; then
+#     unset _args[$i]
+#
+#   fi
+
+declare -a _args=()
+declare _xargs=0
+
+for _arg in "$@"; do
+  if [[ "${_arg}" == "--xargs" ]]; then
+    _xargs=1
+  else
+    _args+=("${_arg}")
+  fi
+done
+
+if ((_xargs)); then
+  declare _dest=${_args[0]}
+  unset _args[0]
+  _args+=("$_dest")
+fi
+
+_rsync "${_args[@]}"
