@@ -22,6 +22,7 @@ _rsync() {
     --filter='- .DS_Store'
     --filter='- @eaDir/'
     --filter='- @tmp/'
+    --filter='- *@SynoEAStream'
     --filter='- logs/'
     --filter='- tmp/'
     --filter='- *.log.*'
