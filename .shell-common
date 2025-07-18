@@ -43,12 +43,12 @@ if command -v eza >&/dev/null; then
   alias ls="eza --classify=auto --color-scale-mode=fixed --color=auto --group-directories-first --mounts"
   alias l="ls --long --octal-permissions --no-permissions --time-style=iso"
   alias ll="l --all"
-  alias la="la --all"
+  alias la="ls --all"
   alias lg="la --git"
 elif [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias ls="/bin/ls -FG"
   alias l="ls -lO"
-  alias ll="ls -A"
+  alias ll="l -A"
   alias la="ls -A"
 else
   alias ls="/bin/ls --color=auto -F"
@@ -57,8 +57,8 @@ else
   alias la="ls -A"
 fi
 
-alias lm="l | less -R"
-alias lc="l | wc -l"
+lm() { l "$@" | less -R; }
+lc() { l "$@" | wc -l; }
 # ---------------------------------------------------------------------------
 alias p="ps auxOU"
 # ---------------------------------------------------------------------------

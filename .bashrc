@@ -36,17 +36,14 @@ fi
 # --------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 # --------------------------------------------------------------------------
-command -v op >&/dev/null && source <(op completion bash)
-command -v direnv >&/dev/null && eval "$(direnv hook bash)"
-# --------------------------------------------------------------------------
-for s in "$HOME/.fzf.bash" "$HOME/bin/git-prompt.sh"; do
-  [[ -s "$s" ]] && source "$s"
-done
+if [[ ! -d "/usr/syno" ]]; then
+  command -v op >&/dev/null && eval "$(op completion bash)"
+  command -v direnv >&/dev/null && eval "$(direnv hook bash)"
 
-# --------------------------------------------------------------------------
-for s in "$HOME/.config/tinted-theming/base16_shell_theme"; do
-  [[ -s "$s" ]] && source "$s"
-done
+  for s in "$HOME/.config/tinted-theming/base16_shell_theme" "$HOME/.fzf.bash" "$HOME/bin/git-prompt.sh"; do
+    [[ -s "$s" ]] && source "$s"
+  done
+fi
 
 # --------------------------------------------------------------------------
 _completion_loader() {
@@ -137,5 +134,12 @@ if command -v tput >&/dev/null && [[ -n "$TERM" && "$TERM" != "dumb" && "$TERM" 
   export -a PROMPT_COMMAND=("_ps1_git_prep" "_ps1_update")
 fi
 
-# Created by `pipx` on 2025-03-26 19:42:12
-export PATH="$PATH:/Users/chorn/.local/bin"
+# export ATUIN_NOBIND="true"
+# eval "$(atuin init bash)"
+#
+# # bind to ctrl-r, add any other bindings you want here too
+# bind -x '"\C-r": __atuin_history'
+#
+# # bind to the up key, which depends on terminal mode
+# bind -x '"\e[A": __atuin_history --shell-up-key-binding'
+# bind -x '"\eOA": __atuin_history --shell-up-key-binding'
