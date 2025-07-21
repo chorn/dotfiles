@@ -53,7 +53,7 @@ elif [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
 else
   alias ls="/bin/ls --color=auto -F"
   alias l="ls -l"
-  alias ll="ls -A"
+  alias ll="l -A"
   alias la="ls -A"
 fi
 
