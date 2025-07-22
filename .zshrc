@@ -274,6 +274,11 @@ alias -g B='| bat'
 alias -g C='| wc -l'
 bindkey -e
 bindkey -m 2>/dev/null
+
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;5D' beginning-of-line
+bindkey '^[[1;5C' end-of-line
 #-----------------------------------------------------------------------------
 autoload -Uz zcalc
 __calc() {
