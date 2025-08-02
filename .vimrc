@@ -153,6 +153,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/context.vim'
+Plug 'vim/colorschemes'
 
 call plug#end()
 runtime! macros/matchit.vim
