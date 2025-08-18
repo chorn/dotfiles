@@ -138,7 +138,6 @@ declare -a __zi_setup=(
 )
 
 declare -a __zi_wait0=(
-  z-shell/zsh-lsd
   z-shell/zsh-eza
   z-shell/F-Sy-H
   zsh-users/zsh-autosuggestions
