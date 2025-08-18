@@ -131,56 +131,64 @@ fi
 source "${ZI[BIN_DIR]}/zi.zsh"
 autoload -Uz _zi
 
-zi lucid light-mode 'for' \
-  z-shell/z-a-meta-plugins \
-  z-shell/z-a-bin-gem-node \
-  z-shell/z-a-rust \
-  z-shell/z-a-eval \
-  @annexes \
-  @sharkdp \
-  @ext-git \
-  @console-tools
+declare -a __zi_setup=(
+  z-shell/z-a-default-ice
+  z-shell/z-a-bin-gem-node
+  z-shell/z-a-readurl
+)
 
+declare -a __zi_wait0=(
+  z-shell/zsh-lsd
+  z-shell/zsh-eza
+  z-shell/F-Sy-H
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-completions
+)
+
+declare -a __zi_ghr=(
+  sbin'fzf' junegunn/fzf
+  sbin'**/fd' @sharkdp/fd
+  sbin'**/bat' @sharkdp/bat
+  sbin'**/hexyl' @sharkdp/hexyl
+  sbin'**/hyperfine' @sharkdp/hyperfine
+  sbin'**/vivid' @sharkdp/vivid
+  sbin'**/delta' dandavison/delta
+  denisidoro/navi
+  cespare/reflex
+  houseabsolute/ubi
+)
+
+declare -a __zi_wait1=(
+  BurntSushi/ripgrep
+  paulirish/git-open
+  paulirish/git-recent
+  davidosomething/git-my
+  arzzen/git-quick-stats
+  iwata/git-now
+  tj/git-extras
+  voronkovich/gitignore.plugin.zsh
+  z-shell/zui
+  z-shell/zsh-lint
+)
+
+zi lucid light-mode 'for' "${__zi_setup[@]}"
 zi pack'bgn-binary' 'for' fzf
+zi lucid light-mode wait'0'                     'for' "${__zi_wait0[@]}"
+zi lucid light-mode wait'1' from'gh-r' as'null' 'for' "${__zi_ghr[@]}"
+zi lucid light-mode wait'1'                     'for' "${__zi_wait1[@]}"
 
-zi light z-shell/F-Sy-H
-zi light zsh-users/zsh-autosuggestions
-zi light zsh-users/zsh-completions
-# zi light z-shell/zsh-fancy-completions
+zi from'gh-r' as'program' mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick'direnv' src='zhook.zsh' 'for' direnv/direnv
+
+zi ice lucid wait as'program' has'bat' pick'src/*'
+zi light eth-p/bat-extras
 
 zi lucid light-mode wait'0' 'for' as'null' sbin'bin/*' z-shell/zsh-diff-so-fancy
 
 zi ice lucid from'gh-r' as'command' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light jdx/mise
 
-zi ice lucid wait'0' as'command' make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
-zi light direnv/direnv
-
-zi ice lucid wait'0' as'command' pick'inxi' has'perl'
-zi light smxi/inxi
-
 zi ice lucid wait'1' as'command' pick'czhttpd' mv'czhttpd -> httpd'
 zi light chorn/czhttpd
-
-zi ice lucid wait'0' from'gh-r' as'command' sbin'**/delta -> delta'
-zi light dandavison/delta
-
-zi ice lucid wait'1' from'gh-r' as'command' bpick'kubectx;kubens' sbin'kubectx;kubens'
-zi light ahmetb/kubectx
-
-zi ice lucid wait'1' from'gh-r' as'command' sbin'**/delta -> delta'
-zi light dandavison/delta
-
-zi ice lucid wait'1' from'gh-r' as'program'
-zi light denisidoro/navi
-
-zi ice lucid wait'1' from'gh-r' as'command' sbin'**/reflex-> reflex'
-zi light cespare/reflex
-
-zi ice lucid wait'1' from'gh-r' as'command'
-zi light houseabsolute/ubi
-
-zi ice lucid wait'1' 'for' has'eza' atinit'AUTOCD=1' zplugin/zsh-eza
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
@@ -222,7 +230,10 @@ fi
 #   zi snippet "${ZI[BIN_DIR]}/lib/_zi"
 # fi
 
-zi has'zoxide' light-mode 'for' \
+zi ice as'null' from"gh-r" sbin
+zi light ajeetdsouza/zoxide
+
+zi has'zoxide' wait'0' lucid 'for' \
   z-shell/zsh-zoxide
 
 zi lucid light-mode silent wait'1' 'for' \
