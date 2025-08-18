@@ -134,6 +134,7 @@ autoload -Uz _zi
 declare -a __zi_setup=(
   z-shell/z-a-default-ice
   z-shell/z-a-bin-gem-node
+  z-shell/z-a-patch-dl
   z-shell/z-a-readurl
 )
 
