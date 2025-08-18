@@ -156,6 +156,7 @@ declare -a __zi_ghr=(
   denisidoro/navi
   cespare/reflex
   houseabsolute/ubi
+  ajeetdsouza/zoxide
 )
 
 declare -a __zi_wait1=(
@@ -172,7 +173,6 @@ declare -a __zi_wait1=(
 )
 
 zi lucid light-mode 'for' "${__zi_setup[@]}"
-zi pack'bgn-binary' 'for' fzf
 zi lucid light-mode wait'0'                     'for' "${__zi_wait0[@]}"
 zi lucid light-mode wait'1' from'gh-r' as'null' 'for' "${__zi_ghr[@]}"
 zi lucid light-mode wait'1'                     'for' "${__zi_wait1[@]}"
@@ -223,17 +223,7 @@ if (( $+commands[yar] )); then
   zi snippet "${_yar_comp}"
 fi
 
-# if (( ${+_comps} )); then
-#   _comps[zi]=_zi
-# else
-#   zi ice lucid wait'1' blockf as'completion'
-#   zi snippet "${ZI[BIN_DIR]}/lib/_zi"
-# fi
-
-zi ice as'null' from"gh-r" sbin
-zi light ajeetdsouza/zoxide
-
-zi has'zoxide' wait'0' lucid 'for' \
+zi lucid light-mode wait'1' has'zoxide' 'for' \
   z-shell/zsh-zoxide
 
 zi lucid light-mode silent wait'1' 'for' \
