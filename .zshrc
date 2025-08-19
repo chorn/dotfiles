@@ -139,47 +139,48 @@ declare -a __zi_setup=(
 )
 
 declare -a __zi_wait0=(
-  z-shell/zsh-eza
   z-shell/F-Sy-H
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
 )
 
 declare -a __zi_ghr=(
-  sbin'fzf' junegunn/fzf
+  sbin'**/fzf' junegunn/fzf
   sbin'**/fd' @sharkdp/fd
   sbin'**/bat' @sharkdp/bat
   sbin'**/hexyl' @sharkdp/hexyl
   sbin'**/hyperfine' @sharkdp/hyperfine
   sbin'**/vivid' @sharkdp/vivid
   sbin'**/delta' dandavison/delta
-  denisidoro/navi
-  cespare/reflex
-  houseabsolute/ubi
+  sbin'**/rg' BurntSushi/ripgrep
+  sbin'**/navi' denisidoro/navi
+  sbin'**/reflex' cespare/reflex
+  sbin'**/eza' eza-community/eza
+  sbin'**/ubi' houseabsolute/ubi
   ajeetdsouza/zoxide
 )
 
 declare -a __zi_wait1=(
-  BurntSushi/ripgrep
-  paulirish/git-open
-  paulirish/git-recent
-  davidosomething/git-my
-  arzzen/git-quick-stats
-  iwata/git-now
-  tj/git-extras
-  voronkovich/gitignore.plugin.zsh
+  # paulirish/git-open
+  # paulirish/git-recent
+  # davidosomething/git-my
+  # arzzen/git-quick-stats
+  # iwata/git-now
+  # tj/git-extras
+  # voronkovich/gitignore.plugin.zsh
   z-shell/zui
   z-shell/zsh-lint
 )
 
 zi lucid light-mode 'for' "${__zi_setup[@]}"
-zi lucid light-mode wait'0'                     'for' "${__zi_wait0[@]}"
-zi lucid light-mode wait'1' from'gh-r' as'null' 'for' "${__zi_ghr[@]}"
-zi lucid light-mode wait'1'                     'for' "${__zi_wait1[@]}"
+zi lucid light-mode wait'0'                        'for' "${__zi_wait0[@]}"
+zi lucid light-mode wait'1' from'gh-r' as'command' 'for' "${__zi_ghr[@]}"
+zi lucid light-mode wait'1'                        'for' "${__zi_wait1[@]}"
 
 zi from'gh-r' as'program' mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick'direnv' src='zhook.zsh' 'for' direnv/direnv
 
-zi ice lucid wait as'program' has'bat' pick'src/*'
+# zi ice lucid wait as'program' has'bat' pick'src/*'
+zi ice lucid wait as'program' pick'src/*'
 zi light eth-p/bat-extras
 
 zi lucid light-mode wait'0' 'for' as'null' sbin'bin/*' z-shell/zsh-diff-so-fancy
@@ -202,9 +203,7 @@ for f in "${_tint_scripts[@]}"; do
 done
 #-----------------------------------------------------------------------------
 
-zi ice lucid wait'0' pack 'for' ls_colors
-
-# zi lucid light-mode wait'0' atload=+'zicompinit_fast; zicdreplay' pack 'for' brew-completions system-completions
+# zi ice lucid wait'0' pack 'for' ls_colors
 
 zi ice lucid wait'0' as'completion' has'mise'
 zi snippet https://raw.githubusercontent.com/jdx/mise/main/completions/_mise
