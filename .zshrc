@@ -136,12 +136,17 @@ declare -a __zi_setup=(
   z-shell/z-a-bin-gem-node
   z-shell/z-a-patch-dl
   z-shell/z-a-readurl
+  z-shell/zui
+  z-shell/zsh-lint
+  mafredri/zsh-async
 )
 
-declare -a __zi_wait0=(
+declare -a __zi_plugins=(
   z-shell/F-Sy-H
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
+  voronkovich/gitignore.plugin.zsh
+  paulirish/git-open
 )
 
 declare -a __zi_ghr=(
@@ -153,43 +158,37 @@ declare -a __zi_ghr=(
   sbin'**/vivid' @sharkdp/vivid
   sbin'**/delta' dandavison/delta
   sbin'**/rg' BurntSushi/ripgrep
-  sbin'**/navi' denisidoro/navi
   sbin'**/reflex' cespare/reflex
-  sbin'**/eza' eza-community/eza
   sbin'**/ubi' houseabsolute/ubi
   ajeetdsouza/zoxide
+  mv'direnv* -> direnv' atclone'$PWD/direnv hook zsh > zhook.zsh'   atpull'%atclone' src'zhook.zsh' direnv/direnv
+  mv'mise* -> mise'     atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh' jdx/mise
 )
 
-declare -a __zi_wait1=(
-  # paulirish/git-open
-  # paulirish/git-recent
-  # davidosomething/git-my
-  # arzzen/git-quick-stats
-  # iwata/git-now
-  # tj/git-extras
-  # voronkovich/gitignore.plugin.zsh
-  z-shell/zui
-  z-shell/zsh-lint
+declare -a __zi_commands=(
+  paulirish/git-recent
+  davidosomething/git-my
+  arzzen/git-quick-stats
+  iwata/git-now
+  pick'czhttpd' mv'czhttpd -> httpd' chorn/czhttpd
+  pick'bin/*' z-shell/zsh-diff-so-fancy
+)
+
+declare -a __zi_silent=(
+  tinted-theming/tinted-shell
 )
 
 zi lucid light-mode 'for' "${__zi_setup[@]}"
-zi lucid light-mode wait'0'                        'for' "${__zi_wait0[@]}"
+zi lucid light-mode wait'0'                        'for' "${__zi_plugins[@]}"
 zi lucid light-mode wait'1' from'gh-r' as'command' 'for' "${__zi_ghr[@]}"
-zi lucid light-mode wait'1'                        'for' "${__zi_wait1[@]}"
+zi lucid light-mode wait'1'            as'command' 'for' "${__zi_commands[@]}"
+zi lucid light-mode wait'1' silent                 'for' "${__zi_silent[@]}"
 
-zi from'gh-r' as'program' mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick'direnv' src='zhook.zsh' 'for' direnv/direnv
-
-# zi ice lucid wait as'program' has'bat' pick'src/*'
-zi ice lucid wait as'program' pick'src/*'
-zi light eth-p/bat-extras
-
-zi lucid light-mode wait'0' 'for' as'null' sbin'bin/*' z-shell/zsh-diff-so-fancy
+zi ice from'gh' as'program' sbin'**/eza -> eza' atclone'CARGO_HOME=$ZPFX cargo install --path . && cp -vf completions/eza.zsh _eza'
+zi light eza-community/eza
 
 zi ice lucid from'gh-r' as'command' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
 zi light jdx/mise
-
-zi ice lucid wait'1' as'command' pick'czhttpd' mv'czhttpd -> httpd'
-zi light chorn/czhttpd
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
@@ -202,11 +201,10 @@ for f in "${_tint_scripts[@]}"; do
   [[ -s "${_tinty}/${f}" ]] && source "${_tinty}/${f}"
 done
 #-----------------------------------------------------------------------------
-
-# zi ice lucid wait'0' pack 'for' ls_colors
-
-zi ice lucid wait'0' as'completion' has'mise'
+zi ice lucid wait'0' as'completion'
 zi snippet https://raw.githubusercontent.com/jdx/mise/main/completions/_mise
+
+zi lucid light-mode wait'1' has'zoxide' 'for' z-shell/zsh-zoxide
 
 if (( $+commands[op] )); then
   declare _op_comp="${ZI[CACHE_DIR]}/_op"
@@ -222,19 +220,11 @@ if (( $+commands[yar] )); then
   zi snippet "${_yar_comp}"
 fi
 
-zi lucid light-mode wait'1' has'zoxide' 'for' \
-  z-shell/zsh-zoxide
-
-zi lucid light-mode silent wait'1' 'for' \
-  tinted-theming/tinted-shell
-
 ## Prompt
 typeset -gx DEBUG_CHORN_PROMPT=
 typeset -gxa _prompt_languages=(ruby node go)
 typeset -gxA _prompt_extra_git=( [PUB]="$HOME/.git-pub-dotfiles" [PRV]="$HOME/.git-prv-dotfiles" )
-zi lucid light-mode 'for' \
-  mafredri/zsh-async \
-  @chorn/chorn-zsh-prompt
+zi lucid light-mode 'for' @chorn/chorn-zsh-prompt
 
 # zi ice as'command' from'gh-r' src'spaceship.zsh'
 # zi light spaceship-prompt/spaceship-prompt
