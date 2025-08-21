@@ -224,10 +224,12 @@ fi
 typeset -gx DEBUG_CHORN_PROMPT=
 typeset -gxa _prompt_languages=(ruby node go)
 typeset -gxA _prompt_extra_git=( [PUB]="$HOME/.git-pub-dotfiles" [PRV]="$HOME/.git-prv-dotfiles" )
-zi lucid light-mode 'for' @chorn/chorn-zsh-prompt
 
-# zi ice as'command' from'gh-r' src'spaceship.zsh'
-# zi light spaceship-prompt/spaceship-prompt
+if (( $+commands[starship])); then
+  eval "$(starship init zsh)"
+else
+  zi lucid light-mode 'for' @chorn/chorn-zsh-prompt
+fi
 
 zicompinit_fast
 zicdreplay
