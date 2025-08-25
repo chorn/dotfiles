@@ -94,6 +94,7 @@ typeset -gx VISUAL=vim
 typeset -gx WORDCHARS='*?_.~&;!#$%'
 typeset -gx ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=128
 typeset -gx ZSH_AUTOSUGGEST_USE_ASYNC=1
+typeset -agx ZSH_AUTOSUGGEST_STRATEGY=( history completion )
 typeset -gx EZA_CONFIG_DIR=$HOME/.config/eza
 unset MANPATH
 #-----------------------------------------------------------------------------
@@ -160,7 +161,7 @@ declare -a __zi_ghr=(
   sbin'**/rg' BurntSushi/ripgrep
   sbin'**/reflex' cespare/reflex
   sbin'**/ubi' houseabsolute/ubi
-  ajeetdsouza/zoxide
+  # pick'zoxide' atclone'ln -s completions/_zoxide -> _zoxide; cp man/man1/*.1 $ZI[MAN_DIR]/man1; ./zoxide init zsh --cmd x > zhook.zsh' atpull'%atclone' src'zhook.zsh' nocompile'!' ajeetdsouza/zoxide
   mv'direnv* -> direnv' atclone'$PWD/direnv hook zsh > zhook.zsh'   atpull'%atclone' src'zhook.zsh' direnv/direnv
   mv'mise* -> mise'     atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh' jdx/mise
 )
