@@ -112,7 +112,7 @@ disabled = false
 min_time = 1
 show_notifications = false
 style = "yellow"
-format = "[$duration]($style)"
+format = ' [$duration]($style)'
 
 [status]
 disabled = false
