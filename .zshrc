@@ -161,9 +161,14 @@ declare -a __zi_ghr=(
   sbin'**/rg' BurntSushi/ripgrep
   sbin'**/reflex' cespare/reflex
   sbin'**/ubi' houseabsolute/ubi
-  # pick'zoxide' atclone'ln -s completions/_zoxide -> _zoxide; cp man/man1/*.1 $ZI[MAN_DIR]/man1; ./zoxide init zsh --cmd x > zhook.zsh' atpull'%atclone' src'zhook.zsh' nocompile'!' ajeetdsouza/zoxide
-  mv'direnv* -> direnv' atclone'$PWD/direnv hook zsh > zhook.zsh'   atpull'%atclone' src'zhook.zsh' direnv/direnv
-  mv'mise* -> mise'     atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh' jdx/mise
+  sbin'**/lf' gokcehan/lf
+  sbin'**/zoxide' atclone'./zoxide init zsh --cmd cd > zhook.zsh' atpull'%atclone' src'zhook.zsh' ajeetdsouza/zoxide
+  mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh'   atpull'%atclone' src'zhook.zsh' direnv/direnv
+  mv'mise* -> mise'     atclone'./mise activate zsh > zhook.zsh && ./mise completion zsh > _mise' atpull'%atclone' src'zhook.zsh' jdx/mise
+)
+
+declare -a __zi_gh=(
+  sbin'**/eza' atclone'CARGO_HOME=$ZPFX cargo install --path . && cp -vf completions/eza.zsh _eza' eza-community/eza
 )
 
 declare -a __zi_commands=(
@@ -180,46 +185,32 @@ declare -a __zi_silent=(
 )
 
 zi lucid light-mode 'for' "${__zi_setup[@]}"
-zi lucid light-mode wait'0'                        'for' "${__zi_plugins[@]}"
-zi lucid light-mode wait'1' from'gh-r' as'command' 'for' "${__zi_ghr[@]}"
-zi lucid light-mode wait'1'            as'command' 'for' "${__zi_commands[@]}"
-zi lucid light-mode wait'1' silent                 'for' "${__zi_silent[@]}"
-
-zi ice from'gh' as'program' sbin'**/eza -> eza' atclone'CARGO_HOME=$ZPFX cargo install --path . && cp -vf completions/eza.zsh _eza'
-zi light eza-community/eza
-
-zi ice lucid from'gh-r' as'command' mv'mise* -> mise' sbin'mise* -> mise' atclone'$PWD/mise activate zsh > zhook.zsh' atpull'%atclone' src'zhook.zsh'
-zi light jdx/mise
+zi lucid light-mode wait'0'                           'for' "${__zi_plugins[@]}"
+zi lucid light-mode wait'1' from'gh-r' as'command'    'for' "${__zi_ghr[@]}"
+zi lucid light-mode wait'1' from'gh'   as'command'    'for' "${__zi_gh[@]}"
+zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}"
+zi lucid light-mode wait'1' silent                    'for' "${__zi_silent[@]}"
 
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
-declare _tinty=$HOME/.local/share/tinted-theming/tinty
-declare -a _tint_scripts=(tinted-shell-scripts-file.sh tinted-fzf-sh-file.sh)
-[[ "${OSTYPE/[^a-z]*/}" == 'darwin' ]] && _tint_scripts+=(tinted-iterm2-scripts-file.sh)
+typeset -A __zi_comps=(
+  [tinty]='generate-completion'
+  [op]='completion'
+  [yar]=''
+)
 
-for f in "${_tint_scripts[@]}"; do
-  [[ -s "${_tinty}/${f}" ]] && source "${_tinty}/${f}"
+for _cmd in "${(k)__zi_comps[@]}"; do
+  (( $+commands["${_cmd}"] )) || continue
+  typeset _comp="${ZI[CACHE_DIR]}/_${_cmd}"
+  [[ -s "${_comp}" ]] || "$_cmd" ${__zi_comps[${_cmd}]} zsh > "$_comp"
+  zi ice lucid wait'1' as'completion'
+  zi snippet "${_comp}"
 done
-#-----------------------------------------------------------------------------
-zi ice lucid wait'0' as'completion'
-zi snippet https://raw.githubusercontent.com/jdx/mise/main/completions/_mise
 
-zi lucid light-mode wait'1' has'zoxide' 'for' z-shell/zsh-zoxide
-
-if (( $+commands[op] )); then
-  declare _op_comp="${ZI[CACHE_DIR]}/_op"
-  [[ -s "${_op_comp}" ]] || op completion zsh > "$_op_comp"
-  zi ice lucid wait'0' as'completion'
-  zi snippet "${_op_comp}"
-fi
-
-if (( $+commands[yar] )); then
-  declare _yar_comp="${ZI[CACHE_DIR]}/_yar"
-  [[ -s "${_yar_comp}" ]] || yar zsh > "$_yar_comp"
-  zi ice lucid wait'0' as'completion'
-  zi snippet "${_yar_comp}"
-fi
+for f in ~/.local/share/tinted-theming/tinty/*.sh; do
+  [[ -s "$f" ]] && source "$f"
+done
 
 ## Prompt
 typeset -gx DEBUG_CHORN_PROMPT=
@@ -274,9 +265,7 @@ bindkey '^[[1;5D' beginning-of-line
 bindkey '^[[1;5C' end-of-line
 #-----------------------------------------------------------------------------
 autoload -Uz zcalc
-__calc() {
-  zcalc -e "$*"
-}
+__calc() { zcalc -e "$*"; }
 aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
