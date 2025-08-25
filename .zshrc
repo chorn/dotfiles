@@ -162,9 +162,9 @@ declare -a __zi_ghr=(
   sbin'**/reflex' cespare/reflex
   sbin'**/ubi' houseabsolute/ubi
   sbin'**/lf' gokcehan/lf
-  sbin'**/zoxide' atclone'./zoxide init zsh --cmd cd > zhook.zsh' atpull'%atclone' src'zhook.zsh' ajeetdsouza/zoxide
-  mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh'   atpull'%atclone' src'zhook.zsh' direnv/direnv
-  mv'mise* -> mise'     atclone'./mise activate zsh > zhook.zsh && ./mise completion zsh > _mise' atpull'%atclone' src'zhook.zsh' jdx/mise
+  sbin'**/zoxide'       atclone'./zoxide init zsh --cmd cd > zhook.zsh'                                 atpull'%atclone' src'zhook.zsh' ajeetdsouza/zoxide
+  mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh'                                          atpull'%atclone' src'zhook.zsh' direnv/direnv
+  mv'mise* -> mise'     atclone'$PWD/mise activate zsh > zhook.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' src'zhook.zsh' jdx/mise
 )
 
 declare -a __zi_gh=(
@@ -209,7 +209,7 @@ for _cmd in "${(k)__zi_comps[@]}"; do
 done
 
 for f in ~/.local/share/tinted-theming/tinty/*.sh; do
-  [[ -s "$f" ]] && source "$f"
+  [[ -s "$f" ]] && source "$f" >&/dev/null || true
 done
 
 ## Prompt
