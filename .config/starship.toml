@@ -1,7 +1,25 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+
+add_newline = false
+continuation_prompt = "[▸▹ ](dimmed white)"
+
 format = """
 ${custom.derp}\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$directory\
+$line_break\
+$time\
+$localip\
+$cmd_duration\
+$status\
+$character\
+"""
+
+right_format = """
 $mise\
 $nodejs\
 $ruby\
@@ -11,18 +29,8 @@ $elixir\
 $java\
 $python\
 $pulumi\
-$git_branch\
-$git_state\
-$git_status\
-$directory\
-$line_break\
-$time\
 $username\
 $hostname\
-$localip\
-$cmd_duration\
-$status\
-$character\
 """
 
 [custom.derp]
@@ -32,10 +40,10 @@ format = '>'
 
 [mise]
 disabled = false
-symbol = 'mise'
-healthy_symbol = 'ok'
-unhealthy_symbol = 'sick'
-format = ' [$symbol-$health]($style)'
+symbol = ''
+healthy_symbol = ''
+unhealthy_symbol = ' mise-unhealthy'
+format = '[$health]($style)'
 
 [nodejs]
 style = ''
@@ -95,15 +103,19 @@ style = "bright-black"
 [time]
 disabled = false
 time_format = "%T" # Hour:Minute Format
+style = 'blue'
 format = '[$time]($style)'
 
 [username]
 disabled = false
+style_root = 'bold red'
+style_user = 'white'
 format = ' [$user]($style)'
 
 [hostname]
 disabled = false
 ssh_only = false
+style = 'white'
 format = ' [$ssh_symbol@$hostname]($style)'
 trim_at = ''
 
@@ -116,13 +128,14 @@ format = ' [$duration]($style)'
 
 [status]
 disabled = false
-style = ''
-success_style = ''
-failure_style = ''
+style = 'white'
+success_style = 'white'
+failure_style = 'bold red'
+symbol = ''
 success_symbol = '0'
-format = ' $status($style)'
 map_symbol = false
 recognize_signal_code = false
+format = ' [$status]($style)'
 
 [character]
 format = ' [$symbol]($style) '
