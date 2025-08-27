@@ -168,7 +168,7 @@ declare -a __zi_ghr=(
 )
 
 declare -a __zi_gh=(
-  sbin'**/eza' atclone'CARGO_HOME=$ZPFX cargo install --path . && cp -vf completions/eza.zsh _eza' eza-community/eza
+  sbin'**/eza' atclone'CARGO_HOME=$ZPFX cargo install --path . && cp -vf completions/zsh/_eza _eza' eza-community/eza
 )
 
 declare -a __zi_commands=(
