@@ -137,38 +137,35 @@ declare -a __zi_setup=(
   z-shell/z-a-bin-gem-node
   z-shell/z-a-patch-dl
   z-shell/z-a-readurl
-  z-shell/zui
-  z-shell/zsh-lint
   mafredri/zsh-async
 )
 
 declare -a __zi_plugins=(
   z-shell/F-Sy-H
   zsh-users/zsh-autosuggestions
-  # zsh-users/zsh-completions # I don't use these
   voronkovich/gitignore.plugin.zsh
   paulirish/git-open
 )
 
 declare -a __zi_ghr=(
-  sbin'**/fzf' junegunn/fzf
-  sbin'**/fd' @sharkdp/fd
-  sbin'**/bat' @sharkdp/bat
-  sbin'**/hexyl' @sharkdp/hexyl
-  sbin'**/hyperfine' @sharkdp/hyperfine
-  sbin'**/vivid' @sharkdp/vivid
-  sbin'**/delta' dandavison/delta
-  sbin'**/rg' BurntSushi/ripgrep
-  sbin'**/reflex' cespare/reflex
-  sbin'**/ubi' houseabsolute/ubi
-  sbin'**/lf' gokcehan/lf
-  sbin'**/zoxide'       atclone'./zoxide init zsh --cmd cd > zhook.zsh'                                 atpull'%atclone' src'zhook.zsh' ajeetdsouza/zoxide
+  sbin'fd' @sharkdp/fd
+  sbin'bat' @sharkdp/bat
+  sbin'hexyl' @sharkdp/hexyl
+  sbin'hyperfine' @sharkdp/hyperfine
+  sbin'vivid' @sharkdp/vivid
+  sbin'delta' dandavison/delta
+  sbin'rg' BurntSushi/ripgrep
+  sbin'reflex' cespare/reflex
+  sbin'ubi' houseabsolute/ubi
+  sbin'lf' gokcehan/lf
+  sbin'fzf' dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf' junegunn/fzf
+  sbin'zoxide'          atclone'./zoxide init zsh --cmd cd > zhook.zsh'                                 atpull'%atclone' src'zhook.zsh' ajeetdsouza/zoxide
   mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh'                                          atpull'%atclone' src'zhook.zsh' direnv/direnv
   mv'mise* -> mise'     atclone'$PWD/mise activate zsh > zhook.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' src'zhook.zsh' jdx/mise
 )
 
 declare -a __zi_gh=(
-  sbin'**/eza' if'[[ ! -d /usr/syno ]]' atclone'CARGO_HOME=$ZPFX cargo install --path . && cp -vf completions/zsh/_eza _eza' eza-community/eza
+  sbin'**/eza' if'[[ ! -d /usr/syno ]]' atclone'CARGO_HOME=$ZPFX cargo install --path .' eza-community/eza
 )
 
 declare -a __zi_commands=(
@@ -194,16 +191,17 @@ zi lucid light-mode wait'1' silent                    'for' "${__zi_silent[@]}"
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 #-----------------------------------------------------------------------------
-typeset -A __zi_comps=(
+typeset -A __zi_cli_comps=(
   [tinty]='generate-completion'
   [op]='completion'
   [yar]=''
 )
 
-for _cmd in "${(k)__zi_comps[@]}"; do
-  (( $+commands["${_cmd}"] )) || continue
+for _cmd in "${(k)__zi_cli_comps[@]}"; do
   typeset _comp="${ZI[CACHE_DIR]}/_${_cmd}"
-  [[ -s "${_comp}" ]] || "$_cmd" ${__zi_comps[${_cmd}]} zsh > "$_comp"
+  command -v "${_cmd}" >&/dev/null || continue
+  [[ -s "${_comp}" ]] && continue
+  "$_cmd" ${__zi_cli_comps[${_cmd}]} zsh > "$_comp"
   zi ice lucid wait'1' as'completion'
   zi snippet "${_comp}"
 done
