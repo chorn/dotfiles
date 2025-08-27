@@ -208,7 +208,7 @@ for _cmd in "${(k)__zi_comps[@]}"; do
   zi snippet "${_comp}"
 done
 
-for f in ~/.local/share/tinted-theming/tinty/*.sh; do
+find ~/.local/share/tinted-theming/tinty -mindepth 1 -maxdepth 1 -name '*.sh' | while read -r f; do
   [[ -s "$f" ]] && source "$f" >&/dev/null || true
 done
 
@@ -313,9 +313,13 @@ _yup_mise() {
   mise upgrade --yes --bump --quiet
 }
 
+_yup_tinty() {
+  tinty sync --quiet
+}
+
 yup() {
   local -a _what=("${@[@]}")
-  [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim)
+  [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim tinty)
   for _cmd in "${_what[@]}"; do _yup "$_cmd"; done
 }
 #-----------------------------------------------------------------------------
