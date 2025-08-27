@@ -208,18 +208,17 @@ for _cmd in "${(k)__zi_comps[@]}"; do
   zi snippet "${_comp}"
 done
 
-find ~/.local/share/tinted-theming/tinty -mindepth 1 -maxdepth 1 -name '*.sh' | while read -r f; do
-  [[ -s "$f" ]] && source "$f" >&/dev/null || true
+[[ -d ~/.local/share/tinted-theming/tinty ]] && find ~/.local/share/tinted-theming/tinty -mindepth 1 -maxdepth 1 -size +0 -name '*.sh' | while read -r f; do
+  source "$f" >&/dev/null || true
 done
 
 ## Prompt
-typeset -gx DEBUG_CHORN_PROMPT=
-typeset -gxa _prompt_languages=(ruby node go)
-typeset -gxA _prompt_extra_git=( [PUB]="$HOME/.git-pub-dotfiles" [PRV]="$HOME/.git-prv-dotfiles" )
-
 if (( $+commands[starship])); then
   eval "$(starship init zsh)"
 else
+  typeset -gx DEBUG_CHORN_PROMPT=
+  typeset -gxa _prompt_languages=(ruby node go)
+  typeset -gxA _prompt_extra_git=( [PUB]="$HOME/.git-pub-dotfiles" [PRV]="$HOME/.git-prv-dotfiles" )
   zi lucid light-mode 'for' @chorn/chorn-zsh-prompt
 fi
 
