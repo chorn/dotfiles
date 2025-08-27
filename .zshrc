@@ -145,7 +145,7 @@ declare -a __zi_setup=(
 declare -a __zi_plugins=(
   z-shell/F-Sy-H
   zsh-users/zsh-autosuggestions
-  zsh-users/zsh-completions
+  # zsh-users/zsh-completions # I don't use these
   voronkovich/gitignore.plugin.zsh
   paulirish/git-open
 )
