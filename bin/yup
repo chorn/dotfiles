@@ -1,0 +1,59 @@
+#!/usr/bin/env zsh
+
+#-----------------------------------------------------------------------------
+_yup() {
+  local _what=$1
+  [[ -n "$_what" ]] || return 0
+  (( $+functions[${_what}] || $+commands[${_what}] )) || return 0
+  local _ywhat=_yup_${_what}
+  (( $+functions[${_ywhat}] )) || return 1
+  echo ">>> $_what"
+  (
+    set -e
+    "${_ywhat}"
+  )
+}
+#-----------------------------------------------------------------------------
+_yup_vim() {
+  vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall
+}
+#-----------------------------------------------------------------------------
+_yup_nvim() {
+  nvim --headless +UpdateRemotePlugins +PlugUpgrade +PlugUpdate +PlugClean\! +qall
+  echo
+}
+#-----------------------------------------------------------------------------
+_yup_zi() {
+  zi self-update -q
+  zi update --all --parallel --quiet
+  zi compinit >/dev/null
+  zi zstatus
+}
+#-----------------------------------------------------------------------------
+_yup_brew() {
+  local _greedy=${${${(L)OSTYPE:0:1}/[^d]/}/d/--greedy}
+  brew doctor --quiet || true
+  brew update --quiet
+  brew outdated $_greedy
+  brew upgrade --quiet $_greedy
+  brew cleanup --prune=all --scrub --quiet
+}
+#-----------------------------------------------------------------------------
+_yup_mise() {
+  mise self-update --yes --quiet
+  mise doctor >&/dev/null
+  mise install --yes --quiet
+  mise upgrade --yes --bump --quiet
+}
+#-----------------------------------------------------------------------------
+_yup_tinty() {
+  tinty sync --quiet
+}
+#-----------------------------------------------------------------------------
+yup() {
+  local -a _what=("${@[@]}")
+  [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim tinty)
+  for _cmd in "${_what[@]}"; do _yup "$_cmd"; done
+}
+#-----------------------------------------------------------------------------
+yup $@
