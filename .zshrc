@@ -138,7 +138,7 @@ typeset -a __zi_setup=(
   z-shell/z-a-patch-dl
   z-shell/z-a-readurl
   mafredri/zsh-async
-  from'gh-r' sbin'tinty' atclone'./tinty generate-completion zsh > _tinty' atpull'%atclone' multisrc'$HOME/.local/share/tinted-theming/tinty/*.sh' tinted-theming/tinty
+  from'gh-r' sbin'tinty' atclone'./tinty generate-completion zsh > _tinty' atpull'%atclone' tinted-theming/tinty
   silent tinted-theming/tinted-shell
   from'gh-r' sbin'starship' atclone'./starship init zsh > starship.plugin.zsh' atpull'%atclone' compile'starship.plugin.zsh' src'starship.plugin.zsh' starship/starship
   from'gh-r' sbin'**/fzf' dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf' junegunn/fzf
