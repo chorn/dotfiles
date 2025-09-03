@@ -132,43 +132,47 @@ fi
 source "${ZI[BIN_DIR]}/zi.zsh"
 autoload -Uz _zi
 
-declare -a __zi_setup=(
+typeset -a __zi_setup=(
   z-shell/z-a-default-ice
   z-shell/z-a-bin-gem-node
   z-shell/z-a-patch-dl
   z-shell/z-a-readurl
   mafredri/zsh-async
+  from'gh-r' sbin'tinty' atclone'./tinty generate-completion zsh > _tinty' atpull'%atclone' multisrc'$HOME/.local/share/tinted-theming/tinty/*.sh' tinted-theming/tinty
+  silent tinted-theming/tinted-shell
+  from'gh-r' sbin'starship' atclone'./starship init zsh > starship.plugin.zsh' atpull'%atclone' compile'starship.plugin.zsh' src'starship.plugin.zsh' starship/starship
+  from'gh-r' sbin'**/fzf' dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf' junegunn/fzf
 )
 
-declare -a __zi_plugins=(
+typeset -a __zi_plugins=(
   z-shell/F-Sy-H
   zsh-users/zsh-autosuggestions
   voronkovich/gitignore.plugin.zsh
   paulirish/git-open
 )
 
-declare -a __zi_ghr=(
-  sbin'fd' @sharkdp/fd
-  sbin'bat' @sharkdp/bat
-  sbin'hexyl' @sharkdp/hexyl
-  sbin'hyperfine' @sharkdp/hyperfine
-  sbin'vivid' @sharkdp/vivid
-  sbin'delta' dandavison/delta
-  sbin'rg' BurntSushi/ripgrep
-  sbin'reflex' cespare/reflex
-  sbin'ubi' houseabsolute/ubi
-  sbin'lf' gokcehan/lf
-  sbin'fzf' dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf' junegunn/fzf
-  sbin'zoxide'          atclone'./zoxide init zsh --cmd cd > zhook.zsh'                                 atpull'%atclone' src'zhook.zsh' ajeetdsouza/zoxide
-  mv'direnv* -> direnv' atclone'./direnv hook zsh > zhook.zsh'                                          atpull'%atclone' src'zhook.zsh' direnv/direnv
-  mv'mise* -> mise'     atclone'$PWD/mise activate zsh > zhook.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' src'zhook.zsh' jdx/mise
+typeset -a __zi_ghr=(
+  sbin'**/fd' @sharkdp/fd
+  sbin'**/bat' @sharkdp/bat
+  sbin'**/hexyl' @sharkdp/hexyl
+  sbin'**/hyperfine' @sharkdp/hyperfine
+  sbin'**/vivid' @sharkdp/vivid
+  sbin'**/delta' dandavison/delta
+  sbin'**/rg' BurntSushi/ripgrep
+  sbin'**/reflex' cespare/reflex
+  sbin'**/ubi' houseabsolute/ubi
+  sbin'**/lf' gokcehan/lf
+  sbin'**/zoxide' atclone'./zoxide init zsh --cmd cd > zoxide.plugin.zsh' atpull'%atclone' compile'zoxide.plugin.zsh' src'zoxide.plugin.zsh' ajeetdsouza/zoxide
+  mv'direnv* -> direnv' atclone'./direnv hook zsh > direnv.plugin.zsh' atpull'%atclone' compile'direnv.plugin.zsh' src'direnv.plugin.zsh' direnv/direnv
+  mv'mise* -> mise' atclone'$PWD/mise activate zsh > mise.plugin.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' compile'mise.plugin.zsh' src'mise.plugin.zsh' jdx/mise
+  bpick'atuin-*.tar.gz' mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'atuin.plugin.zsh' src'atuin.plugin.zsh' atuinsh/atuin
 )
 
-declare -a __zi_gh=(
+typeset -a __zi_gh=(
   sbin'**/eza' if'[[ ! -d /usr/syno ]]' atclone'CARGO_HOME=$ZPFX cargo install --path .' eza-community/eza
 )
 
-declare -a __zi_commands=(
+typeset -a __zi_commands=(
   paulirish/git-recent
   davidosomething/git-my
   arzzen/git-quick-stats
@@ -177,52 +181,34 @@ declare -a __zi_commands=(
   pick'bin/*' z-shell/zsh-diff-so-fancy
 )
 
-declare -a __zi_silent=(
-  tinted-theming/tinted-shell
+typeset -a __zi_completions=(
+  zchee/zsh-completions
+  zsh-users/zsh-completions
 )
 
 zi lucid light-mode 'for' "${__zi_setup[@]}"
 zi lucid light-mode wait'0'                           'for' "${__zi_plugins[@]}"
-zi lucid light-mode wait'1' from'gh-r' as'command'    'for' "${__zi_ghr[@]}"
+zi lucid light-mode wait'0' from'gh-r' as'command'    'for' "${__zi_ghr[@]}"
 zi lucid light-mode wait'1' from'gh'   as'command'    'for' "${__zi_gh[@]}"
 zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}"
-zi lucid light-mode wait'1' silent                    'for' "${__zi_silent[@]}"
+zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[@]}"
 
+__cli_comp() {
+  local _cmd=$1
+  local _comp="${ZI[CACHE_DIR]}/_${_cmd}"
+  command -v "${_cmd}" >&/dev/null || return
+  [[ -s "${_comp}" ]] || $@ > "$_comp"
+  zi ice lucid wait'0' as'completion'
+  zi snippet "${_comp}"
+}
+
+__cli_comp op completion zsh
+__cli_comp yar zsh
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
-#-----------------------------------------------------------------------------
-typeset -A __zi_cli_comps=(
-  [tinty]='generate-completion'
-  [op]='completion'
-  [yar]=''
-)
-
-for _cmd in "${(k)__zi_cli_comps[@]}"; do
-  typeset _comp="${ZI[CACHE_DIR]}/_${_cmd}"
-  command -v "${_cmd}" >&/dev/null || continue
-  [[ -s "${_comp}" ]] && continue
-  "$_cmd" ${__zi_cli_comps[${_cmd}]} zsh > "$_comp"
-  zi ice lucid wait'1' as'completion'
-  zi snippet "${_comp}"
-done
-
-[[ -d ~/.local/share/tinted-theming/tinty ]] && find ~/.local/share/tinted-theming/tinty -mindepth 1 -maxdepth 1 -size +0 -name '*.sh' | while read -r f; do
-  source "$f" >&/dev/null || true
-done
-
-## Prompt
-if (( $+commands[starship])); then
-  eval "$(starship init zsh)"
-else
-  typeset -gx DEBUG_CHORN_PROMPT=
-  typeset -gxa _prompt_languages=(ruby node go)
-  typeset -gxA _prompt_extra_git=( [PUB]="$HOME/.git-pub-dotfiles" [PRV]="$HOME/.git-prv-dotfiles" )
-  zi lucid light-mode 'for' @chorn/chorn-zsh-prompt
-fi
 
 zicompinit_fast
 zicdreplay
-
 #-----------------------------------------------------------------------------
 # Fuzzy match completions https://wiki.zshell.dev/docs/guides/customization#pretty-completions
 zstyle ':completion:*' completer _complete _match _approximate
@@ -245,10 +231,10 @@ zstyle ':completion:*' use-cache true
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 #-----------------------------------------------------------------------------
-if (( $+commands[atuin] )); then
-  eval "$(atuin init zsh --disable-up-arrow)" || true
-fi
-#-----------------------------------------------------------------------------
+autoload -Uz zcalc
+__calc() { zcalc -e "$*"; }
+aliases[=]='noglob __calc'
+
 alias -g M='| $PAGER -R'
 alias -g J='| jq -rC \. | $PAGER -R'
 alias -g B='| bat'
@@ -260,10 +246,6 @@ bindkey '^[[1;3C' forward-word
 bindkey '^[[1;3D' backward-word
 bindkey '^[[1;5D' beginning-of-line
 bindkey '^[[1;5C' end-of-line
-#-----------------------------------------------------------------------------
-autoload -Uz zcalc
-__calc() { zcalc -e "$*"; }
-aliases[=]='noglob __calc'
 #-----------------------------------------------------------------------------
 _yup() {
   local _what=$1
