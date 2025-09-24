@@ -1,6 +1,18 @@
 [tools]
+'aqua:BurntSushi/xsv' = 'latest'
+'aqua:anordal/shellharden' = 'latest'
+'aqua:cloverstd/tcping' = 'latest'
+'aqua:direnv/direnv' = 'latest'
+'aqua:jqlang/jq' = 'latest'
+'aqua:tomnomnom/gron' = 'latest'
 go = 'latest'
+'go:github.com/DarthSim/hivemind' = 'latest'
 node = 'latest'
+pipx = 'latest'
+'pipx:doge' = 'latest'
+'pipx:internetarchive' = 'latest'
+'pipx:proselint' = 'latest'
+'pipx:visidata' = 'latest'
 pnpm = 'latest'
 python = 'latest'
 rust = 'latest'
@@ -17,7 +29,6 @@ asdf_compat = false
 disable_hints = ['python_multi']
 env_file = '.env'
 experimental = true
-go_default_packages_file = "~/.default-go-packages"
 go_set_gopath = false
 go_set_goroot = false
 go_skip_checksum = true
