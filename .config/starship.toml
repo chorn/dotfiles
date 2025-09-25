@@ -1,8 +1,8 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-
 add_newline = false
 continuation_prompt = "[▸▹ ](dimmed white)"
+command_timeout = 60
 
 format = """
 ${custom.derp}\
