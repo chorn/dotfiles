@@ -2,7 +2,7 @@
 
 add_newline = false
 continuation_prompt = "[▸▹ ](dimmed white)"
-command_timeout = 60
+command_timeout = 2000
 
 format = """
 ${custom.derp}\
