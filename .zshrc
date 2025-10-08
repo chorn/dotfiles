@@ -130,6 +130,7 @@ autoload -Uz _zi
 
 typeset -a __zi_setup=(
   z-shell/z-a-default-ice
+  z-shell/z-a-rust
   z-shell/z-a-bin-gem-node
   z-shell/z-a-patch-dl
   z-shell/z-a-readurl
@@ -166,7 +167,7 @@ typeset -a __zi_ghr=(
 )
 
 typeset -a __zi_gh=(
-  sbin'**/eza' if'[[ ! -d /usr/syno ]]' atclone'CARGO_HOME=$ZPFX cargo install --path .' eza-community/eza
+  sbin'**/eza' if'[[ ! -d /usr/syno ]]' atclone'CARGO_HOME=$ZPFX cargo install --force --path .' eza-community/eza
 )
 
 typeset -a __zi_commands=(
@@ -190,6 +191,12 @@ zi lucid light-mode wait'1' from'gh'   as'command'    'for' "${__zi_gh[@]}"
 zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}"
 zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[@]}"
 
+
+# zi ice rustup cargo'exa;lsd' as'program' pick"bin/(exa|lsd)" nocompile
+# zi ice rustup cargo'eza' as'program' pick'bin/eza'
+# zi ice lucid light-mode as'command' rustup sbin'**/eza' cargo'eza'
+# zi load z-shell/0
+
 __cli_comp() {
   local _cmd=$1
   local _comp="${ZI[CACHE_DIR]}/_${_cmd}"
@@ -200,7 +207,7 @@ __cli_comp() {
 }
 
 __cli_comp op completion zsh
-__cli_comp yar zsh
+__cli_comp yar completion zsh
 #-----------------------------------------------------------------------------
 for s in "$HOME/.shell-common" "$HOME/.shell-prv"; do
   [[ -s "$s" ]] && source "$s"
