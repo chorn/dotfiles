@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------
 # shellcheck shell=bash disable=SC2207,SC1087,SC2128,SC2086,SC2016,SC2154,SC2034,SC1091,SC2139,SC2004,SC2299,SC2296,SC2298
-# vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
+# vim: set syntax=zsh ft=zsh sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
 zmodload zsh/compctl \
   zsh/complete \
@@ -116,10 +116,6 @@ typeset -U zpath=(
 [[ -d '/usr/syno' ]] && zpath+=(/volume1/homes/linuxbrew/.linuxbrew/bin)
 typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
 #-----------------------------------------------------------------------------
-for s in "$HOME/.shell-common" "$HOME/.shell-prv"; do
-  [[ -s "$s" ]] && source "$s"
-done
-#-----------------------------------------------------------------------------
 ## ZI
 typeset -Agx ZI
 ZI[BIN_DIR]="${HOME}/.zi/bin"
@@ -152,10 +148,11 @@ typeset -a __zi_plugins=(
 )
 
 typeset -a __zi_ghr=(
-  sbin'**/fd' @sharkdp/fd
   sbin'**/bat' @sharkdp/bat
+  sbin'**/fd' @sharkdp/fd
   sbin'**/hexyl' @sharkdp/hexyl
   sbin'**/hyperfine' @sharkdp/hyperfine
+  sbin'**/pastel' @sharkdp/pastel
   sbin'**/vivid' @sharkdp/vivid
   sbin'**/delta' dandavison/delta
   sbin'**/rg' BurntSushi/ripgrep
@@ -204,6 +201,10 @@ __cli_comp() {
 
 __cli_comp op completion zsh
 __cli_comp yar zsh
+#-----------------------------------------------------------------------------
+for s in "$HOME/.shell-common" "$HOME/.shell-prv"; do
+  [[ -s "$s" ]] && source "$s"
+done
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 

@@ -106,8 +106,6 @@ set noterse
 set viminfo='100,<1000,s1000,:1000
 set visualbell
 set t_vb=
-set t_Co=256
-set termguicolors
 set ttimeout
 set ttimeoutlen=50
 set undofile
@@ -126,7 +124,6 @@ call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-bufferline'
-Plug 'tinted-theming/tinted-vim'
 Plug 'chrisbra/csv.vim'
 Plug 'dense-analysis/ale'
 Plug 'editorconfig/editorconfig-vim'
@@ -138,11 +135,6 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdtree'
 Plug 'sheerun/vim-polyglot'
 Plug 'simeji/winresizer'
-if has('nvim')
-  Plug 'tinted-theming/tinted-nvim'
-else
-  Plug 'tinted-theming/tinted-vim'
-endif
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
@@ -153,7 +145,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/context.vim'
-Plug 'vim/colorschemes'
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 runtime! macros/matchit.vim
@@ -357,15 +349,16 @@ function ShutUp()
 endfunction
 nmap <silent> <leader>z :call ShutUp()<CR>
 
-syntax on
+syntax enable
 filetype plugin indent on
 
-let g:theme= expand('~/.local/share/tinted-theming/tinty/tinted-vim-colors-file.vim')
-if filereadable(g:theme)
+" colorscheme retrobox
+
+if has("termguicolors") && "$COLORTERM" == "truecolor"
   set termguicolors
-  let tinted_background_transparent=0
-  let tinted_colorspace=256
-  exec 'source' g:theme
-else
-  colorscheme wildcharm
 endif
+
+let base16colorspace=256
+colorscheme base16-tomorrow-night
+" hi ColorColumn      ctermbg=232
+" hi Visual           ctermbg=237
