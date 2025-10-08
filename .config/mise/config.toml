@@ -5,6 +5,7 @@
 'aqua:direnv/direnv' = 'latest'
 'aqua:jqlang/jq' = 'latest'
 'aqua:tomnomnom/gron' = 'latest'
+deno = 'latest'
 go = 'latest'
 'go:github.com/DarthSim/hivemind' = 'latest'
 node = 'latest'
@@ -19,6 +20,7 @@ rust = 'latest'
 shellcheck = 'latest'
 shfmt = 'latest'
 usage = 'latest'
+uv = 'latest'
 yt-dlp = 'latest'
 
 [settings]
