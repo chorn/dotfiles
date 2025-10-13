@@ -11,15 +11,7 @@ $git_state\
 $git_status\
 $git_metrics\
 $directory\
-$line_break\
-$time\
-$localip\
-$cmd_duration\
-$status\
-$character\
-"""
-
-right_format = """
+$fill\
 $mise\
 $nodejs\
 $ruby\
@@ -31,12 +23,21 @@ $python\
 $pulumi\
 $username\
 $hostname\
+$line_break\
+$time\
+$localip\
+$cmd_duration\
+$status\
+$character\
 """
 
 [custom.derp]
 disabled = false
 when = true
 format = '>'
+
+[fill]
+symbol = ' '
 
 [mise]
 disabled = false
