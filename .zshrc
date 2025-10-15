@@ -191,19 +191,14 @@ zi lucid light-mode wait'1' from'gh'   as'command'    'for' "${__zi_gh[@]}"
 zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}"
 zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[@]}"
 
-
-# zi ice rustup cargo'exa;lsd' as'program' pick"bin/(exa|lsd)" nocompile
-# zi ice rustup cargo'eza' as'program' pick'bin/eza'
-# zi ice lucid light-mode as'command' rustup sbin'**/eza' cargo'eza'
-# zi load z-shell/0
-
 __cli_comp() {
   local _cmd=$1
-  local _comp="${ZI[CACHE_DIR]}/_${_cmd}"
+  local -a _how=("$@")
   command -v "${_cmd}" >&/dev/null || return
-  [[ -s "${_comp}" ]] || $@ > "$_comp"
-  zi ice lucid wait'0' as'completion'
-  zi snippet "${_comp}"
+  local _c="${ZI[CACHE_DIR]}/_${_cmd}"
+  [[ -s "${_c}" ]] || "${_how[@]}" > "$_c"
+  zi ice lucid wait'0' id-as"_${_cmd}" as'completion' has"${_cmd}"
+  zi snippet "${_c}"
 }
 
 __cli_comp op completion zsh
