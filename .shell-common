@@ -1,11 +1,15 @@
 # --------------------------------------------------------------------------
 # shellcheck shell=bash
-# vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
+# vim: set syntax=bash ft=bash sw=2 ts=2 expandtab:
 #-----------------------------------------------------------------------------
 umask 022
 command -v less >&/dev/null || export PAGER=more
 command -v vim >&/dev/null || export EDITOR=vi
 command -v rg >&/dev/null && export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow"
+
+if [[ "$COLORTERM" != "truecolor" ]] && command -v vivid >&/dev/null; then
+  export LS_COLORS="$(vivid -m 8-bit generate solarized-dark)"
+fi
 
 [[ -z "$USER" ]] && export USER=$(id -nu)
 #-----------------------------------------------------------------------------
