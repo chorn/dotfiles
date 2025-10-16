@@ -352,13 +352,13 @@ nmap <silent> <leader>z :call ShutUp()<CR>
 syntax enable
 filetype plugin indent on
 
-" colorscheme retrobox
-
 if has("termguicolors") && "$COLORTERM" == "truecolor"
   set termguicolors
 endif
 
+colorscheme retrobox
+
 let base16colorspace=256
-colorscheme base16-tomorrow-night
+" colorscheme base16-tomorrow-night
 " hi ColorColumn      ctermbg=232
 " hi Visual           ctermbg=237

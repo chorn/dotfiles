@@ -1,10 +1,17 @@
 default-scheme = "base16-tomorrow-night"
-shell = "bash -c '{}'"
+shell = "zsh -c '{}'"
 
 [[items]]
-path = "https://github.com/tinted-theming/tinted-shell"
 name = "tinted-shell"
+path = "https://github.com/tinted-theming/tinted-shell"
+supported-systems = ["base16"]
 themes-dir = "scripts"
-hook = "source %f"
-supported-systems = ["base16", "base24"]
+hook = "source \"$TINTY_THEME_FILE_PATH\""
+# hook = "source %f"
+# supported-systems = ["base16", "base24"]
 
+[[items]]
+name = "base16-vim"
+path = "https://github.com/tinted-theming/base16-vim"
+supported-systems = ["base16"]
+themes-dir = "colors"
