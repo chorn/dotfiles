@@ -166,10 +166,6 @@ typeset -a __zi_ghr=(
   bpick'atuin-*.tar.gz' mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'atuin.plugin.zsh' src'atuin.plugin.zsh' atuinsh/atuin
 )
 
-typeset -a __zi_gh=(
-  sbin'**/eza' if'[[ ! -d /usr/syno ]]' atclone'CARGO_HOME=$ZPFX cargo install --force --path .' eza-community/eza
-)
-
 typeset -a __zi_commands=(
   paulirish/git-recent
   davidosomething/git-my
@@ -187,9 +183,11 @@ typeset -a __zi_completions=(
 zi lucid light-mode 'for' "${__zi_setup[@]}"
 zi lucid light-mode wait'0'                           'for' "${__zi_plugins[@]}"
 zi lucid light-mode wait'0' from'gh-r' as'command'    'for' "${__zi_ghr[@]}"
-zi lucid light-mode wait'1' from'gh'   as'command'    'for' "${__zi_gh[@]}"
 zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}"
 zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[@]}"
+
+zi ice if'[[ ! -d /usr/syno ]]' cargo'!eza' id-as'eza' as'program' nocompile
+zi load z-shell/0
 
 __cli_comp() {
   local _cmd=$1
