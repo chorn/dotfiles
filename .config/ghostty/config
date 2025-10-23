@@ -1,3 +1,7 @@
+# https://ghostty.org/docs/config
+# vim: set syntax=toml ft=toml sw=2 ts=2 expandtab:
+# ghostty +show-config --changes-only
+
 auto-update = off
 background = #000000
 clipboard-read = allow
@@ -9,7 +13,12 @@ cursor-style = block
 font-family = SauceCodePro Nerd Font Mono
 font-size = 14
 font-thicken = true
+link-previews = true
+link-url = true
 macos-auto-secure-input = false
 macos-icon = retro
 macos-titlebar-style = tabs
 mouse-reporting = false
+macos-shortcuts = allow
+selection-clear-on-typing = true
+selection-clear-on-copy = true
