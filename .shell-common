@@ -188,7 +188,9 @@ _weirdgit() {
   [[ -d "$_gd" && -d "$_wt" ]] || return
   shift
   shift
-  git --git-dir="${_gd}" --work-tree="${_wt}" "$@"
+  local -a _args=("$@")
+  [[ -z "${_args[*]}" ]] && _args=("status")
+  git --git-dir="${_gd}" --work-tree="${_wt}" "${_args[@]}"
 }
 
 pubgit() {
@@ -199,6 +201,7 @@ alias ug=pubgit
 prvgit() {
   _weirdgit "$HOME/.git-prv-dotfiles" "$HOME" "$@"
 }
+alias vg=prvgit
 
 # Git ---------------------------------------------------------------------
 
