@@ -1,11 +1,20 @@
 [tools]
+'asdf:asdf-community/asdf-direnv' = 'latest'
+'asdf:asdf-community/asdf-uv' = 'latest'
+'asdf:luizm/asdf-shellcheck' = 'latest'
+'asdf:luizm/asdf-shfmt' = 'latest'
+'asdf:mise-plugins/mise-pipx' = 'latest'
+'asdf:mise-plugins/mise-usage' = 'latest'
+'asdf:salasrod/asdf-mkcert' = 'latest'
+
 'go:github.com/DarthSim/hivemind' = 'latest'
+
 'pipx:doge' = 'latest'
 'pipx:internetarchive' = 'latest'
 'pipx:proselint' = 'latest'
 'pipx:visidata' = 'latest'
+
 'ubi:BurntSushi/xsv' = 'latest'
-# 'ubi:adamritter/fastgron' = 'latest'
 'ubi:anordal/shellharden' = 'latest'
 'ubi:cloverstd/tcping' = 'latest'
 'ubi:direnv/direnv' = 'latest'
@@ -13,19 +22,13 @@
 'ubi:mikefarah/yq' = 'latest'
 'ubi:sclevine/yj' = 'latest'
 'ubi:tomnomnom/gron' = 'latest'
-direnv = 'latest'
+
+rust = 'latest'
+
 go = 'latest'
-mkcert = 'latest'
 node = 'latest'
-pipx = 'latest'
 pnpm = '10'
 python = 'latest'
-rust = 'latest'
-shellcheck = 'latest'
-shfmt = 'latest'
-usage = 'latest'
-uv = 'latest'
-yt-dlp = 'latest'
 
 [settings]
 activate_aggressive = true
