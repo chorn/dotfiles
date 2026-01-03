@@ -20,6 +20,7 @@ _rsync() {
     --whole-file
     --ignore-missing-args
     --filter='- .DS_Store'
+    --filter='- #recycle/'
     --filter='- @eaDir/'
     --filter='- @tmp/'
     --filter='- *@SynoEAStream'
