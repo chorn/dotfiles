@@ -106,6 +106,7 @@ typeset -U zpath=(
   /Applications/Docker.app/Contents/Resources/bin
   /Applications/Postgres.app/Contents/Versions/latest/bin
   /usr/local/MacGPG2/bin
+  /opt/zerobrew/prefix/{bin,sbin}
   /{usr,opt}/{local,homebrew}/{bin,sbin}
   /home/linuxbrew/.linuxbrew/bin
   /usr/local/opt/openssl/bin
