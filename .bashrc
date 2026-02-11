@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------------
 # shellcheck shell=bash
-# vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
+# vim: set syntax=bash ft=bash sw=2 ts=2 expandtab:
 # --------------------------------------------------------------------------
 set -o emacs -o monitor -o notify
 shopt -qs checkwinsize cmdhist expand_aliases histappend hostcomplete histverify interactive_comments nocaseglob nocasematch no_empty_cmd_completion progcomp promptvars sourcepath
