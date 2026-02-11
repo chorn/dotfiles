@@ -1,6 +1,6 @@
 #-----------------------------------------------------------------------------
 # shellcheck shell=bash
-# vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
+# vim: set syntax=bash ft=bash sw=2 ts=2 expandtab:
 # --------------------------------------------------------------------------
 _is_in_path() {
   local _dir="$1"
@@ -39,7 +39,6 @@ declare _newpath=""
 for _dir in \
   $HOME/{tbin,bin} \
   $HOME/{.cargo,.local}/{bin,sbin} \
-  /Applications/CMake.app/Contents/bin \
   $HOME/.zi/polaris/{bin,sbin} \
   /home/linuxbrew/.linuxbrew/{bin,sbin} \
   /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin \
