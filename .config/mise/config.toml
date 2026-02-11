@@ -13,6 +13,7 @@
 'pipx:internetarchive' = 'latest'
 'pipx:proselint' = 'latest'
 'pipx:visidata' = 'latest'
+'pipx:sqlit-tui' = 'latest'
 
 'ubi:BurntSushi/xsv' = 'latest'
 'ubi:anordal/shellharden' = 'latest'
