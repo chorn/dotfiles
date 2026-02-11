@@ -27,3 +27,7 @@ macos-titlebar-style = tabs
 selection-clear-on-copy = true
 selection-clear-on-typing = true
 shell-integration-features = false
+title = ""
+working-directory = inherit
+window-show-tab-bar = always
+window-subtitle = working-directory
