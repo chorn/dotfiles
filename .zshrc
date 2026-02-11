@@ -82,7 +82,9 @@ typeset -gx FZF_DEFAULT_OPTS='--info=inline --ansi --tabstop=2 --multi --preview
 typeset -gx HISTFILESIZE=99999999
 typeset -gx HISTSIZE=99999999
 typeset -gz HOMEBREW_NO_ENV_HINTS=1
-typeset -gx LESS="iRQXF"
+# typeset -gx LESS="iRQXF"
+# typeset -gx LESS="--ignore-case --RAW-CONTROL-CHARS --QUIET --no-init --quit-if-one-screen --LONG-PROMPT --follow-name --no-vbell"
+typeset -gx LESS="--ignore-case --RAW-CONTROL-CHARS --QUIET --quit-if-one-screen --LONG-PROMPT --follow-name --no-vbell --no-init"
 typeset -gx MAILCHECK=0
 typeset -gx PAGER=less
 typeset -gx RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
