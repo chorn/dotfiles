@@ -14,7 +14,7 @@ if has('nvim')
   set shada='100,<1000,s1000,:1000
 else
   let g:vimhome = SafeDirectory('~/.vim')
-  set clipboard+=autoselect
+  " set clipboard+=autoselect
 endif
 
 let &backupdir    = SafeDirectory(g:vimhome . '/backup')
