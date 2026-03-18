@@ -247,6 +247,9 @@ zstyle ':completion:*' menu select
 autoload -Uz zcalc
 __calc() { zcalc -e "$*"; }
 aliases[=]='noglob __calc'
+y() {
+  yt-dlp --quiet --progress --write-subs --sub-lang en --embed-subs -f "bv*+ba" --abort-on-error --concurrent-fragments 16 --buffer-size 1M -t mkv "$@"
+}
 
 alias -g M='| $PAGER -R'
 alias -g J='| jq -rC \. | $PAGER -R'

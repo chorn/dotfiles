@@ -107,8 +107,6 @@ alias be="bundle exec"
 alias list_to_regex="sed -e 's/[^0-9]//g' | tr '\n' '|' | sed -e 's/^/(/' -e 's/\|$/)/'"
 alias m='$PAGER'
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
-alias to_csv='soffice --convert-to csv --headless'
-alias y='yt-dlp --quiet --progress'
 # ---------------------------------------------------------------------------
 ta() {
   if tmux has >&/dev/null; then
