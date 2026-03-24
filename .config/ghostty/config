@@ -31,3 +31,4 @@ title = ""
 working-directory = inherit
 window-show-tab-bar = always
 window-subtitle = working-directory
+unfocused-split-opacity = 1.0
