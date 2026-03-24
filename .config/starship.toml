@@ -2,7 +2,7 @@
 
 add_newline = false
 continuation_prompt = "[▸▹ ](dimmed white)"
-command_timeout = 2000
+command_timeout = 1000
 
 format = """
 ${custom.derp}\
@@ -12,6 +12,8 @@ $git_status\
 $git_metrics\
 $directory\
 $fill\
+${custom.pubgit}\
+${custom.prvgit}\
 $mise\
 $nodejs\
 $ruby\
@@ -30,6 +32,16 @@ $cmd_duration\
 $status\
 $character\
 """
+
+[custom.pubgit]
+when = 'git pub-dirty'
+command = 'echo PUB'
+format = '[$output]($style)'
+
+[custom.prvgit]
+when = 'git prv-dirty'
+command = 'echo PRV'
+format = '[$output]($style)'
 
 [custom.derp]
 disabled = false

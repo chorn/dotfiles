@@ -30,6 +30,8 @@
   pf = push --force-with-lease
   pom = push origin master
   pu = push -u
+  prv-dirty = "!f() { [[ \"$PWD\" == \"$HOME\" ]] && git --git-dir=\"$HOME/.git-prv-dotfiles\" --work-tree=\"$HOME\" status --porcelain=2 | grep -q '^\\d'; }; f"
+  pub-dirty = "!f() { [[ \"$PWD\" == \"$HOME\" ]] && git --git-dir=\"$HOME/.git-pub-dotfiles\" --work-tree=\"$HOME\" status --porcelain=2 | grep -q '^\\d'; }; f"
   r = !GIT_NO_PAGER=1 git l -30
   ra = !git r --all
   resign = "!git commit --amend --no-edit -S${USER}"
