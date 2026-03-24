@@ -28,7 +28,6 @@ rust = 'latest'
 
 go = 'latest'
 node = 'latest'
-# pnpm = '10'
 python = 'latest'
 
 [settings]
