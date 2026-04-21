@@ -7,6 +7,7 @@
 'asdf:mise-plugins/mise-usage' = 'latest'
 'asdf:salasrod/asdf-mkcert' = 'latest'
 
+'go:github.com/danielgatis/imgcat' = 'latest'
 'go:github.com/DarthSim/hivemind' = 'latest'
 
 'pipx:doge' = 'latest'
