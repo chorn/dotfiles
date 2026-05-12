@@ -1,6 +1,6 @@
 #-----------------------------------------------------------------------------
 # shellcheck shell=bash
-# vim: set syntax=bash ft=bash sw=2 ts=2 expandtab:
+# vim: set ft=bash sw=2 ts=2 expandtab:
 # --------------------------------------------------------------------------
 _is_in_path() {
   local _dir="$1"

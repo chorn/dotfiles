@@ -3,4 +3,4 @@
 [[ -s "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 
 # -----------------------------------------------------------------------------
-# vim: set syntax=bash ft=bash sw=2 ts=2 expandtab:
+# vim: set ft=bash sw=2 ts=2 expandtab:
