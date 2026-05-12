@@ -102,11 +102,11 @@ typeset -U zpath=(
   /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
   /Applications/Docker.app/Contents/Resources/bin
   /{usr,opt}/{local,homebrew}/{bin,sbin}
-  /{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin}
   /{opt,usr,snap}/{bin,sbin,libexec}
   /{bin,sbin}
   $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
 )
+[[ -d /usr/syno ]] && zpath+=(/{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin})
 typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
 #-----------------------------------------------------------------------------
 ## ZI
@@ -130,6 +130,7 @@ typeset -a __zi_setup=(
   mafredri/zsh-async
   from'gh-r' sbin'starship' atclone'./starship init zsh > starship.plugin.zsh' atpull'%atclone' compile'starship.plugin.zsh' src'starship.plugin.zsh' starship/starship
   from'gh-r' sbin'**/fzf' dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf' junegunn/fzf
+
 )
 
 typeset -a __zi_plugins=(
@@ -146,6 +147,7 @@ typeset -a __zi_commands=(
   iwata/git-now
   pick'czhttpd' mv'czhttpd -> httpd' chorn/czhttpd
   pick'bin/*' z-shell/zsh-diff-so-fancy
+  pick'*.fzf' junegunn/everything.fzf
 )
 
 typeset -a __zi_ghr=(
