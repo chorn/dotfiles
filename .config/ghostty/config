@@ -1,10 +1,7 @@
 # https://ghostty.org/docs/config
-# vim: set syntax=toml ft=toml sw=2 ts=2 expandtab:
+# vim: set ft=toml sw=2 ts=2 expandtab:
 # ghostty +show-config --changes-only
 
-# font-family = SauceCodePro Nerd Font Mono
-# font-size = 14
-# font-thicken = true
 # mouse-reporting = false
 auto-update = off
 background = #000000
@@ -27,6 +24,7 @@ macos-titlebar-style = tabs
 selection-clear-on-copy = true
 selection-clear-on-typing = true
 shell-integration-features = false
+theme = Tomorrow Night
 title = ""
 working-directory = inherit
 window-show-tab-bar = always

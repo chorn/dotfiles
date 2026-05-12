@@ -14,7 +14,7 @@ if has('nvim')
   set shada='100,<1000,s1000,:1000
 else
   let g:vimhome = SafeDirectory('~/.vim')
-  " set clipboard+=autoselect
+  set clipboard+=autoselect
 endif
 
 let &backupdir    = SafeDirectory(g:vimhome . '/backup')
@@ -145,7 +145,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/context.vim'
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 
 call plug#end()
 runtime! macros/matchit.vim
@@ -358,7 +358,7 @@ endif
 
 colorscheme retrobox
 
-let base16colorspace=256
+" let base16colorspace=256
 " colorscheme base16-tomorrow-night
 " hi ColorColumn      ctermbg=232
 " hi Visual           ctermbg=237
