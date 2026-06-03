@@ -163,7 +163,7 @@ typeset -a __zi_ghr=(
   sbin'**/lf' gokcehan/lf
   sbin'**/zoxide' atclone'./zoxide init zsh --cmd cd > zoxide.plugin.zsh' atpull'%atclone' compile'zoxide.plugin.zsh' src'zoxide.plugin.zsh' ajeetdsouza/zoxide
   mv'direnv* -> direnv' atclone'./direnv hook zsh > direnv.plugin.zsh' atpull'%atclone' compile'direnv.plugin.zsh' src'direnv.plugin.zsh' direnv/direnv
-  bpick'atuin-*.tar.gz' mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'atuin.plugin.zsh' src'atuin.plugin.zsh' atuinsh/atuin
+  bpick"atuin-${CPUTYPE}*.tar.gz" mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'./atuin.plugin.zsh' src'./atuin.plugin.zsh' atuinsh/atuin
   if'[[ $OSTYPE != darwin* && ! -d /usr/syno ]]' sbin'**/eza' eza-community/eza
   mv'mise* -> mise' atclone'$PWD/mise activate zsh > mise.plugin.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' compile'mise.plugin.zsh' src'mise.plugin.zsh' jdx/mise
 )
