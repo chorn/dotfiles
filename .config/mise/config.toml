@@ -16,14 +16,14 @@
 'pipx:visidata' = 'latest'
 'pipx:sqlit-tui' = 'latest'
 
-'ubi:BurntSushi/xsv' = 'latest'
-'ubi:anordal/shellharden' = 'latest'
-'ubi:cloverstd/tcping' = 'latest'
-'ubi:direnv/direnv' = 'latest'
-'ubi:jqlang/jq' = 'latest'
-'ubi:mikefarah/yq' = 'latest'
-'ubi:sclevine/yj' = 'latest'
-'ubi:tomnomnom/gron' = 'latest'
+'github:BurntSushi/xsv' = 'latest'
+'github:anordal/shellharden' = 'latest'
+'github:cloverstd/tcping' = 'latest'
+'github:direnv/direnv' = 'latest'
+'github:jqlang/jq' = 'latest'
+'github:mikefarah/yq' = 'latest'
+'github:sclevine/yj' = 'latest'
+'github:tomnomnom/gron' = 'latest'
 
 rust = 'latest'
 
