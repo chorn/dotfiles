@@ -96,17 +96,20 @@ typeset -agx ZSH_AUTOSUGGEST_STRATEGY=( history completion )
 typeset -gx EZA_CONFIG_DIR=$HOME/.config/eza
 unset MANPATH
 #-----------------------------------------------------------------------------
-typeset -U zpath=(
-  ~/{tbin,bin}
+typeset -Ugx zpath=(
+  ~/{bin,sbin}
   ~/{.cargo,.local}/{bin,sbin}
-  /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-  /Applications/Docker.app/Contents/Resources/bin
-  /{usr,opt}/{local,homebrew}/{bin,sbin}
+  /{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin,libexec}
+  /{usr,opt}/{local,homebrew}/{bin,sbin,libexec}
   /{opt,usr,snap}/{bin,sbin,libexec}
   /{bin,sbin}
-  $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
+  $(find /etc/paths -type f -exec cat {} \; 2> /dev/null)
+  # /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+  # /Applications/Docker.app/Contents/Resources/bin
+  # $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
 )
-[[ -d /usr/syno ]] && zpath+=(/{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin})
+# [[ -d /usr/syno ]] && zpath+=(/{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin})
+# typeset -T -Ugx PATH path=($zpath[@]) ':'
 typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
 #-----------------------------------------------------------------------------
 ## ZI

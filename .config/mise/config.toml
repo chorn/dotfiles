@@ -25,11 +25,11 @@
 'github:sclevine/yj' = 'latest'
 'github:tomnomnom/gron' = 'latest'
 
-rust = 'latest'
-
+deno = 'latest'
 go = 'latest'
 node = 'latest'
 python = 'latest'
+rust = 'latest'
 
 [settings]
 activate_aggressive = true
