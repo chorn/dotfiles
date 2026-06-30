@@ -1,20 +1,7 @@
 # https://ghostty.org/docs/config
-# vim: set syntax=toml ft=toml sw=2 ts=2 expandtab:
+# vim: set ft=toml sw=2 ts=2 expandtab:
 # ghostty +show-config --changes-only
 
-<<<<<<< Updated upstream
-# font-family = SauceCodePro Nerd Font Mono
-# font-size = 14
-# font-thicken = true
-# mouse-reporting = false
-||||||| Stash base
-# mouse-reporting = false
-=======
-# font-family = SauceCodePro Nerd Font Mono
-# font-size = 14
-# font-thicken = true
-mouse-reporting = false
->>>>>>> Stashed changes
 auto-update = off
 background = #000000
 clipboard-read = allow
@@ -33,24 +20,15 @@ macos-auto-secure-input = false
 macos-icon = retro
 macos-shortcuts = allow
 macos-titlebar-style = tabs
+mouse-reporting = false
 selection-clear-on-copy = true
 selection-clear-on-typing = true
 shell-integration-features = false
-<<<<<<< Updated upstream
 split-inherit-working-directory = true
 tab-inherit-working-directory = true
 theme = Tomorrow Night
 title = " "
 title-report = false
-||||||| Stash base
-theme = Tomorrow Night
-title = ""
-=======
-split-inherit-working-directory = true
-tab-inherit-working-directory = true
-title = " "
-title-report = false
->>>>>>> Stashed changes
 working-directory = inherit
 window-show-tab-bar = always
 window-subtitle = working-directory
