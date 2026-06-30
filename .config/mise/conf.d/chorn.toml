@@ -1,4 +1,10 @@
 [tools]
+deno = 'latest'
+go = 'latest'
+node = 'latest'
+python = 'latest'
+rust = 'latest'
+
 'asdf:asdf-community/asdf-direnv' = 'latest'
 'asdf:asdf-community/asdf-uv' = 'latest'
 'asdf:luizm/asdf-shellcheck' = 'latest'
@@ -7,29 +13,18 @@
 'asdf:mise-plugins/mise-usage' = 'latest'
 'asdf:salasrod/asdf-mkcert' = 'latest'
 
-'go:github.com/danielgatis/imgcat' = 'latest'
-'go:github.com/DarthSim/hivemind' = 'latest'
-
 'pipx:doge' = 'latest'
 'pipx:internetarchive' = 'latest'
 'pipx:proselint' = 'latest'
 'pipx:visidata' = 'latest'
-'pipx:sqlit-tui' = 'latest'
 
-'github:BurntSushi/xsv' = 'latest'
 'github:anordal/shellharden' = 'latest'
-'github:cloverstd/tcping' = 'latest'
+'github:danielgatis/imgcat' = 'latest'
 'github:direnv/direnv' = 'latest'
 'github:jqlang/jq' = 'latest'
 'github:mikefarah/yq' = 'latest'
 'github:sclevine/yj' = 'latest'
 'github:tomnomnom/gron' = 'latest'
-
-deno = 'latest'
-go = 'latest'
-node = 'latest'
-python = 'latest'
-rust = 'latest'
 
 [settings]
 activate_aggressive = true
