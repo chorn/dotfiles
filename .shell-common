@@ -29,16 +29,11 @@ if [[ -z "$JAVA_HOME" && -d /Library/Java/JavaVirtualMachines ]]; then
   export JAVA_HOME="$(find /Library/Java/JavaVirtualMachines -type d -path '*corretto-11*/Contents/Home')"
 fi
 #-----------------------------------------------------------------------------
-[[ -z "$GPG_TTY" ]] && command -v tty >&/dev/null && export GPG_TTY=$(tty)
-
-if command -v ssh-agent >&/dev/null && [[ ! -S "$SSH_AUTH_SOCK" ]]; then
+if [[ ! -S "$SSH_AUTH_SOCK" ]] && command -v ssh-agent >&/dev/null && [[ "${OSTYPE/[^a-z]*/}" != "darwin" ]]; then
   [[ -d "$HOME/.ssh" ]] || mkdir -p "$HOME/.ssh"
   declare _sshagent="$HOME/.ssh/ssh-agent.env"
-
   [[ -s "$_sshagent" ]] && source "$_sshagent"
-
   [[ -S "$SSH_AUTH_SOCK" ]] || ssh-agent 2> /dev/null | grep export > "$_sshagent"
-
   [[ -s "$_sshagent" ]] && source "$_sshagent"
 fi
 
