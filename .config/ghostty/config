@@ -12,6 +12,7 @@ cursor-color = #FFFF00
 cursor-style = block
 font-family = VictorMono Nerd Font Mono
 font-feature = -calt, -liga, -dlig
+font-synthetic-style = false
 font-size = 16
 font-thicken = true
 link-previews = true
