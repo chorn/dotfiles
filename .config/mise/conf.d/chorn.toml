@@ -1,10 +1,4 @@
 [tools]
-deno = 'latest'
-go = 'latest'
-node = 'latest'
-python = 'latest'
-rust = 'latest'
-
 'asdf:asdf-community/asdf-direnv' = 'latest'
 'asdf:asdf-community/asdf-uv' = 'latest'
 'asdf:luizm/asdf-shellcheck' = 'latest'
@@ -25,6 +19,13 @@ rust = 'latest'
 'github:mikefarah/yq' = 'latest'
 'github:sclevine/yj' = 'latest'
 'github:tomnomnom/gron' = 'latest'
+
+deno = 'latest'
+go = 'latest'
+node = 'latest'
+python = 'latest'
+rust = 'latest'
+tree-sitter = 'latest'
 
 [settings]
 activate_aggressive = true
