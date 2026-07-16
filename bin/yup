@@ -16,13 +16,6 @@ _yup_vim() {
   vim --not-a-term +PlugUpgrade +PlugUpdate +PlugClean +qall
 }
 #-----------------------------------------------------------------------------
-_yup_zi() {
-  zi self-update
-  zi update --all --parallel
-  zi compinit
-  zi zstatus
-}
-#-----------------------------------------------------------------------------
 _yup_brew() {
   brew doctor || true
   brew update
@@ -40,7 +33,7 @@ _yup_mise() {
 #-----------------------------------------------------------------------------
 yup() {
   local -a _what=("$@")
-  [[ "${#_what[@]}" -gt 0 ]] || _what=(brew zi mise vim)
+  [[ "${#_what[@]}" -gt 0 ]] || _what=(brew mise vim)
   for _cmd in "${_what[@]}"; do
     _yup "$_cmd"
   done

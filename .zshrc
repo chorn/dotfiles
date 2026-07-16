@@ -239,12 +239,15 @@ zstyle ':completion:*' menu select
 autoload -Uz zcalc
 __calc() { zcalc -e "$*"; }
 aliases[=]='noglob __calc'
-alias y="yt-dlp --quiet --progress --write-subs --sub-lang en --embed-subs -f 'bv*+ba' --abort-on-error --concurrent-fragments 16 --buffer-size 1M"
+
+alias y='yt-dlp --quiet --progress --abort-on-error --concurrent-fragments 16 --buffer-size 1M'
+alias zup='zi self-update && zi update --all --parallel && zi compinit && zi zstatus'
 
 alias -g M='| $PAGER -R'
 alias -g J='| jq -rC \. | $PAGER -R'
 alias -g B='| bat'
 alias -g C='| wc -l'
+
 bindkey -e
 bindkey -m 2>/dev/null
 
