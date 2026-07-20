@@ -199,6 +199,7 @@ alias vg=prvgit
 # Git ---------------------------------------------------------------------
 
 alias g=git
+alias gco='git checkout'
 alias gst='git status'
 alias gps='git push'
 alias gpl='git pull'
