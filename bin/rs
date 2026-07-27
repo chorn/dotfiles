@@ -3,7 +3,7 @@
 # vim: set syntax=sh ft=sh sw=2 ts=2 expandtab:
 # shellcheck disable=SC2184
 #-----------------------------------------------------------------------------
-set -euo pipefail
+set -Eeuo pipefail
 
 _rsync() {
   local -a _args=(
