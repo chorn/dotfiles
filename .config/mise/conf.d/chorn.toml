@@ -46,7 +46,6 @@ not_found_auto_install = true
 paranoid = false
 plugin_autoupdate_last_check_duration = '1 week'
 raw = false
-task_output = 'prefix'
 trusted_config_paths = ['~/code', '~/src']
 verbose = false
 yes = false
@@ -56,3 +55,6 @@ default_packages_file = "~/.default-python-packages"
 
 [settings.ruby]
 default_packages_file = "~/.default-ruby-packages"
+
+[settings.task]
+output = 'prefix'
