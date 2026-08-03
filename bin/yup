@@ -20,7 +20,7 @@ _yup_brew() {
   brew doctor || true
   brew update
   brew outdated
-  brew upgrade
+  brew upgrade --yes
   brew cleanup --prune=all --scrub
 }
 #-----------------------------------------------------------------------------
