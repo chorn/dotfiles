@@ -36,7 +36,6 @@ if [[ ! -S "$SSH_AUTH_SOCK" ]] && command -v ssh-agent >&/dev/null && [[ "${OSTY
   [[ -S "$SSH_AUTH_SOCK" ]] || ssh-agent 2> /dev/null | grep export > "$_sshagent"
   [[ -s "$_sshagent" ]] && source "$_sshagent"
 fi
-
 # ---------------------------------------------------------------------------
 # ls
 if command -v eza >&/dev/null; then
@@ -61,6 +60,7 @@ lm() { l "$@" | less -R; }
 lc() { l "$@" | wc -l; }
 # ---------------------------------------------------------------------------
 alias p="ps auxOU"
+alias j="jq -rC '.'"
 # ---------------------------------------------------------------------------
 if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias p="ps -Af"
