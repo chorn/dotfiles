@@ -20,6 +20,7 @@
 'github:mikefarah/yq' = 'latest'
 'github:sclevine/yj' = 'latest'
 'github:tomnomnom/gron' = 'latest'
+'github:yutat23/lsoff' = 'latest'
 
 deno = 'latest'
 dotnet = 'latest'
