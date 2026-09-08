@@ -114,6 +114,7 @@ typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) 
 #-----------------------------------------------------------------------------
 ## ZI
 typeset -Agx ZI
+ZI[LOG_DIR]="${HOME}/.zi/log"
 ZI[BIN_DIR]="${HOME}/.zi/bin"
 #-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
@@ -133,12 +134,12 @@ typeset -a __zi_setup=(
   mafredri/zsh-async
   from'gh-r' sbin'starship' atclone'./starship init zsh > starship.plugin.zsh' atpull'%atclone' compile'starship.plugin.zsh' src'starship.plugin.zsh' starship/starship
   from'gh-r' sbin'**/fzf' dl'https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh -> _fzf' junegunn/fzf
-
 )
 
 typeset -a __zi_plugins=(
   z-shell/F-Sy-H
-  zsh-users/zsh-autosuggestions
+  # zsh-users/zsh-autosuggestions
+  # Giammarco-Ferranti/deja
   voronkovich/gitignore.plugin.zsh
   paulirish/git-open
 )
@@ -169,6 +170,7 @@ typeset -a __zi_ghr=(
   bpick"atuin-${CPUTYPE}*.tar.gz" mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'./atuin.plugin.zsh' src'./atuin.plugin.zsh' atuinsh/atuin
   if'[[ $OSTYPE != darwin* && ! -d /usr/syno ]]' sbin'**/eza' eza-community/eza
   mv'mise* -> mise' atclone'$PWD/mise activate zsh > mise.plugin.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' compile'mise.plugin.zsh' src'mise.plugin.zsh' jdx/mise
+  sbin'deja' atclone'./deja init > deja.plugin.zsh' atpull'%atclone' compile'deja.plugin.zsh' src'deja.plugin.zsh' Giammarco-Ferranti/deja
 )
 
 typeset -a __zi_completions=(
