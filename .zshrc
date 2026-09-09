@@ -96,25 +96,21 @@ typeset -agx ZSH_AUTOSUGGEST_STRATEGY=( history completion )
 typeset -gx EZA_CONFIG_DIR=$HOME/.config/eza
 unset MANPATH
 #-----------------------------------------------------------------------------
-typeset -Ugx zpath=(
+typeset -gxU zpath=(
   ~/{bin,sbin}
   ~/{.cargo,.local}/{bin,sbin}
-  /{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin,libexec}
+  /home/linuxbrew/.linuxbrew/{bin,sbin,libexec}
   /{usr,opt}/{local,homebrew}/{bin,sbin,libexec}
   /{opt,usr,snap}/{bin,sbin,libexec}
   /{bin,sbin}
-  $(find /etc/paths -type f -exec cat {} \; 2> /dev/null)
-  # /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-  # /Applications/Docker.app/Contents/Resources/bin
-  # $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
+  $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
 )
-# [[ -d /usr/syno ]] && zpath+=(/{volume1/homes,home}/linuxbrew/.linuxbrew/{bin,sbin})
+[[ -d /usr/syno ]] && zpath+=(/volume1/homes/linuxbrew/.linuxbrew/{bin,sbin})
 # typeset -T -Ugx PATH path=($zpath[@]) ':'
-typeset -T -Ugx PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
+typeset -gxUT PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
 #-----------------------------------------------------------------------------
 ## ZI
 typeset -Agx ZI
-ZI[LOG_DIR]="${HOME}/.zi/log"
 ZI[BIN_DIR]="${HOME}/.zi/bin"
 #-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
@@ -139,7 +135,6 @@ typeset -a __zi_setup=(
 typeset -a __zi_plugins=(
   z-shell/F-Sy-H
   # zsh-users/zsh-autosuggestions
-  # Giammarco-Ferranti/deja
   voronkovich/gitignore.plugin.zsh
   paulirish/git-open
 )
