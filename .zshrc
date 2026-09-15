@@ -134,7 +134,7 @@ typeset -a __zi_setup=(
 
 typeset -a __zi_plugins=(
   z-shell/F-Sy-H
-  # zsh-users/zsh-autosuggestions
+  zsh-users/zsh-autosuggestions
   voronkovich/gitignore.plugin.zsh
   paulirish/git-open
 )
@@ -165,7 +165,6 @@ typeset -a __zi_ghr=(
   bpick"atuin-${CPUTYPE}*.tar.gz" mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'./atuin.plugin.zsh' src'./atuin.plugin.zsh' atuinsh/atuin
   if'[[ $OSTYPE != darwin* && ! -d /usr/syno ]]' sbin'**/eza' eza-community/eza
   mv'mise* -> mise' atclone'$PWD/mise activate zsh > mise.plugin.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' compile'mise.plugin.zsh' src'mise.plugin.zsh' jdx/mise
-  sbin'deja' atclone'./deja init > deja.plugin.zsh' atpull'%atclone' compile'deja.plugin.zsh' src'deja.plugin.zsh' Giammarco-Ferranti/deja
 )
 
 typeset -a __zi_completions=(
