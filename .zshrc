@@ -111,6 +111,7 @@ typeset -gxUT PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':
 #-----------------------------------------------------------------------------
 ## ZI
 typeset -Agx ZI
+typeset -agxU logpath LOG_PATH
 ZI[BIN_DIR]="${HOME}/.zi/bin"
 #-----------------------------------------------------------------------------
 if ! [[ -s "${ZI[BIN_DIR]}/zi.zsh" ]]; then
