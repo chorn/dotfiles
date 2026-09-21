@@ -212,7 +212,9 @@ let g:ale_sign_column_always             = 1
 let g:ale_sign_error                     = 'E'
 let g:ale_sign_warning                   = 'W'
 let g:ale_use_global_executables         = 1
+  " \ 'html': [ 'alex', 'angular', 'astgrep', 'cspell', 'djlint', 'eslint', 'fecs', 'htmlhint', 'proselint', 'stylelint', 'superhtml', 'tidy', 'vscodehtml', 'writegood'],
 let g:ale_linters                        = {
+  \ 'html': [ 'alex', 'angular', 'astgrep', 'cspell', 'djlint', 'eslint', 'fecs', 'htmlhint', 'stylelint', 'superhtml', 'tidy', 'vscodehtml', 'writegood'],
   \ 'sh': ['language_server', 'shell', 'shellcheck', 'shfmt'],
 \ }
 let g:ale_fixers                         = {
