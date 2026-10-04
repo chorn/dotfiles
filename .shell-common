@@ -59,12 +59,18 @@ fi
 lm() { l "$@" | less -R; }
 lc() { l "$@" | wc -l; }
 # ---------------------------------------------------------------------------
-alias p="ps auxOU"
-alias j="jq -rC '.'"
-# ---------------------------------------------------------------------------
+# ps
 if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   alias p="ps -Af"
+elif [[ "${OSTYPE/[^a-z]*/}" = "freebsd" ]]; then
+  alias p="sudo ps -Afx"
+else
+  alias p="ps auxOU"
+fi
 
+# ---------------------------------------------------------------------------
+
+if [[ "${OSTYPE/[^a-z]*/}" = "darwin" ]]; then
   flushdns() {
     dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
@@ -101,6 +107,7 @@ fi
 alias be="bundle exec"
 alias list_to_regex="sed -e 's/[^0-9]//g' | tr '\n' '|' | sed -e 's/^/(/' -e 's/\|$/)/'"
 alias m='$PAGER'
+alias j="jq -rC '.'"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 # ---------------------------------------------------------------------------
 ta() {
@@ -277,10 +284,11 @@ _gb() {
       --multi \
       --tac \
       --preview-window right:70% \
-      --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES \
+      --preview "git log --oneline --graph --date=short --color=always --pretty='format:%C(auto)%cd %h%d %s' $(sed s/^..// <<< {} | cut -d' ' -f1) | head -" \
     | sed 's/^..//' \
     | cut -d' ' -f1 \
     | sed 's#^remotes/##'
+      # --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -' $LINES \
 }
 
 _gt() {
