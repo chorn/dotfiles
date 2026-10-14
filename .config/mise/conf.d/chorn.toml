@@ -9,7 +9,6 @@
 
 'pipx:doge' = 'latest'
 'pipx:internetarchive' = 'latest'
-'pipx:proselint' = 'latest'
 'pipx:visidata' = 'latest'
 
 'github:anordal/shellharden' = 'latest'
@@ -45,7 +44,6 @@ idiomatic_version_file_enable_tools = ["node", "python", "ruby"]
 legacy_version_file = true
 not_found_auto_install = true
 paranoid = false
-plugin_autoupdate_last_check_duration = '1 week'
 raw = false
 trusted_config_paths = ['~/code', '~/src']
 verbose = false
