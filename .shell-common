@@ -110,6 +110,15 @@ alias m='$PAGER'
 alias j="jq -rC '.'"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 # ---------------------------------------------------------------------------
+apg() {
+  local dels=.-
+  local del=${dels:$(( RANDOM % ${#dels} )):1}
+
+  printf "%d%s" $((RANDOM % 9)) "$del"
+
+  xkcdpass --numwords=4 --max=6 --delimiter="$del"
+}
+
 ta() {
   if tmux has >&/dev/null; then
     tmux -2 attach
