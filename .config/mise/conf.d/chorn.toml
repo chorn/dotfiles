@@ -1,32 +1,20 @@
 [tools]
-# 'asdf:asdf-community/asdf-direnv' = 'latest'
-'asdf:asdf-community/asdf-uv' = 'latest'
-# 'asdf:luizm/asdf-shellcheck' = 'latest'
-# 'asdf:luizm/asdf-shfmt' = 'latest'
-'asdf:mise-plugins/mise-pipx' = 'latest'
-'asdf:mise-plugins/mise-usage' = 'latest'
-# 'asdf:salasrod/asdf-mkcert' = 'latest'
+'packslip:github.com/jdx/usage' = 'latest'
 
 'pipx:doge' = 'latest'
 'pipx:internetarchive' = 'latest'
 'pipx:mitmproxy' = 'latest'
 'pipx:visidata' = 'latest'
+'pipx:xkcdpass' = 'latest'
 
-# 'github:direnv/direnv' = 'latest'
-# 'github:eqms/ctop' = 'latest'
-# 'github:tomnomnom/gron' = 'latest'
 'github:DarthSim/hivemind' = 'latest'
 'github:DarthSim/overmind' = 'latest'
-# 'github:anordal/shellharden' = 'latest'
 'github:danielgatis/imgcat' = 'latest'
-# 'github:jqlang/jq' = 'latest'
-# 'github:mikefarah/yq' = 'latest'
-# 'github:sclevine/yj' = 'latest'
 
 'npm:shardmind' = 'latest'
 'npm:typescript' = 'latest'
 'npm:@tobilu/qmd' = 'latest'
-'npm:@yarnpkg/cli-dist' = 'latest'
+'npm:pnpm' = 'latest'
 
 'aqua:bats-core/bats-core' = 'latest'
 'aqua:bazelbuild/bazel' = 'latest'
@@ -41,6 +29,7 @@
 'aqua:artempyanykh/marksman' = 'latest'
 'aqua:FiloSottile/mkcert' = 'latest'
 'aqua:npm/cli' = 'latest'
+'aqua:pypa/pipx' = 'latest'
 'aqua:dathere/qsv' = 'latest'
 'aqua:BurntSushi/ripgrep' = 'latest'
 'aqua:phiresky/ripgrep-all' = 'latest'
@@ -51,8 +40,7 @@
 'aqua:tree-sitter/tree-sitter' = 'latest'
 'aqua:sclevine/yj' = 'latest'
 'aqua:mikefarah/yq' = 'latest'
-
-
+'aqua:astral-sh/uv' = 'latest'
 
 'gem:rubocop' = 'latest'
 'gem:rails' = 'latest'
@@ -86,12 +74,6 @@ raw = false
 trusted_config_paths = ['~/code', '~/src']
 verbose = false
 yes = false
-
-[settings.python]
-default_packages_file = "~/.default-python-packages"
-
-[settings.ruby]
-default_packages_file = "~/.default-ruby-packages"
 
 [settings.task]
 output = 'prefix'
