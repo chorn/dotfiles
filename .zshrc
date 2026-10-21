@@ -179,8 +179,8 @@ zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}
 zi lucid light-mode wait'1' from'gh-r' as'command'    'for' "${__zi_ghr[@]}"
 zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[@]}"
 
-zi ice if'[[ $OSTYPE = darwin* ]]' cargo'!eza' id-as'eza' as'program' nocompile
-zi load z-shell/0
+# zi ice if'[[ $OSTYPE = darwin* ]]' cargo'!eza' id-as'eza' as'program' nocompile
+# zi load z-shell/0
 
 __comp_for() {
   local _cmd=$1
