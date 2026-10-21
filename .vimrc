@@ -128,6 +128,7 @@ call plug#begin(SafeDirectory(g:vimhome . '/plugged'))
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'ashishbinu/vim-dotenv'
 Plug 'bling/vim-bufferline'
 Plug 'chrisbra/csv.vim'
 Plug 'dense-analysis/ale'
@@ -143,6 +144,7 @@ Plug 'simeji/winresizer'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-endwise', { 'for': 'ruby' }
+" Plug 'tpope/vim-dotenv'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
