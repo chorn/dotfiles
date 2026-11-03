@@ -110,6 +110,13 @@ alias m='$PAGER'
 alias j="jq -rC '.'"
 alias live_ip='dig +short myip.opendns.com @resolver1.opendns.com || curl -f4L http://ifconfig.me'
 # ---------------------------------------------------------------------------
+md() {
+  local _dir=$1
+
+  mkdir -p "$_dir"
+  cd "$_dir"
+}
+
 apg() {
   local dels=.-
   local del=${dels:$(( RANDOM % ${#dels} )):1}
