@@ -97,6 +97,7 @@ typeset -gx EZA_CONFIG_DIR=$HOME/.config/eza
 unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -gxU zpath=(
+  ~/flutter-tvos/bin
   ~/{bin,sbin}
   ~/{.cargo,.local}/{bin,sbin}
   /home/linuxbrew/.linuxbrew/{bin,sbin,libexec}
@@ -165,7 +166,8 @@ typeset -a __zi_ghr=(
   mv'direnv* -> direnv' atclone'./direnv hook zsh > direnv.plugin.zsh' atpull'%atclone' compile'direnv.plugin.zsh' src'direnv.plugin.zsh' direnv/direnv
   bpick"atuin-${CPUTYPE}*.tar.gz" mv'atuin*/atuin -> atuin' atclone'./atuin init zsh --disable-up-arrow > atuin.plugin.zsh; ./atuin gen-completions --shell zsh > _atuin' atpull'%atclone' compile'./atuin.plugin.zsh' src'./atuin.plugin.zsh' atuinsh/atuin
   if'[[ $OSTYPE != darwin* && ! -d /usr/syno ]]' sbin'**/eza' eza-community/eza
-  mv'mise* -> mise' atclone'$PWD/mise activate zsh > mise.plugin.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' compile'mise.plugin.zsh' src'mise.plugin.zsh' jdx/mise
+  # mv'mise* -> mise' atclone'$PWD/mise activate zsh > mise.plugin.zsh && $PWD/mise completion zsh > _mise' atpull'%atclone' compile'mise.plugin.zsh' src'mise.plugin.zsh' jdx/mise
+  # mv'mise* -> mise' atclone'$PWD/mise completion zsh > _mise' atpull'%atclone' nocompile atload'eval "$($PWD/mise activate zsh)"' jdx/mise
 )
 
 typeset -a __zi_completions=(
@@ -174,6 +176,7 @@ typeset -a __zi_completions=(
 )
 
 zi lucid light-mode 'for' "${__zi_setup[@]}"
+zi lucid light-mode from'gh-r' as'command' 'for' mv'mise* -> mise' atclone'$PWD/mise completion zsh > _mise' atpull'%atclone' nocompile atload'eval "$($PWD/mise activate zsh)"' jdx/mise
 zi lucid light-mode wait'0'                           'for' "${__zi_plugins[@]}"
 zi lucid light-mode wait'1'            as'command'    'for' "${__zi_commands[@]}"
 zi lucid light-mode wait'1' from'gh-r' as'command'    'for' "${__zi_ghr[@]}"
@@ -184,7 +187,7 @@ zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[
 
 __comp_for() {
   local _cmd=$1
-  command -v "${_cmd}" >&/dev/null || return
+  # command -v "${_cmd}" >&/dev/null || return
 
   if [[ $2 != http* ]]; then
     local -a _how=("$@")
@@ -194,18 +197,21 @@ __comp_for() {
     local _c=$2
   fi
 
-  zi ice lucid wait'0' id-as"_${_cmd}" as'completion' has"${_cmd}"
+  # zi ice lucid wait'0' id-as"_${_cmd}" as'completion' has"${_cmd}"
+  zi ice lucid wait'0' id-as"_${_cmd}" as'completion'
   zi snippet "${_c}"
 }
 
 __comp_for op completion zsh
 __comp_for yar completion zsh
 __comp_for eza https://github.com/eza-community/eza/blob/main/completions/zsh/_eza
+__comp_for pnpm completion zsh
 
 #-----------------------------------------------------------------------------
 for s in "$HOME/.shell-common" "$HOME/.shell-prv"; do
   [[ -s "$s" ]] && source "$s"
 done
+#-----------------------------------------------------------------------------
 #-----------------------------------------------------------------------------
 [[ -z "$PS1" ]] && return
 
