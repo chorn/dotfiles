@@ -34,27 +34,25 @@ _add_to_path() {
 }
 # --------------------------------------------------------------------------
 declare _newpath=""
+declare -a _dirs=(
+  "$HOME"/bin
+  "$HOME"/{.cargo,.local}/{bin,sbin}
+  "$HOME"/.zi/polaris/{bin,sbin}
+  /home/linuxbrew/.linuxbrew/{bin,sbin,libexec}
+  /{usr,opt}/{local,homebrew}/{bin,sbin,libexec}
+  /{opt,usr,snap}/{bin,sbin,libexec}
+  /{bin,sbin}
+)
 
-# --------------------------------------------------------------------------
-for _dir in \
-  $HOME/{tbin,bin} \
-  $HOME/{.cargo,.local}/{bin,sbin} \
-  $HOME/.zi/polaris/{bin,sbin} \
-  /home/linuxbrew/.linuxbrew/{bin,sbin} \
-  /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin \
-  /Applications/Docker.app/Contents/Resources/bin \
-  /Applications/Postgres.app/Contents/Versions/latest/bin \
-  /usr/local/MacGPG2/bin \
-  /opt/zerobrew/prefix/{bin,sbin} \
-  /{usr,opt}/{local,homebrew}/{bin,sbin} \
-  /usr/local/opt/openssl/bin \
-  /{opt,usr,snap}/{bin,sbin,libexec} \
-  /{bin,sbin}; do
+[[ -d /usr/syno ]] && _dirs+=(/volume1/homes/linuxbrew/.linuxbrew/{bin,sbin,libexec})
+
+for _dir in "${_dirs[@]}"; do \
   _newpath="$(_add_to_path "${_dir}" "${_newpath}")"
 done
 
 while read -r _dir; do
   _newpath="$(_add_to_path "${_dir}" "${_newpath}")"
-done < <(find /etc/paths /etc/paths.d -type f -print0 2> /dev/null | xargs -0 cat 2> /dev/null)
+done < <(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2>/dev/null)
 
+# --------------------------------------------------------------------------
 export PATH="${_newpath}"
