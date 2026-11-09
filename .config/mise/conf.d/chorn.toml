@@ -7,7 +7,6 @@
 'pipx:visidata' = 'latest'
 'pipx:xkcdpass' = 'latest'
 
-'github:cloverstd/tcping' = "latest"
 'github:DarthSim/hivemind' = 'latest'
 'github:DarthSim/overmind' = 'latest'
 'github:danielgatis/imgcat' = 'latest'
