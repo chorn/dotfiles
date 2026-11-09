@@ -97,8 +97,7 @@ typeset -gx EZA_CONFIG_DIR=$HOME/.config/eza
 unset MANPATH
 #-----------------------------------------------------------------------------
 typeset -gxU zpath=(
-  ~/flutter-tvos/bin
-  ~/{bin,sbin}
+  ~/bin
   ~/{.cargo,.local}/{bin,sbin}
   /home/linuxbrew/.linuxbrew/{bin,sbin,libexec}
   /{usr,opt}/{local,homebrew}/{bin,sbin,libexec}
@@ -106,9 +105,10 @@ typeset -gxU zpath=(
   /{bin,sbin}
   $(find /etc/paths /etc/paths.d -type f -exec cat {} \; 2> /dev/null)
 )
-[[ -d /usr/syno ]] && zpath+=(/volume1/homes/linuxbrew/.linuxbrew/{bin,sbin})
-# typeset -T -Ugx PATH path=($zpath[@]) ':'
-typeset -gxUT PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
+[[ -d /usr/syno ]] && zpath+=(/volume1/homes/linuxbrew/.linuxbrew/{bin,sbin,libexec})
+
+typeset -gxUT PATH path=($zpath[@]) ':'
+# typeset -gxUT PATH path=($(find $zpath[@] -type d -maxdepth 0 2>| /dev/null)) ':'
 #-----------------------------------------------------------------------------
 ## ZI
 typeset -Agx ZI
@@ -187,7 +187,7 @@ zi lucid light-mode wait'1' blockf     as'completion' 'for' "${__zi_completions[
 
 __comp_for() {
   local _cmd=$1
-  # command -v "${_cmd}" >&/dev/null || return
+  (( $+aliases["${_cmd}"] || $+functions["${_cmd}"] || $+builtins["${_cmd}"] )) || return
 
   if [[ $2 != http* ]]; then
     local -a _how=("$@")
