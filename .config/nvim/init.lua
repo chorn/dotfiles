@@ -1,4 +1,4 @@
-# vim: set ft=lua sw=2 ts=2 expandtab:
+-- vim: set ft=lua sw=2 ts=2 expandtab:
 
 vim.g.mapleader      = ','
 vim.g.maplocalleader = '\\'
@@ -22,6 +22,41 @@ require("lazy").setup({
     },
     { 'nvim-treesitter/nvim-treesitter', lazy = false, build = ':TSUpdate' },
     { 'neovim/nvim-lspconfig', lazy = false, dependencies = { { "ms-jpq/coq_nvim", branch = "coq" }, { "ms-jpq/coq.artifacts", branch = "artifacts" }, { 'ms-jpq/coq.thirdparty', branch = "3p" }}},
+{
+  "saghen/blink.cmp",
+  opts = {
+    enabled = function()
+      return not vim.tbl_contains({ "markdown", "text", "gitcommit" }, vim.bo.filetype)
+    end,
+    completion = {
+      menu = { auto_show = false },
+      list = { selection = { preselect = false, auto_insert = false } },
+      trigger = {
+        show_on_keyword = false,
+        show_on_trigger_character = true,
+        show_on_blocked_trigger_characters = { ' ', '\n', '\t' },
+      },
+    },
+    keymap = {
+      preset = "none",
+      ["<Tab>"] = {
+        function(cmp)
+          if cmp.is_menu_visible() then return cmp.accept() end
+          local col = vim.api.nvim_win_get_cursor(0)[2]
+          if vim.api.nvim_get_current_line():sub(1, col):match("%S$") then
+            return cmp.show()
+          end
+        end,
+        "snippet_forward",
+        "fallback",
+      },
+      ["<CR>"]   = { "accept", "fallback" },
+      ["<Up>"]   = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<C-e>"]  = { "hide", "fallback" },
+    },
+  },
+},
     'nvim-tree/nvim-web-devicons',
     'nvim-tree/nvim-tree.lua',
     'romus204/tree-sitter-manager.nvim',
@@ -37,6 +72,7 @@ require("lazy").setup({
     'nvim-lualine/lualine.nvim',
     { "MeanderingProgrammer/render-markdown.nvim", enabled = false },
     { "render-markdown.nvim", enabled = false },
+    { "folke/snacks.nvim", opts = { indent = { enabled = false } } },
   },
   install = { colorscheme = { 'retrobox' }  },
   checker = { enabled = true },
@@ -120,6 +156,7 @@ vim.opt.autoindent     = true
 -- vim.opt.binary         = true
 -- vim.opt.cmdheight      = 3
 -- vim.opt.completeopt    = { 'menu', 'menuone', 'preview', 'noinsert' }
+vim.opt.conceallevel = 0
 -- vim.opt.cursorline     = true
 -- vim.opt.directory      = swapdir
 -- vim.opt.errorbells     = false
