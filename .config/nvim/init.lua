@@ -1,13 +1,20 @@
 -- vim: set ft=lua sw=2 ts=2 expandtab:
 
-vim.g.mapleader      = ','
-vim.g.maplocalleader = '\\'
+vim.g.mapleader = ","
+vim.g.maplocalleader = "\\"
 
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
-  local out = vim.fn.system({'git', 'clone', '--filter=blob:none', '--branch=stable', 'https://github.com/folke/lazy.nvim.git', lazypath })
+  local out = vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--branch=stable",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
   if vim.v.shell_error ~= 0 then
-    vim.api.nvim_err_writeln('Failed to clone lazy.nvim:\n' .. out)
+    vim.api.nvim_err_writeln("Failed to clone lazy.nvim:\n" .. out)
     return
   end
 end
@@ -15,89 +22,132 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    { "LazyVim/LazyVim",
+    { "LazyVim/LazyVim", lazy = false, import = "lazyvim.plugins" },
+    { "nvim-treesitter/nvim-treesitter", lazy = false, build = ":TSUpdate" },
+    {
+      "neovim/nvim-lspconfig",
       lazy = false,
-      import = "lazyvim.plugins",
-
-    },
-    { 'nvim-treesitter/nvim-treesitter', lazy = false, build = ':TSUpdate' },
-    { 'neovim/nvim-lspconfig', lazy = false, dependencies = { { "ms-jpq/coq_nvim", branch = "coq" }, { "ms-jpq/coq.artifacts", branch = "artifacts" }, { 'ms-jpq/coq.thirdparty', branch = "3p" }}},
-{
-  "saghen/blink.cmp",
-  opts = {
-    enabled = function()
-      return not vim.tbl_contains({ "markdown", "text", "gitcommit" }, vim.bo.filetype)
-    end,
-    completion = {
-      menu = { auto_show = false },
-      list = { selection = { preselect = false, auto_insert = false } },
-      trigger = {
-        show_on_keyword = false,
-        show_on_trigger_character = true,
-        show_on_blocked_trigger_characters = { ' ', '\n', '\t' },
+      dependencies = {
+        { "ms-jpq/coq_nvim", branch = "coq" },
+        { "ms-jpq/coq.artifacts", branch = "artifacts" },
+        { "ms-jpq/coq.thirdparty", branch = "3p" },
       },
     },
-    keymap = {
-      preset = "none",
-      ["<Tab>"] = {
-        function(cmp)
-          if cmp.is_menu_visible() then return cmp.accept() end
-          local col = vim.api.nvim_win_get_cursor(0)[2]
-          if vim.api.nvim_get_current_line():sub(1, col):match("%S$") then
-            return cmp.show()
-          end
+    {
+      "saghen/blink.cmp",
+      opts = {
+        enabled = function()
+          return not vim.tbl_contains({ "markdown", "text", "gitcommit" }, vim.bo.filetype)
         end,
-        "snippet_forward",
-        "fallback",
+        completion = {
+          menu = { auto_show = false },
+          list = { selection = { preselect = true, auto_insert = false } },
+        },
+        keymap = {
+          preset = "none",
+          ["<Tab>"] = {
+            function(cmp)
+              if cmp.is_menu_visible() then
+                return cmp.accept()
+              end
+              local col = vim.api.nvim_win_get_cursor(0)[2]
+              if vim.api.nvim_get_current_line():sub(1, col):match("%S$") then
+                return cmp.show()
+              end
+            end,
+            "snippet_forward",
+            "fallback",
+          },
+          ["<CR>"] = { "accept", "fallback" },
+          ["<Up>"] = { "select_prev", "fallback" },
+          ["<Down>"] = { "select_next", "fallback" },
+          ["<C-e>"] = { "hide", "fallback" },
+        },
       },
-      ["<CR>"]   = { "accept", "fallback" },
-      ["<Up>"]   = { "select_prev", "fallback" },
-      ["<Down>"] = { "select_next", "fallback" },
-      ["<C-e>"]  = { "hide", "fallback" },
     },
-  },
-},
-    'nvim-tree/nvim-web-devicons',
-    'nvim-tree/nvim-tree.lua',
-    'romus204/tree-sitter-manager.nvim',
-    'editorconfig/editorconfig-vim',
-    'junegunn/vim-easy-align',
-    'preservim/nerdtree',
-    'simeji/winresizer',
-    'tomtom/tcomment_vim',
-    'tpope/vim-fugitive',
-    'tpope/vim-surround',
-    'wellle/context.vim',
-    'junegunn/fzf.vim',
-    'nvim-lualine/lualine.nvim',
+    {
+      "stevearc/conform.nvim",
+      opts = {
+        formatters = {
+          stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } },
+        },
+      },
+    },
+    "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-tree.lua",
+    "romus204/tree-sitter-manager.nvim",
+    "editorconfig/editorconfig-vim",
+    "junegunn/vim-easy-align",
+    "preservim/nerdtree",
+    "simeji/winresizer",
+    "tomtom/tcomment_vim",
+    "tpope/vim-fugitive",
+    "tpope/vim-surround",
+    "wellle/context.vim",
+    "junegunn/fzf.vim",
+    "nvim-lualine/lualine.nvim",
     { "MeanderingProgrammer/render-markdown.nvim", enabled = false },
     { "render-markdown.nvim", enabled = false },
     { "folke/snacks.nvim", opts = { indent = { enabled = false } } },
   },
-  install = { colorscheme = { 'retrobox' }  },
+  install = { colorscheme = { "retrobox" } },
   checker = { enabled = true },
 })
 
 require("tree-sitter-manager").setup({
   config = function()
     require("tree-sitter-manager").setup({
-      ensure_installed = { "bash", "dockerfile", "git_config", "git_rebase", "gitcommit", "gitignore", "go", "html", "javascript", "jq", "json", "lua", "make", "markdown", "nginx", "python", "regex", "ruby", "ssh_config", "tmux", "toml", "typescript", "vim", "vimdoc", "xml", "yaml", "zsh"},
+      ensure_installed = {
+        "bash",
+        "dockerfile",
+        "git_config",
+        "git_rebase",
+        "gitcommit",
+        "gitignore",
+        "go",
+        "html",
+        "javascript",
+        "jq",
+        "json",
+        "lua",
+        "make",
+        "markdown",
+        "nginx",
+        "python",
+        "regex",
+        "ruby",
+        "ssh_config",
+        "tmux",
+        "toml",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "xml",
+        "yaml",
+        "zsh",
+      },
       auto_install = true,
     })
-  end
+  end,
 })
 
-require('nvim-treesitter').setup {
-  -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
-  install_dir = vim.fn.stdpath('data') .. '/site'
-}
+require("nvim-treesitter").setup({
+  install_dir = vim.fn.stdpath("data") .. "/site",
+})
 
-require('lualine').setup {
+require("lspconfig").jsonls.setup({
+  settings = { json = {
+    schemas = require("schemastore").json.schemas(),
+    validate = { enable = true },
+  } },
+})
+
+require("lualine").setup({
   options = {
     icons_enabled = true,
-    theme = 'tomorrow_night',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    theme = "tomorrow_night",
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -112,26 +162,26 @@ require('lualine').setup {
       winbar = 1000,
       refresh_time = 16, -- ~60fps
       events = {
-        'WinEnter',
-        'BufEnter',
-        'BufWritePost',
-        'SessionLoadPost',
-        'FileChangedShellPost',
-        'VimResized',
-        'Filetype',
-        'CursorMoved',
-        'CursorMovedI',
-        'ModeChanged',
+        "WinEnter",
+        "BufEnter",
+        "BufWritePost",
+        "SessionLoadPost",
+        "FileChangedShellPost",
+        "VimResized",
+        "Filetype",
+        "CursorMoved",
+        "CursorMovedI",
+        "ModeChanged",
       },
-    }
+    },
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_a = { "mode" },
+    lualine_b = { "branch", "diff", "diagnostics" },
+    lualine_c = { "filename" },
+    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_y = { "progress" },
+    lualine_z = { "location" },
   },
   inactive_sections = {
     -- lualine_a = {},
@@ -144,11 +194,11 @@ require('lualine').setup {
   tabline = {},
   winbar = {},
   inactive_winbar = {},
-  extensions = {}
-}
+  extensions = {},
+})
 
 -- -- Options
-vim.opt.autoindent     = true
+vim.opt.autoindent = true
 -- vim.opt.background     = 'dark'
 -- vim.opt.backspace      = { 'indent', 'eol', 'start' }
 -- vim.opt.backup         = true
@@ -160,7 +210,7 @@ vim.opt.conceallevel = 0
 -- vim.opt.cursorline     = true
 -- vim.opt.directory      = swapdir
 -- vim.opt.errorbells     = false
-vim.opt.expandtab      = true
+vim.opt.expandtab = true
 -- vim.opt.exrc           = true
 -- vim.opt.foldenable     = false
 -- vim.opt.foldmethod     = 'marker'
@@ -178,8 +228,8 @@ vim.opt.expandtab      = true
 -- vim.opt.maxmempattern  = 8192
 -- vim.opt.modeline       = true
 -- vim.opt.modelines      = 8
-vim.opt.number         = true
-vim.opt.numberwidth    = 6
+vim.opt.number = true
+vim.opt.numberwidth = 6
 -- vim.opt.preserveindent = true
 -- vim.opt.redrawtime     = 1000
 vim.opt.relativenumber = false
@@ -189,28 +239,28 @@ vim.opt.relativenumber = false
 -- vim.opt.scrolloff      = 1
 -- vim.opt.secure         = true
 -- vim.opt.shiftround     = true
-vim.opt.shiftwidth     = 2
+vim.opt.shiftwidth = 2
 -- vim.opt.showcmd        = false
 -- vim.opt.showmatch      = true
 -- vim.opt.showmode       = false
 -- vim.opt.showtabline    = 1
 -- vim.opt.sidescrolloff  = 5
 -- vim.opt.signcolumn     = 'yes'
-vim.opt.smartcase      = true
-vim.opt.smartindent    = true
-vim.opt.smarttab       = true
-vim.opt.softtabstop    = 2
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.smarttab = true
+vim.opt.softtabstop = 2
 -- vim.opt.splitbelow     = true
 -- vim.opt.splitright     = true
-vim.opt.tabstop        = 2
+vim.opt.tabstop = 2
 -- vim.opt.tags           = { './tags;', '~/.vimtags' }
 -- vim.opt.ttimeout       = true
 -- vim.opt.ttimeoutlen    = 50
 -- vim.opt.undodir        = undodir
 -- vim.opt.undofile       = true
-vim.opt.undolevels     = 10000
-vim.opt.undoreload     = 100000
-vim.opt.updatetime     = 300
+vim.opt.undolevels = 10000
+vim.opt.undoreload = 100000
+vim.opt.updatetime = 300
 -- vim.opt.viewdir        = viewdir
 -- vim.opt.visualbell     = true
 -- vim.opt.wildmenu       = true
@@ -228,38 +278,38 @@ vim.opt.updatetime     = 300
 --   '*\\tmp\\*', '*.exe', '*.dll',
 -- })
 
-vim.g.fzf_preview_window      = 'right:60%'
-vim.g.fzf_buffers_jump        = 1
+vim.g.fzf_preview_window = "right:60%"
+vim.g.fzf_buffers_jump = 1
 vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-vim.g.fzf_layout              = { down = '~75%' }
-vim.g.fzf_action              = { ['ctrl-t'] = 'tab split', ['ctrl-x'] = 'split', ['ctrl-v'] = 'vsplit' }
+vim.g.fzf_layout = { down = "~75%" }
+vim.g.fzf_action = { ["ctrl-t"] = "tab split", ["ctrl-x"] = "split", ["ctrl-v"] = "vsplit" }
 
-vim.cmd('colorscheme retrobox')
+vim.cmd("colorscheme retrobox")
 
 -- Keymaps
 local map = vim.keymap.set
 
 -- NERDTree
-map('n', '<leader>n', ':NERDTreeToggle<CR>')
-map('v', '<leader>n', ':NERDTreeToggle<CR>')
+map("n", "<leader>n", ":NERDTreeToggle<CR>")
+map("v", "<leader>n", ":NERDTreeToggle<CR>")
 
 -- splitjoin
-map('n', '<leader>sj', ':SplitjoinJoin<CR>')
-map('n', '<leader>ss', ':SplitjoinSplit<CR>')
+map("n", "<leader>sj", ":SplitjoinJoin<CR>")
+map("n", "<leader>ss", ":SplitjoinSplit<CR>")
 --
 -- tcomment (\\ = two backslashes)
-map('n', '\\\\', 'gcc', { remap = true})
-map('v', '\\\\', 'gc', { remap = true})
+map("n", "\\\\", "gcc", { remap = true })
+map("v", "\\\\", "gc", { remap = true })
 
 -- -- winresizer
 -- map('n', '<C-e>', ':WinResizerStartResize\n')
 --
 -- -- vim-easy-align
-map('x', 'ga', '<Plug>(EasyAlign)')
-map('n', 'ga', '<Plug>(EasyAlign)')
+map("x", "ga", "<Plug>(EasyAlign)")
+map("n", "ga", "<Plug>(EasyAlign)")
 --
 -- -- jk escape
-map({ 'i', 'n', 'v' }, 'jk', '<Esc>')
+map({ "i", "n", "v" }, "jk", "<Esc>")
 --
 -- -- Window navigation (overrides ALE <C-j>/<C-k> above, same as original)
 -- map('n', '<C-h>', '<C-w>h')
@@ -268,38 +318,38 @@ map({ 'i', 'n', 'v' }, 'jk', '<Esc>')
 -- map('n', '<C-l>', '<C-w>l')
 --
 -- Alt word motion
-map('n', '<M-f>', 'e')
-map('n', '<M-b>', 'b')
+map("n", "<M-f>", "e")
+map("n", "<M-b>", "b")
 --
 -- -- Tab navigation
-map('', '<Tab>',     'gT')
-map('', '<S-Tab>',   'gt')
-map('', '<leader>[', 'gt')
-map('', '<leader>]', 'gT')
-map('', '<leader>`', ':tabnew<CR>')
+map("", "<Tab>", "gT")
+map("", "<S-Tab>", "gt")
+map("", "<leader>[", "gt")
+map("", "<leader>]", "gT")
+map("", "<leader>`", ":tabnew<CR>")
 
 -- Method/section motions
-map('n', 'd[', '[m')
-map('n', 'd]', ']m')
-map('n', 'c[', '[[')
-map('n', 'c]', ']]')
+map("n", "d[", "[m")
+map("n", "d]", "]m")
+map("n", "c[", "[[")
+map("n", "c]", "]]")
 
 -- Misc
-map('n', '<CR>',    ':nohlsearch<CR>')
-map('v', '<',       '<gv')
-map('v', '>',       '>gv')
-map('v', '<Tab>',   '>gv')
-map('v', '<S-Tab>', '<gv')
-map('c', '%%',      "<C-R>=expand('%:h').'/'<CR>")
-map('v', 'J',       ":m '>+1<CR>gv=gv")
-map('v', 'K',       ":m '<-2<CR>gv=gv")
+map("n", "<CR>", ":nohlsearch<CR>")
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+map("v", "<Tab>", ">gv")
+map("v", "<S-Tab>", "<gv")
+map("c", "%%", "<C-R>=expand('%:h').'/'<CR>")
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Autocmds
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-local last_pos = augroup('RememberLastPosition', { clear = true })
-autocmd('BufReadPost', {
+local last_pos = augroup("RememberLastPosition", { clear = true })
+autocmd("BufReadPost", {
   group = last_pos,
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -308,8 +358,10 @@ autocmd('BufReadPost', {
     end
   end,
 })
-autocmd('BufReadPost', {
-  group    = last_pos,
-  pattern  = { 'COMMIT_EDITMSG', 'PULLREQ_EDITMSG' },
-  callback = function() vim.api.nvim_win_set_cursor(0, { 1, 0 }) end,
+autocmd("BufReadPost", {
+  group = last_pos,
+  pattern = { "COMMIT_EDITMSG", "PULLREQ_EDITMSG" },
+  callback = function()
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
+  end,
 })
