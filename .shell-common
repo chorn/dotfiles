@@ -123,7 +123,7 @@ apg() {
 
   printf "%d%s" $((RANDOM % 9)) "$del"
 
-  xkcdpass --numwords=4 --max=6 --delimiter="$del"
+  xkcdpass --numwords=3 --max=6 --delimiter="$del"
 }
 
 ta() {
