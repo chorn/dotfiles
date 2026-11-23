@@ -126,6 +126,10 @@ apg() {
   xkcdpass --numwords=3 --max=6 --delimiter="$del"
 }
 
+apg32() {
+  openssl rand -base64 32 | tr '[:punct:]' '0'
+}
+
 ta() {
   if tmux has >&/dev/null; then
     tmux -2 attach
